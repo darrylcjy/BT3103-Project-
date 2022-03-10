@@ -8,10 +8,10 @@
         <input class="form-text" type="email" name="email" id="email" required>
 
         <label for="password" class="form-label">Password</label>
-        <input class="form-text" type="password" name="password" id="password" required>
+        <input class="form-text" type="password" name="password" id="password" minlength="8" required>
 
         <label for="confirm" class="form-label">Confirm Password</label>
-        <input class="form-text" type="password" name="password-confirm" id="confirm" required>
+        <input class="form-text" type="password" name="password-confirm" id="confirm" minlength="8" required>
       </div>
     
       <div class="btn">

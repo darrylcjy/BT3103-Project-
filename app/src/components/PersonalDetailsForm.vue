@@ -23,17 +23,17 @@
         <div class="passwords">
             <div>
                 <label for="old-password" class="form-label">Old Password</label>
-                <input type="password" name="old-password" id="old-password" class="form-text">
+                <input type="password" name="old-password" id="old-password" class="form-text" minlength="8">
             </div>
             
             <div>
                 <label for="new-password" class="form-label">New Password</label>
-                <input type="password" name="new-password" id="new-password" class="form-text">
+                <input type="password" name="new-password" id="new-password" class="form-text" minlength="8">
             </div>
             
             <div>
                 <label for="confirm-password" class="form-label">Confirm Password</label>
-                <input type="password" name="confirm-password" id="confirm-password" class="form-text">
+                <input type="password" name="confirm-password" id="confirm-password" class="form-text" minlength="8">
             </div>
         </div>
         
@@ -131,7 +131,7 @@ p {
 }
 
 
-@media(max-width: 600px) {
+@media(max-width: 700px) {
     .second-row{
         flex-direction: column;
     }

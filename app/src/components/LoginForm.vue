@@ -7,7 +7,7 @@
         <input class="form-text" type="email" name="email" id="email" required>
 
         <label for="password" class="form-label">Password</label>
-        <input class="form-text" type="password" name="password" id="password" required>
+        <input class="form-text" type="password" name="password" id="password" minlength="8" required>
       </div>
 
       <div class="forget-password-link">
