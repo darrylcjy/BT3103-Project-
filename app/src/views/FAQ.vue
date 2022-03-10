@@ -1,17 +1,16 @@
 <template>
     <!-- Navigation bar -->
-    <!-- Recent Covid Related Updates  -->
-    <RecentUpdates/>
     <!-- FAQs -->
+    <FAQContent/>
 </template>
 
 <script>
-import RecentUpdates from '../components/RecentUpdates.vue' 
+import FAQContent from '../components/FaqContent.vue' 
 
 export default {
     name:'FAQ',
     components: {
-        RecentUpdates,
+        FAQContent,
     }
 }
 </script>
