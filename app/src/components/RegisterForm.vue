@@ -29,12 +29,8 @@ export default {
 </script>
 
 <style scoped>
-template {
-    font-size: 62.5%;
-}
-
 #form {
-    width: 50%;
+    max-width: 500px;
     margin: auto;
     padding: 1rem 2rem 1rem 1rem;
 }
@@ -75,12 +71,13 @@ p {
 
 .register-btn {
     all:unset;
-    border: 1px solid black;
     cursor: pointer;
     font-size:1.5rem;
     background-color: #F5F5DD;
     padding: 5px 0.5rem;
     border-radius: 10px;
+    width: 6rem;
+    text-align: center;
 }
 
 </style>
