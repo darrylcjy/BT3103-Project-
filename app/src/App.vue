@@ -3,7 +3,8 @@
 
   <!-- testing purposes -->
   <div>
-    <router-link to="/register">Register</router-link>
+    <router-link to="/register">Register</router-link> | 
+    <router-link to="/login">login</router-link>
   </div>
   <router-view/>
 </template>
