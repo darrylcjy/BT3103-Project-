@@ -1,5 +1,5 @@
 <template>
-    <!-- Form to fill in on registration -->
+    <!-- Personal details form to fill in -->
   <form id="form" action="">
       <h1>Personal Details</h1>
       <div class="inputs">
@@ -94,11 +94,6 @@ h1 {
     margin-bottom: 0px;
 }
 
-p {
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 1.5rem;
-}
 
 .btn {
     text-align: right;

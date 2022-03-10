@@ -67,12 +67,6 @@ h1 {
     margin-bottom: 0px;
 }
 
-p {
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 1.5rem;
-}
-
 .btn {
     text-align: right;
 }
