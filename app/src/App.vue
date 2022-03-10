@@ -1,5 +1,11 @@
 <template>
   <Home/>
+
+  <!-- testing purposes -->
+  <div>
+    <router-link to="/register">Register</router-link>
+  </div>
+  <router-view/>
 </template>
 
 <script>
