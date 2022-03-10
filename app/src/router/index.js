@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import PersonalDetails from "@/views/PersonalDetails.vue";
+import ForgetPassword from "@/views/ForgetPassword.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/personal-details",
     name: "PersonalDetails",
     component: PersonalDetails,
+  },
+  {
+    path: "/forget-password",
+    name: "ForgetPassword",
+    component: ForgetPassword,
   },
 ];
 
