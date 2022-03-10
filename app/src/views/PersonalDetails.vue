@@ -8,7 +8,7 @@
 import PersonalDetailsForm from '../components/PersonalDetailsForm.vue' 
 
 export default {
-    name:'Login',
+    name:'PersonalDetails',
     components: {
         PersonalDetailsForm
     }
