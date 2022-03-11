@@ -1,5 +1,9 @@
 <template>
-  <h1></h1>
+  <img src="../assets/userhome1.png" alt="">
+  <h1>COVID Resources</h1><hr>
+  <img src="../assets/userhome2.png" alt="">
+  <img src="../assets/userhome3.png" alt="">
+  <img src="../assets/userhome4.png" alt="">
 </template>
 
 <script>
