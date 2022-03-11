@@ -3,11 +3,31 @@
     <h1>FAQs</h1>
     <p class="more-info">More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a></p>
 
+    <!-- Radio Buttons to select content -->
+    <div class="selection">
+      <p>Please select one of the following to see the relevant FAQs:</p>
+      <div class="choice">
+        <input type="radio" id="covid-positive" v-model= "selected" value="covid-positive" checked>
+        <label for="covid-positive">COVID Positive</label>
+      </div>
+
+      <div class="choice">
+        <input type="radio" id="close-contact" v-model= "selected" value="close-contact">
+        <label for="close-contact">Close Contact</label>
+      </div>
+      
+      <div class="choice">
+        <input type="radio" id="safety-measures" v-model= "selected" value="safety-measures">
+        <label for="safety-measures">COVID Related Measures</label>
+      </div>
+    </div>
+  
+    <!-- contents -->
     <div class="content">
-      <div class="positive">
+      <div v-if="selected == 'covid-positive'" class="positive">
         <p class="header-faq">Covid-19 Positive FAQ</p>
-        <div class="faq faq1">
-          <p class="qns">After testing positive on ART self-test kit, do I need to report my results to MOH?</p>
+        <details class="faq faq1">
+          <summary class="qns">After testing positive on ART self-test kit, do I need to report my results to MOH?</summary>
 
           <div class="ans">
             <ul>
@@ -17,12 +37,12 @@
               <li>For more information, click <a href="https://ask.gov.sg/questions/512" target="_blank"> here</a></li>
             </ul>
           </div>
-        </div>
-        <div class="faq faq2">
-          <p class="qns">What should I do if I am tested positive for COVID-19 but have no symptoms?</p>
+        </details>
+        <details class="faq faq2">
+          <summary class="qns">What should I do if I am tested positive for COVID-19 but have no symptoms?</summary>
 
           <div class="ans">
-            Procedures after you first tested positive (Day 1) :
+            <p> Procedures after you first tested positive (Day 1) : </p>
             <ol>
               <li>Self-isolate at home for 72 hours</li>
               <li>At the end of 72 hours, take an ART test</li>
@@ -37,9 +57,9 @@
               <li>For more information, click <a href="https://www.covid.gov.sg/well-and-positive-or-condition-assessed-mild-by-doctor" target="_blank">here</a></li>
             </ol>
           </div>
-        </div>
-        <div class="faq faq3">
-          <p class="qns">What should I do if I am tested positive for COVID-19 and feeling unwell?</p>
+        </details>
+        <details class="faq faq3">
+          <summary class="qns">What should I do if I am tested positive for COVID-19 and feeling unwell?</summary>
 
           <div class="ans">
             <ul>
@@ -49,9 +69,9 @@
               <li>For more information, click <a href="https://www.covid.gov.sg/unwell/overview">here</a></li>
             </ul>
           </div>
-        </div>
-        <div class="faq faq4">
-          <p class="qns">What should I do if my employer wants me to report to work when I have tested positive for COVID-19 but am well? </p>
+        </details>
+        <details class="faq faq4">
+          <summary class="qns">What should I do if my employer wants me to report to work when I have tested positive for COVID-19 but am well? </summary>
 
           <div class="ans">
             <ul>
@@ -62,9 +82,9 @@
               <li>For more information, click <a href="https://www.mom.gov.sg/covid-19/advisory-on-work-and-leave-arrangements-for-employees-who-test-art-positive-but-are-physically-well" target="_blank">here</a></li>
             </ul>
           </div>
-        </div>
-        <div class="faq faq5">
-          <p class="qns">What is Home Recovery Programme (HRP)? </p>
+        </details>
+        <details class="faq faq5">
+          <summary class="qns">What is Home Recovery Programme (HRP)? </summary>
 
           <div class="ans">
             <ul>
@@ -92,16 +112,16 @@
               <li>For more information, click <a href="https://www.covid.gov.sg/unwell/hrp" target="_blank">here</a></li>
             </ul>
           </div>
-        </div>
+        </details>
       </div>
 
-      <div class="close-contact"> 
+      <div v-if="selected == 'close-contact'" class="close-contact"> 
         <p class="header-faq">Close Contact FAQ</p>
-        <div class="faq faq6">
-          <p class="qns">A member of my household, or a colleague whom I had close contact with at work, tested positive on the Antigen Rapid Test (ART) but is well, what should I do?</p>
+        <details class="faq faq6">
+          <summary class="qns">A member of my household, or a colleague whom I had close contact with at work, tested positive on the Antigen Rapid Test (ART) but is well, what should I do?</summary>
 
           <div class="ans">
-            While you will not be issued a Health Risk Notice (HRN), we <a href="https://ask.gov.sg/questions/509" target="_blank">recommend</a> that you take the following precautions:
+            <p> While you will not be issued a Health Risk Notice (HRN), we <a href="https://ask.gov.sg/questions/509" target="_blank">recommend</a> that you take the following precautions: </p>
             <ul>
               <li>Minimise contact with the person who had tested ART positive.</li>
               <li>Take an ART self-test within 24 hours of your last contact with the person.</li>
@@ -109,23 +129,23 @@
               <li>For more information, click <a href="https://www.covid.gov.sg/exposed/no-hrn" target="_blank"> here</a></li>
             </ul>
           </div>
-        </div>
-        <div class="faq faq7">
-          <p class="qns">I live with somebody who has visited a doctor and tested positive for COVID-19, what should I do?</p>
+        </details>
+        <details class="faq faq7">
+          <summary class="qns">I live with somebody who has visited a doctor and tested positive for COVID-19, what should I do?</summary>
 
           <div class="ans">
-            If a household member has tested positive for COVID-19 and assessed by a doctor, he/she will be asked to nominate you and your household members as close contacts.
+            <p> If a household member has tested positive for COVID-19 and assessed by a doctor, he/she will be asked to nominate you and your household members as close contacts.</p>
             <ul>
               <li>You and your household members will receive a Health Risk Notice (HRN) via SMS.</li>
               <li>For more information on HRN, click <a href="https://www.covid.gov.sg/exposed/hrn" target="_blank"> here</a></li>
             </ul>
           </div>
-        </div>
-        <div class="faq faq8">
-          <p class="qns">I am a close contact and was given Health Risk Notice (HRN), what should I do?</p>
+        </details>
+        <details class="faq faq8">
+          <summary class="qns">I am a close contact and was given Health Risk Notice (HRN), what should I do?</summary>
 
           <div class="ans">
-            The HRN is for a period of 5 days. Procedures:
+            <p>The HRN is for a period of 5 days. Procedures are as follows:</p>
             <ol>
               <li>You should take an ART self-test within 24 hours. You can continue with normal activities for the day if the test result is negative.</li>
               <li>If you need to leave your house, you should do an ART self-test once a day before leaving your house during the 5-day HRN period</li>
@@ -136,23 +156,23 @@
               <li>For more information on HRN, click <a href="https://www.covid.gov.sg/exposed/hrn" target="_blank"> here</a></li>
             </ol>
           </div>
-        </div>
-        <div class="faq faq9">
-          <p class="qns">I received a Health Risk Notice (HRN) via SMS. Can I go out to buy food, see a doctor, or go to work or school?</p>
+        </details>
+        <details class="faq faq9">
+          <summary class="qns">I received a Health Risk Notice (HRN) via SMS. Can I go out to buy food, see a doctor, or go to work or school?</summary>
 
           <div class="ans">
-            The HRN is for a period of 5 days. You should only do so when you self-test ART negative for that day.
+            <p> The HRN is for a period of 5 days. You should only do so when you self-test ART negative for that day.</p>
             <ol>
               <li>If you test positive at any time, self-isolate and follow procedures for positive COVID-19 case</li>
               <li>For more information on HRN, click <a href="https://www.covid.gov.sg/exposed/hrn" target="_blank"> here</a></li>
             </ol>
           </div>
-        </div>
-        <div class="faq faq10">
-          <p class="qns">How does MOH determine if someone is a close contact of a confirmed case?</p>
+        </details>
+        <details class="faq faq10">
+          <summary class="qns">How does MOH determine if someone is a close contact of a confirmed case?</summary>
 
           <div class="ans">
-            MOH conducts contact tracing to identify people who have been in contact with the confirmed case. 
+            <p> MOH conducts contact tracing to identify people who have been in contact with the confirmed case. </p> 
             <ul>
               <li>A close contact is defined as someone who has spent 15 minutes or more within 2 metres of the infected individual.</li>
               <li>MOH also considers the nature and setting of exposure, type of personal protective equipment donned, and other clinical and epidemiological factors when assessing if follow up actions are required for the close contacts.</li>
@@ -160,48 +180,71 @@
               <li>This information can be obtained <a href="https://ask.gov.sg/questions/473" target="_blank"> here</a></li>
             </ul>
           </div>
-        </div>
+        </details>
       </div>
-      <div class="current-measures">
-        <p class="header-faq">Current Safe Management Measures</p>
-        <div class="measures">
-          <p class="measure-title">SOCIAL GATHERINGS</p>
-          <p>Group Sizes of up to 5 persons</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">COFFEESHOPS AND HAWKER CENTRES</p>
-          <p>All vaccinated*: Group sizes of up to 5 persons, at places with full Vaccination Differentiated Safe Management Measures (VDS) checks; otherwise up to 2 persons per group.</p>
-          <p>Unvaccinated: No dining-in. May take-away food.</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">F&amp;B ESTABLISHMENTS</p>
-          <p>All vaccinated*: Group sizes of up to 5 persons.</p>
-          <p>Unvaccinated: No dining-in. May take-away food.</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">HOUSEHOLD VISITS</p>
-          <p>Up to 5 unique household visitors a day. Visitors should preferably limit themselves to one visit a day.</p>
-          <p>Unvaccinated should exercise caution, reduce movement, stay at home as much as possible.</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">MUSEUMS &amp; PUBLIC LIBRARIES</p>
-          <p>Entry allowed only if vaccinated</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">OUTDOOR ACTIVITIES</p>
-          <p>Mask-on or mask-off : 5 per group regardless of vaccination status.</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">SPORTS ACTIVITIES &amp; CLASSES</p>
-          <p>Group sizes of up to 5 persons.</p>
-        </div>
-        <div class="measures">
-          <p class="measure-title">SHOPPING MALLS &amp; LARGE STANDALONE STORES (STANDALONE SUPERMARKETS EXEMPTED)</p>
-          <p>Entry allowed only if vaccinated. Maximum of 1 person per 10 sqm.</p>
-        </div>
 
-        <p>* An individual is considered vaccinated if he/ she has been: a) fully vaccinated (status seen in TraceTogether) and had their vaccination records ingested in MOH national IT systems; or b) recovered from COVID-19 within the last 180 days.</p>
-        <p>Other measures can be found <a href="https://www.moh.gov.sg/covid-19-phase-advisory">here</a></p> 
+      <div v-if="selected == 'safety-measures'" class="current-measures">
+        <p class="header-faq">Current Safe Management Measures</p>
+
+        <div class="content-measures">
+          <div class="row">
+            <div class="measures">
+              <p class="measure-title">HOUSEHOLD VISITS</p>
+              <p>Up to 5 unique household visitors a day. Visitors should preferably limit themselves to one visit a day.</p>
+              <p>Unvaccinated should exercise caution, stay at home as much as possible.</p>
+            </div>
+
+            <div class="measures">
+              <p class="measure-title">COFFEESHOPS AND HAWKER CENTRES</p>
+              <p>All vaccinated*: Group sizes of up to 5 persons, at places with VDS checks; otherwise up to 2 persons per group.</p>
+              <p>Unvaccinated: No dining-in. May take-away food.</p>
+            </div>
+
+            <div class="measures">
+              <p class="measure-title">F&amp;B ESTABLISHMENTS</p>
+              <p class="description">All vaccinated*: Group sizes of up to 5 persons.</p>
+              <p class="description">Unvaccinated: No dining-in. May take-away food.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="measures">
+              <p class="measure-title">SOCIAL GATHERINGS</p>
+              <p class="description">Group Sizes of up to 5 persons</p>
+            </div>
+
+            <div class="measures">
+              <p class="measure-title">ATTRACTIONS, SHOWS &amp; CRUISES</p>
+              <p class="description">Entry allowed only if vaccinated.</p>
+            </div>
+            
+            <div class="measures">
+              <p class="measure-title">MUSEUMS &amp; PUBLIC LIBRARIES</p>
+              <p class="description">Entry allowed only if vaccinated</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="measures">
+              <p class="measure-title">SPORTS ACTIVITIES &amp; CLASSES</p>
+              <p class="description">Group sizes of up to 5 persons.</p>
+            </div>
+            
+
+            <div class="measures">
+              <p class="measure-title">OUTDOOR ACTIVITIES</p>
+              <p class="description">Mask-on or mask-off : 5 per group regardless of vaccination status.</p>
+            </div>
+
+            <div class="measures">
+              <p class="measure-title">SHOPPING MALLS &amp; LARGE STANDALONE STORES</p>
+              <p class="description">Entry allowed only if vaccinated. Maximum of 1 person per 10 sqm.</p>
+              <p class="description">Note: Standalone supermarkets exempted</p>
+            </div>
+          </div>
+        </div>
+      
+        <p class="footnote">* An individual is considered vaccinated if he/ she has been: a) fully vaccinated (status seen in TraceTogether) and had their vaccination records ingested in MOH national IT systems; or b) recovered from COVID-19 within the last 180 days.</p>
+        <p class="footnote">^ VDS refers to Vaccination Differentiated Safe Management Measures</p>
+        <p class="footnote">Other measures can be found <a href="https://www.moh.gov.sg/covid-19-phase-advisory">here</a></p> 
       </div>
 
     </div>
@@ -212,16 +255,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      selected: "covid-positive"
+    }
+  }
 
 }
 </script>
 
 <style scoped>
-.faq, 
-.measures {
-  border: 1px solid black;
-}
-
 .header-faq {
   font-weight: bold;
   font-size: 1.7rem;
@@ -239,7 +282,33 @@ h1 {
   margin-top: 0.5rem;
 }
 
-.content {
+/* Selection radio buttons styling */
+.selection {
+  background-color: rgba(245, 245, 221, 0.5);
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.selection > p {
+  margin-bottom: 1rem;
+  margin-top: 0rem;
+}
+
+.choice {
+  margin-left: 1.5rem;
+}
+
+.choice > label {
+  padding: 0.25rem;
+}
+
+/* faq qns content styling */
+
+.positive,
+.close-contact {
   max-width: 800px;
   margin: auto;
 }
@@ -256,11 +325,13 @@ h1 {
   margin-bottom: 1rem;
   border-radius: 1rem;
   line-height: 2rem;
+  border: 1px solid black;
 }
 
 .faq:hover{
   background-color: rgba(183, 218, 250, 0.15);
   box-shadow: 1px 1px 3px black;
+  cursor: pointer;
 }
 
 .qns {
@@ -269,7 +340,62 @@ h1 {
 }
 
 .ans {
+  font-size: 1.3rem;
+}
+
+/* For the measures styling */
+
+.current-measures {
+  max-width:70rem;
+  margin: auto;
+  line-height: 2rem;
+}
+
+.content-measures {
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+}
+
+.row {
+  flex:1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.measures {
   font-size: 1.25rem;
+  padding: 0.75rem;
+  width: 50rem;
+  text-align: center;
+  margin: 0.75rem;
+  box-shadow: 0.5px 0.5px 3px grey;
+  border-radius: 0.5rem;
+}
+
+.measure-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@media(max-width: 775px) {
+  .content-measures, .row {
+    display: block;
+  }
+
+  .measures {
+    width: auto;
+  }
+
+  .selection{
+    flex-direction: column;
+  }
+}
+
+.footnote {
+  font-size: 1.3rem;
+  padding: 0.75rem;  
 }
 
 
