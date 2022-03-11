@@ -3,8 +3,28 @@
     <h1>FAQs</h1>
     <p class="more-info">More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a></p>
 
+    <!-- Radio Buttons to select content -->
+    <div class="selection">
+      <p>Please select one of the following to see the relevant FAQs:</p>
+      <div class="choice">
+        <input type="radio" id="covid-positive" v-model= "selected" value="covid-positive" checked>
+        <label for="covid-positive">COVID Positive</label>
+      </div>
+
+      <div class="choice">
+        <input type="radio" id="close-contact" v-model= "selected" value="close-contact">
+        <label for="close-contact">Close Contact</label>
+      </div>
+      
+      <div class="choice">
+        <input type="radio" id="safety-measures" v-model= "selected" value="safety-measures">
+        <label for="safety-measures">COVID Related Measures</label>
+      </div>
+    </div>
+  
+    <!-- contents -->
     <div class="content">
-      <div class="positive">
+      <div v-if="selected == 'covid-positive'" class="positive">
         <p class="header-faq">Covid-19 Positive FAQ</p>
         <details class="faq faq1">
           <summary class="qns">After testing positive on ART self-test kit, do I need to report my results to MOH?</summary>
@@ -95,7 +115,7 @@
         </details>
       </div>
 
-      <div class="close-contact"> 
+      <div v-if="selected == 'close-contact'" class="close-contact"> 
         <p class="header-faq">Close Contact FAQ</p>
         <details class="faq faq6">
           <summary class="qns">A member of my household, or a colleague whom I had close contact with at work, tested positive on the Antigen Rapid Test (ART) but is well, what should I do?</summary>
@@ -163,7 +183,7 @@
         </details>
       </div>
 
-      <div class="current-measures">
+      <div v-if="selected == 'safety-measures'" class="current-measures">
         <p class="header-faq">Current Safe Management Measures</p>
 
         <div class="content-measures">
@@ -235,6 +255,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      selected: "covid-positive"
+    }
+  }
 
 }
 </script>
@@ -255,6 +280,29 @@ h1 {
   text-align: center;
   font-size: 1.25rem;
   margin-top: 0.5rem;
+}
+
+/* Selection radio buttons styling */
+.selection {
+  background-color: rgba(245, 245, 221, 0.5);
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.selection > p {
+  margin-bottom: 1rem;
+  margin-top: 0rem;
+}
+
+.choice {
+  margin-left: 1.5rem;
+}
+
+.choice > label {
+  padding: 0.25rem;
 }
 
 /* faq qns content styling */
@@ -307,7 +355,6 @@ h1 {
   display: flex;
   flex-direction: column;
   gap:1rem;
-  align-items: stretch;
 }
 
 .row {
@@ -332,7 +379,7 @@ h1 {
   text-align: center;
 }
 
-@media(max-width: 675px) {
+@media(max-width: 775px) {
   .content-measures, .row {
     display: block;
   }
@@ -340,10 +387,15 @@ h1 {
   .measures {
     width: auto;
   }
+
+  .selection{
+    flex-direction: column;
+  }
 }
 
 .footnote {
   font-size: 1.3rem;
+  padding: 0.75rem;  
 }
 
 
