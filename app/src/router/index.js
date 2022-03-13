@@ -11,9 +11,12 @@ import HealthDec from "@/views/HealthDec.vue";
 import ContactUs from "@/views/ContactUs.vue";
 import MedFacils from "@/views/MedFacils.vue";
 import FacilDetails from "@/views/FacilDetails";
-import FacilConfirmation from "@/views/FacilConfirmation"
-import ActiveAppointments from "@/components/ActiveAppointments"
-import IsolationCheckout from '@/views/IsolationCheckout.vue'
+import FacilConfirmation from "@/views/FacilConfirmation";
+import ActiveAppointments from "@/components/ActiveAppointments";
+import IsolationCheckout from "@/views/IsolationCheckout.vue";
+import Selection from "@/views/SymptomsSelection.vue";
+import Confirmation from "@/views/SymptomsConfirmation.vue";
+import Intensity from "@/views/SymptomsIntensity.vue";
 
 const routes = [
   {
@@ -66,13 +69,13 @@ const routes = [
     name: "Contact Us",
     component: ContactUs,
   },
-  
+
   {
     path: "/med-facils", // channge router link after symtoms page in: /symtomps/med-facil
     name: "Medical Facilities",
     component: MedFacils,
   },
-  
+
   {
     path: "/facil-details", // change router link after symtoms page in: /symtomps/facil-detials
     name: "Facility Detials",
@@ -84,15 +87,30 @@ const routes = [
     component: FacilConfirmation,
   },
   {
-    path: "/facil-confirmation/active-appts", 
+    path: "/facil-confirmation/active-appts",
     name: "Active Appointments",
     component: ActiveAppointments,
   },
 
   {
-    path: "/self-isolation-checkout", 
+    path: "/self-isolation-checkout",
     name: "Self-Isolation Checkout",
     component: IsolationCheckout,
+  },
+  {
+    path: "/selection",
+    name: "Selection",
+    component: Selection,
+  },
+  {
+    path: "/confirmation",
+    name: "Confirmation",
+    component: Confirmation,
+  },
+  {
+    path: "/intensity",
+    name: "Intensity",
+    component: Intensity,
   },
 ];
 
