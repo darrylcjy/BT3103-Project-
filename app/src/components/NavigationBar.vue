@@ -10,13 +10,13 @@
             </div>
         </div>
 
-        <!-- <div id="user-dropdown">
-            <button id="user-button">Icon</button>
-            <div id="user-content">
+        <div id="profile-dropdown">
+            <button id="profile-button"> My Profile </button>
+            <div id="profile-content">
                 <a href="#">Edit personal details</a>
                 <a href="#">Logout</a>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -47,10 +47,18 @@ export default {
         float: left;
         overflow: hidden;
     }
+    
+    /* profile dropdown */
+    #profile-dropdown {
+        float: right;
+        overflow: hidden;
+    }
 
     /* covidcare button */
-    #covidcare-button {
-        font-size: 16px;
+    #covidcare-button, 
+    #profile-button {
+        font-size: 20px;
+        font-family: Avenir;
         font-weight: bold;
         border: none;
         padding: 12px 16px;
@@ -59,10 +67,11 @@ export default {
     }
 
     /* covidcare content , which is hidden by default */
-    #covidcare-content {
+    #covidcare-content, 
+    #profile-content {
         display: none;
         position: fixed;
-        min-width: 200px;
+        min-width: 120px;
         background-color: #f9f9f9;
         box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.2);   /* horizontal (-ve is left, + is right), vertical (-ve is top, + is bottom), blur effect, spread radius */
     }
@@ -76,17 +85,31 @@ export default {
         color: black;
     }
 
+    /* links in profile content */
+    #profile-content a {
+        display: block;
+        text-align: right;
+        text-decoration: none;
+        padding: 12px 16px;
+        color: black;
+    }
+
     /* use of hovers */
-    #covidcare-dropdown:hover {
+    #covidcare-dropdown:hover,
+    #profile-dropdown:hover {
         background-color: #B7DAFA;
     }
 
-    #covidcare-content a:hover {
+    #covidcare-content a:hover,
+    #profile-content a:hover {
         background-color: #ddd;
     }
 
     /* show the dropdown menu on hover */
     #covidcare-dropdown:hover #covidcare-content {
+        display: block;
+    }
+    #profile-dropdown:hover #profile-content {
         display: block;
     }
 </style>
