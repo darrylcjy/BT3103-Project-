@@ -1,8 +1,8 @@
 <template>
   <!-- testing purposes -->
   <div>
-    <router-link to="/register">Register</router-link> | 
-    <router-link to="/login">Login</router-link> | 
+    <router-link to="/register">Register</router-link> |
+    <router-link to="/login">Login</router-link> |
     <router-link to="/personal-details">Personal Details</router-link> |
     <router-link to="/forget-password">Forget Password</router-link> |
     <router-link to="/faq">FAQs</router-link> |
@@ -12,19 +12,21 @@
     <router-link to="/health-dec">Health Declaration</router-link> |
     <router-link to="/contact-us">Contact Us</router-link> |
     <router-link to="/med-facils">Medical Facilities</router-link> |
-    <router-link to="/self-isolation-checkout">Self-Isolation Checkout</router-link> 
+    <router-link to="/self-isolation-checkout"
+      >Self-Isolation Checkout</router-link
+    >
+    | <router-link to="/Selection">Symptoms Selection</router-link> |
+    <router-link to="/Confirmation">Symptoms Confirmation</router-link> |
+    <router-link to="/Intensity">Symptoms Intensity</router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
