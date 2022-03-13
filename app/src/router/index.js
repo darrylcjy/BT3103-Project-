@@ -13,6 +13,7 @@ import MedFacils from "@/views/MedFacils.vue";
 import FacilDetails from "@/views/FacilDetails";
 import FacilConfirmation from "@/views/FacilConfirmation"
 import ActiveAppointments from "@/components/ActiveAppointments"
+import IsolationCheckout from '@/views/IsolationCheckout.vue'
 
 const routes = [
   {
@@ -86,6 +87,12 @@ const routes = [
     path: "/facil-confirmation/active-appts", 
     name: "Active Appointments",
     component: ActiveAppointments,
+  },
+
+  {
+    path: "/self-isolation-checkout", 
+    name: "Self-Isolation Checkout",
+    component: IsolationCheckout,
   },
 ];
 
