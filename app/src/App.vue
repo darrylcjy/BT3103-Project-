@@ -10,7 +10,8 @@
     <router-link to="/user-home">User Home</router-link> |
     <router-link to="/getting-started">Getting Started</router-link> |
     <router-link to="/health-dec">Health Declaration</router-link> |
-    <router-link to="/contact-us">Contact Us</router-link> 
+    <router-link to="/contact-us">Contact Us</router-link> |
+    <router-link to="/med-facils">Medical Facilities</router-link> 
   </div>
   <router-view/>
 </template>
