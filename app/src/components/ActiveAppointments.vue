@@ -31,6 +31,8 @@
 
 <script>
 export default {
+    name:'Active Appointments',
+
     data() {
         return {
             name: "John Doe",
