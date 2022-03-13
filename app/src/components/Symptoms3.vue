@@ -1,7 +1,6 @@
 <template>
-  <h1>What symptoms are you experiencing?</h1>
-  <p>Please check and confirm your symptoms below.</p>
-  <p><b>1 - Not Severe, 10 - Very Severe</b></p>
+  <h1>Please select the intensity of the symptoms you are experiencing:</h1>
+  <p><b>(1 - Not Severe,&nbsp; 10 - Very Severe)</b></p>
   <br />
   <div id="confirmation">
     <p><u>Symptom 1</u>: Flu</p>
