@@ -2,7 +2,7 @@
   <div class="main">
     <div class="btns">
       <button class="btn1" type="button">I'm COVID positive</button>
-      <button class="btn2" type="button">I'm a Close Contact</button>
+      <button class="btn2" type="button" v-on:click="this.$router.push({path: '/faq'})">I'm a Close Contact</button>
     </div>
 
     <div class="img">

@@ -3,7 +3,7 @@
     <div class = "intro">
       <h2 class="guide">Step-by-step guides</h2>
       <h2 class="question">Have you tested COVID-positive or been exposed to COVID?</h2>
-      <button class="btn" type="button">Click here</button>
+      <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Click here</button>
     </div>
     <div class="latest">
       <h1 class="news">Latest News</h1><hr>
@@ -26,7 +26,6 @@ export default {
 
   .intro {
     background: url("../assets/homefiller.jpg");
-    width: 100vh;
     height: 200px
   }
 
