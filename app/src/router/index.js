@@ -9,6 +9,10 @@ import UserHome from "@/views/UserHome.vue";
 import GettingStarted from "@/views/GettingStarted.vue";
 import HealthDec from "@/views/HealthDec.vue";
 import ContactUs from "@/views/ContactUs.vue";
+import MedFacils from "@/views/MedFacils.vue";
+import FacilDetails from "@/views/FacilDetails";
+import FacilConfirmation from "@/views/FacilConfirmation"
+import ActiveAppointments from "@/components/ActiveAppointments"
 
 const routes = [
   {
@@ -60,6 +64,28 @@ const routes = [
     path: "/contact-us",
     name: "Contact Us",
     component: ContactUs,
+  },
+  
+  {
+    path: "/med-facils", // channge router link after symtoms page in: /symtomps/med-facil
+    name: "Medical Facilities",
+    component: MedFacils,
+  },
+  
+  {
+    path: "/facil-details", // change router link after symtoms page in: /symtomps/facil-detials
+    name: "Facility Detials",
+    component: FacilDetails,
+  },
+  {
+    path: "/facil-confirmation", // channge router link after symtoms page in: /symtomps/facil-detials/facil-confirmation
+    name: "Facility Checkout",
+    component: FacilConfirmation,
+  },
+  {
+    path: "/facil-confirmation/active-appts", 
+    name: "Active Appointments",
+    component: ActiveAppointments,
   },
 ];
 
