@@ -25,8 +25,8 @@
     </div>
 
     <br>
-    <p>Get directions <a v-bind:href="website" target="_blank">here</a></p>
-    <button>Cancel Appointment</button>
+    <p id='text'>Get directions <a v-bind:href="website" target="_blank">here</a></p>
+    <button id='cancel'>Cancel Appointment</button>
 </template>
 
 <script>
@@ -77,5 +77,23 @@ export default {
         height: 25px;
         margin: auto;
         padding-top: 5px;
+    }
+
+    #cancel {
+        border-style: none;
+        width: 150px;
+        height: 35px;
+        border-radius: 10px;
+        background-color: #f5f5dd;
+        display: inline-block;
+    }
+
+    #text {
+        display: inline-block;
+        padding-right: 30px;
+    }
+
+    #cancel:hover {
+        background-color: blanchedalmond;
     }
 </style>
