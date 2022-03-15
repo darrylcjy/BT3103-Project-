@@ -26,7 +26,7 @@
 
     <br>
     <p id='text'>Get directions <a v-bind:href="website" target="_blank">here</a></p>
-    <button id='cancel'>Cancel Appointment</button>
+    <button id='cancel' v-on:click="cancelAppt()">Cancel Appointment</button>
 </template>
 
 <script>
@@ -49,6 +49,20 @@ export default {
             time: "12:26",
 
             website: "https://www.google.com/maps/place/1+Bishan+Medical+Clinic/@1.3590939,103.8424033,17z/data=!4m5!3m4!1s0x31da1718a8100001:0xba24b3317af11a87!8m2!3d1.3590885!4d103.8445973"
+        }
+    },
+
+    methods: {
+        cancelAppt() {
+            var positive = window.confirm("Would you like to make another appointment?"); 
+            if (positive) { // user answers in positive: ie: want to make new appt 
+                this.$router.push({ path: '/facil-confirmation' }); 
+            } else {
+                // clear the active appointments page & replace with "you have no appts!"
+                
+                // route them back to list of medical facilities (idk)
+                this.$router.push({ path: '/med-facils' }); 
+            }
         }
     }
 }
