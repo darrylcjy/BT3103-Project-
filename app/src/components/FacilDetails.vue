@@ -11,11 +11,11 @@
     <br />
     <div class="row2">
       <div class="wait-time">
-        <h2>Estimated waiting time</h2>
+        <label>Estimated waiting time</label>
         <div class="row2-details">{{ queueLen * 15 }} mins</div>
       </div>
       <div class="queue-len">
-        <h2>Number of patients in queue</h2>
+        <label>Number of patients in queue</label>
         <div class="row2-details">
           {{ queueLen }}
         </div>
@@ -73,17 +73,23 @@ export default {
 .row2 {
   display: flex;
   justify-content: space-between;
-  width: 850px;
+  width: 880px;
   font-size: 20px;
   margin: auto;
+  text-align: left;
+  padding: 20px;
+}
+label {
+  font-size: 24px;
 }
 .row2-details {
   padding: 10px;
   width: 400px;
-  height: 70px;
+  height: 60px;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 40px;
+  text-align: center;
 }
 .directions {
   font-size: 20px;
