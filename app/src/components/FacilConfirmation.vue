@@ -1,57 +1,75 @@
 <template>
   <div>
     <h1>Please check and confirm your personal details:</h1>
-    
 
-    <div class="name">
-        <h2>NRIC Name</h2>
+    <div class="details-container">
+      <div class="name">
+        <label>NRIC Name</label>
         <div class="row-detail">{{ username }}</div>
       </div>
-    
-    <br />
 
-    <div class="row2">
-      <div class="wait-time">
-        <h2>HP no.</h2>
-        <div class="row2-details">+65 9{{ Math.round(Math.random() * 10000000) }} </div>
-      </div>
-      <div class="queue-len">
-        <h2>Age</h2>
-        <div class="row2-details">
-          {{ userage }}
+      <br />
+
+      <div class="row2">
+        <div class="wait-time">
+          <label>HP no.</label>
+          <div class="row2-details">
+            +65 9{{ Math.round(Math.random() * 10000000) }}
+          </div>
+        </div>
+        <div class="queue-len">
+          <label>Age</label>
+          <div class="row2-details">
+            {{ userage }}
+          </div>
         </div>
       </div>
-      </div>
-      <br>
+      <br />
 
       <div class="symptom">
-        <h2>Symptoms</h2>
+        <label>Symptoms</label>
         <div class="row-detail">{{ symptoms }}</div>
       </div>
 
-      <br>
+      <br />
 
       <div class="med-facil">
-        <h2>Medical Facility of Choice</h2>
+        <label>Medical Facility of Choice</label>
         <div class="row-detail">{{ clinicName }}</div>
       </div>
+    </div>
 
-      <br>
+    <br />
 
-      <div class="appt-time">
-        <h2>Select Appointment Time</h2>
-        <label for="time"></label>
-        <select name="time" id="time">
-        <option class="row-detail" v-for = "time in 11" :key="time">{{ time }}am</option>
-        <option class="row-detail" v-for = "time in 12" :key="time">{{ time }}pm</option>
-        </select>
-        
+    <div class="appt-details">
+      <h2>Select Appointment Details</h2>
+
+      <div class="appt-container">
+        <label for="appt-date">Appointment Date:</label>
+        <input
+          type="date"
+          id="appt-date"
+          name="trip-start"
+          value="2018-07-22"
+          min="2018-01-01"
+          max="2018-12-31"
+        />
+
+        <label for="appt-time">Appointment Time:</label>
+
+        <input
+          type="time"
+          id="appt-time"
+          name="appt"
+          min="07:00"
+          max="19:00"
+          required
+        />
       </div>
+    </div>
 
-
-    
     <br /><br />
-    
+
     <br />
     <button
       id="previous"
@@ -59,7 +77,13 @@
     >
       Previous
     </button>
-    <button id="next" v-on:click="this.$router.push({ path: '/facil-confirmation/active-appts' })">Confirm</button>
+    <button
+      id="next"
+      v-on:click="
+        this.$router.push({ path: '/facil-confirmation/active-appts' })"
+    >
+      Confirm
+    </button>
   </div>
 </template>
 
@@ -82,32 +106,37 @@ export default {
   text-align: left;
   padding: 10px;
   width: 850px;
-  height: 40px;
+  height: 30px;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 25px;
   margin: auto;
 }
-H2 {
-    text-align: center;
+label {
+  font-size: 24px;
+  text-align: left;
 }
 .row2 {
   display: flex;
   justify-content: space-between;
-  width: 850px;
+  width: 880px;
   margin: auto;
+  text-align: left;
 }
 .row2-details {
   padding: 10px;
   width: 400px;
-  height: 50px;
+  height: 30px;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 25px;
   text-align: left;
 }
-.directions {
-  font-size: 20px;
+.appt-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 880px;
 }
 #next,
 #previous {
@@ -123,5 +152,10 @@ H2 {
 #next:hover,
 #previous:hover {
   background-color: blanchedalmond;
+}
+input {
+  width: 220px;
+  height: 25px;
+  font-size: 20px;
 }
 </style>
