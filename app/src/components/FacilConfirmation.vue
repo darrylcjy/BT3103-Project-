@@ -51,7 +51,7 @@
           id="appt-date"
           name="trip-start"
           value="2018-07-22"
-          min="2018-01-01"
+          min="2018-12-31"
           max="2018-12-31"
         />
 
@@ -80,7 +80,7 @@
     <button
       id="next"
       v-on:click="
-        this.$router.push({ path: '/facil-confirmation/active-appts' })"
+        this.$router.push({ path: '/facil-confirmation/active-appts' })"     
     >
       Confirm
     </button>
@@ -98,7 +98,35 @@ export default {
       userage: Math.floor(Math.random() * 10),
     };
   },
+  mounted() {
+    function setMinDate() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+      var yyyy2 = yyyy + 1;
+
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+
+      today = yyyy + "-" + mm + "-" + dd;
+      var maxDate = yyyy2 + "-" + mm + "-" + dd;
+      console.log(today)
+      console.log(maxDate)
+      document.getElementById("appt-date").setAttribute("min", today);
+      document.getElementById("appt-date").setAttribute("value", today);
+      document.getElementById("appt-date").setAttribute("max", maxDate);
+    }
+    setMinDate();
+  }, 
+  
 };
+
 </script>
 
 <style scoped>
