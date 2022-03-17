@@ -38,7 +38,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #declaration{
-      text-align: center;
+  #declaration {
+    /* display: inline-block;
+    text-align: right; */
   }
 </style>

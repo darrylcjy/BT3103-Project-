@@ -31,11 +31,10 @@ export default {
 
   .btn1 {
     all:unset;
-    position: absolute;
+    position: relative;
     width: 200px;
     height: 50px;
-    left: 450px;
-    top: 150px;
+    top: 50px;
     background: #F5F5DD;
 
     cursor: pointer;
@@ -47,11 +46,11 @@ export default {
 
   .btn2 {
     all:unset;
-    position: absolute;
+    position: relative;
     width: 200px;
     height: 50px;
-    left: 900px;
-    top: 150px;
+    left: 6vw;
+    top: 50px;
     background: #F5F5DD;
 
     cursor: pointer;
@@ -62,10 +61,9 @@ export default {
   }
 
   .swab {
-    position: absolute;
-    width: 750px;
-    height: 400px;
-    left: 400px;
-    top: 250px;
+    position: relative;
+    width: 650px;
+    height: 350px;
+    top: 100px;
   }
 </style>

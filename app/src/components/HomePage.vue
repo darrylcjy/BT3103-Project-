@@ -1,12 +1,14 @@
 <template>
   <div class = "main">
     <div class = "intro">
-      <h2 class="guide">Step-by-step guides</h2>
       <h2 class="question">Have you tested COVID-positive or been exposed to COVID?</h2>
+      <h3 class="prompt">Unsure what to do next?</h3>
       <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Click here</button>
     </div>
     <div class="latest">
       <h1 class="news">Latest News</h1><hr>
+      <button @click="updateMe()">Click to update</button><br><br>
+      <line-chart class="numbers" :data="chartdata"></line-chart>
     </div>
   </div>
 </template>
@@ -15,41 +17,55 @@
 export default {
   name: 'Home',
 
+  data(){
+    return{
+      chartdata: {'Monday': 2, 'Tuesday': 5, 'Wednesday': 2, 'Thursday': 5, 'Friday': 6}
+    }
+  },
+  methods:{
+    updateMe: function() {
+      this.chartdata = {'Monday': Math.random()*5, 'Tuesday': 5, 'Wednesday': Math.random()*5, 'Thursday': 5, 'Friday': 6}
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .main {
-    position: absolute; 
+    max-width: 1000px;
+    margin: auto;
+    padding: 1rem 2rem 1rem 1rem;
   }
 
   .intro {
-    background: url("../assets/homefiller.jpg");
+    background: url("../assets/home.jpg");
     height: 200px
   }
 
-  .guide {
-    top: 120px;
+  .question {
+    position: relative;
+    top: 40px;
     color: red;
   }
 
-  .question {
-
+  .prompt {
+    position: relative;
+    top: 30px;
   }
 
   .btn {
     all:unset;
-    position: absolute;
+    position: relative;
     width: 140px;
     height: 30px;
-    left: 280px;
-    top: 120px;
+    top: 40px;
     background: blue;
 
     cursor: pointer;
     font-size:1rem;
     padding: 5px 0.5rem;
+    border-radius: 10px;
     text-align: center;
     color: white
   }

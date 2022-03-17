@@ -32,6 +32,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 1rem 2rem 1rem 1rem;
+  }
+
   .welcome {
     background: url("../assets/userhome1.png");
     height: 300px;
