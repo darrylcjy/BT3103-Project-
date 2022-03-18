@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="welcome">
-      <h1 class="heading">Welcome, John Doe</h1>
+      <h1 class="heading">Welcome, {{text}}</h1>
     </div>
     <div class="header">
       <h1>COVID Resources</h1><hr>
@@ -27,6 +27,11 @@
 export default {
   name: 'UserHome',
   
+  data(){
+    return{
+      text:"John Doe"
+    }
+  }
 }
 </script>
 
