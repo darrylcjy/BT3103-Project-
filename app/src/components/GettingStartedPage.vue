@@ -32,7 +32,6 @@ export default {
   .btn1 {
     all:unset;
     position: relative;
-    right: 20px;
     width: 200px;
     height: 50px;
     right: 50px;
