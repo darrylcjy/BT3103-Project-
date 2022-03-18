@@ -26,14 +26,16 @@ export default {
   }
 
   .btns {
-    max-width: 650px;
+    max-width: 750px;
   }
 
   .btn1 {
     all:unset;
     position: relative;
+    right: 20px;
     width: 200px;
     height: 50px;
+    right: 50px;
     top: 50px;
     background: #F5F5DD;
 
@@ -49,7 +51,7 @@ export default {
     position: relative;
     width: 200px;
     height: 50px;
-    left: 6vw;
+    left: 50px;
     top: 50px;
     background: #F5F5DD;
 
