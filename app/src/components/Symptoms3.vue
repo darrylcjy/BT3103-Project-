@@ -45,7 +45,7 @@
     </div>
   </div>
   <br /><br />
-  <input type="button" value="Confirm" id="confirmbutton" />
+  <input type="button" value="Confirm" id="confirmbutton" v-on:click="this.$router.push({path: '/med-facils'})"/>
 </template>
 
 <script>
