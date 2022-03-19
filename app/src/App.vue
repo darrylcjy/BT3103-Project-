@@ -12,10 +12,8 @@
     <router-link to="/health-dec">Health Declaration</router-link> |
     <router-link to="/contact-us">Contact Us</router-link> |
     <router-link to="/med-facils">Medical Facilities</router-link> |
-    <router-link to="/self-isolation-checkout"
-      >Self-Isolation Checkout</router-link
-    >
-    | <router-link to="/Selection">Symptoms Selection</router-link> |
+    <router-link to="/self-isolation-checkout">Self-Isolation Checkout</router-link> | 
+    <router-link to="/Selection">Symptoms Selection</router-link> |
     <router-link to="/Confirmation">Symptoms Confirmation</router-link> |
     <router-link to="/Intensity">Symptoms Intensity</router-link>
   </div>

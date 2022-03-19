@@ -1,5 +1,6 @@
 <template>
     <div id="navbar">
+
         <div id="covidcare-dropdown">
             <button id="covidcare-button">CovidCare</button>
             <div id="covidcare-content">
@@ -10,6 +11,10 @@
             </div>
         </div>
 
+        <i id = "covidcare-icon">
+            <img src="../assets/app.png" alt="Icon not found">
+        </i>
+
         <div id="profile-dropdown">
             <button id="profile-button"> My Profile </button>
             <div id="profile-content">
@@ -17,6 +22,11 @@
                 <a href="#">Logout</a>
             </div>
         </div>
+
+        <i id = "profile-icon">
+            <img src="../assets/user.png" alt="Icon not found">
+        </i>
+
     </div>
 </template>
 
@@ -40,16 +50,17 @@ export default {
     #navbar {
         overflow: hidden;
         background-color: #F5F5DD;
+        width: 100%
     }
 
     /* covidcare dropdown */
-    #covidcare-dropdown {
+    #covidcare-dropdown, #covidcare-icon {
         float: left;
         overflow: hidden;
     }
     
     /* profile dropdown */
-    #profile-dropdown {
+    #profile-dropdown, #profile-icon {
         float: right;
         overflow: hidden;
     }
@@ -57,11 +68,12 @@ export default {
     /* covidcare button */
     #covidcare-button, 
     #profile-button {
-        font-size: 20px;
-        font-family: Avenir;
+        font-size: 1.5rem;
         font-weight: bold;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
         border: none;
         padding: 12px 16px;
+        width: 100%;
         color: black;
         background-color: inherit;
     }

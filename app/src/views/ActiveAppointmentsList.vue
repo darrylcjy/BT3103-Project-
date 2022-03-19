@@ -1,19 +1,17 @@
 <template>
-    <!-- Navigation bar -->
-    <!-- Contact Us -->
     <NavigationBar/>
-    <ContactUs/>
+    <ActiveAppointments/>
 </template>
 
 <script>
-import ContactUs from '../components/ContactUsContent.vue' 
+import ActiveAppointments from '../components/ActiveAppointments.vue' 
 import NavigationBar from '../components/NavigationBar.vue'
 
 export default {
-    name:'FAQ',
+    name: 'Active Appointments',
     components: {
-        ContactUs,
-        NavigationBar
+        NavigationBar,
+        ActiveAppointments
     }
 }
 </script>

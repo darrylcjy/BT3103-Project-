@@ -12,7 +12,8 @@ import ContactUs from "@/views/ContactUs.vue";
 import MedFacils from "@/views/MedFacils.vue";
 import FacilDetails from "@/views/FacilDetails";
 import FacilConfirmation from "@/views/FacilConfirmation";
-import ActiveAppointments from "@/components/ActiveAppointments";
+import ActiveAppointmentsList from "@/views/ActiveAppointmentsList";
+// import ActiveAppointments from "@/components/ActiveAppointments";
 import IsolationCheckout from "@/views/IsolationCheckout.vue";
 import Selection from "@/views/SymptomsSelection.vue";
 import Confirmation from "@/views/SymptomsConfirmation.vue";
@@ -89,7 +90,7 @@ const routes = [
   {
     path: "/facil-confirmation/active-appts",
     name: "Active Appointments",
-    component: ActiveAppointments,
+    component: ActiveAppointmentsList,
   },
 
   {
