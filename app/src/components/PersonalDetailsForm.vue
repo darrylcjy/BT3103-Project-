@@ -1,42 +1,21 @@
 <template>
     <!-- Personal details form to fill in -->
-  <form id="form" action="">
-      <h1>Personal Details</h1>
+  <form id="form">
       <div class="inputs">
         <label for="name" class="form-label">NRIC Name</label>
         <input type="text" id="name" class="form-text" name="name" required>
         <div class="second-row">
             <div>
                 <label for="phone" class="form-label">HP no.</label>
-                <input type="tel" name="phone" id="phone" class="form-text hp" pattern="[3689]{1}[0-9]{7}" required>
+                <input type="tel" name="phone" id="phone" class="form-text hp" pattern="[3689]{1}[0-9]{7}" required >
             </div>
             
             <div>
                 <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" id="age" class="form-text" min="0" max="120" required>
-            </div>
+                <input type="number" name="age" id="age" class="form-text" min="0" max="120" required >
+            </div> 
         </div>
-        
-        <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" id="email" class="form-text" required>
 
-        <div class="passwords">
-            <div>
-                <label for="old-password" class="form-label">Old Password</label>
-                <input type="password" name="old-password" id="old-password" class="form-text" minlength="8">
-            </div>
-            
-            <div>
-                <label for="new-password" class="form-label">New Password</label>
-                <input type="password" name="new-password" id="new-password" class="form-text" minlength="8">
-            </div>
-            
-            <div>
-                <label for="confirm-password" class="form-label">Confirm Password</label>
-                <input type="password" name="confirm-password" id="confirm-password" class="form-text" minlength="8">
-            </div>
-        </div>
-        
         <label for="address" class="form-label">Address</label>
         <input type="text" name="address" id="address" class="form-text" required>
 
@@ -51,14 +30,40 @@
       </div>
     
       <div class="btn">
-          <button type="submit" class="details-btn">Next</button>
+          <button type="submit" class="details-btn" @click="save()">Next</button>
       </div>
   </form>
 
 </template>
 
 <script>
+import firebaseApp from "@/firebase.js"
+import {getFirestore} from "firebase/firestore"
+import {doc, setDoc} from "firebase/firestore"
+const db = getFirestore(firebaseApp)
+
 export default {
+    props: {
+        email:String
+    }, 
+
+    methods: {
+        async save() {
+            alert("Saving Personal Details")
+            try {
+                var name = document.getElementById("name").value
+                var phone = document.getElementById("phone").value
+                var age = document.getElementById("age").value
+                var address = document.getElementById("address").value
+                var vax = document.getElementById("vaccination-status").value
+                const docRef = await setDoc(doc(db, "Details", this.email), {name: name, phone: phone, age: age, address: address, vax: vax})
+                console.log(docRef)
+                document.getElementById('form').reset()
+            } catch (error) {
+                console.error("Error: ", error)
+            }
+        }
+    }
 
 }
 </script>
@@ -116,27 +121,10 @@ h1 {
 
 }
 
-.passwords {
-    display: flex;
-    justify-content: space-between;
-}
-
-.passwords > div {
-    width: 180px;
-}
-
 
 @media(max-width: 700px) {
     .second-row{
         flex-direction: column;
-    }
-
-    .passwords{
-        flex-direction: column;
-    }
-
-    .passwords > div {
-        width: 100%;
     }
 }
 

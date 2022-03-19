@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>FAQs</h1>
-    <p class="more-info">More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a></p>
+    <p class="more-info">Last updated: 19/3/2022. More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a></p>
 
     <!-- Radio Buttons to select content -->
     <div class="selection">
@@ -190,7 +190,7 @@
           <div class="row">
             <div class="measures">
               <p class="measure-title">HOUSEHOLD VISITS</p>
-              <p>Up to 5 unique household visitors a day. Visitors should preferably limit themselves to one visit a day.</p>
+              <p>Up to 5 household visitors at any one time.</p>
               <p>Unvaccinated should exercise caution, stay at home as much as possible.</p>
             </div>
 
@@ -225,18 +225,18 @@
           <div class="row">
             <div class="measures">
               <p class="measure-title">SPORTS ACTIVITIES &amp; CLASSES</p>
-              <p class="description">Group sizes of up to 5 persons.</p>
+              <p class="description">Group sizes of up to 5 persons. There are limits placed on class size (based on type of activity (30/50) or venue capacity).</p>
             </div>
             
 
             <div class="measures">
-              <p class="measure-title">OUTDOOR ACTIVITIES</p>
-              <p class="description">Mask-on or mask-off : 5 per group regardless of vaccination status.</p>
+              <p class="measure-title">SAFE DISTANCING</p>
+              <p class="description">Only required between groups or individuals in mask-off settings</p>
             </div>
 
             <div class="measures">
               <p class="measure-title">SHOPPING MALLS &amp; LARGE STANDALONE STORES</p>
-              <p class="description">Entry allowed only if vaccinated. Maximum of 1 person per 10 sqm.</p>
+              <p class="description">Entry allowed only if vaccinated. 50% cap.</p>
               <p class="description">Note: Standalone supermarkets exempted</p>
             </div>
           </div>
@@ -244,7 +244,7 @@
       
         <p class="footnote">* An individual is considered vaccinated if he/ she has been: a) fully vaccinated (status seen in TraceTogether) and had their vaccination records ingested in MOH national IT systems; or b) recovered from COVID-19 within the last 180 days.</p>
         <p class="footnote">^ VDS refers to Vaccination Differentiated Safe Management Measures</p>
-        <p class="footnote">Other measures can be found <a href="https://www.moh.gov.sg/covid-19-phase-advisory">here</a></p> 
+        <p class="footnote">Other measures can be found <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a></p> 
       </div>
 
     </div>
@@ -282,6 +282,7 @@ h1 {
   margin-top: 0.5rem;
 }
 
+
 /* Selection radio buttons styling */
 .selection {
   background-color: rgba(245, 245, 221, 0.5);
@@ -311,6 +312,7 @@ h1 {
 .close-contact {
   max-width: 800px;
   margin: auto;
+  text-align: left;
 }
 
 .positive,
@@ -340,7 +342,7 @@ h1 {
 }
 
 .ans {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 
 /* For the measures styling */
