@@ -28,9 +28,6 @@
 </template>
 
 <script>
-// import { urlopen } from 'urllib/request';
-// import { BeautifulSoup } from 'bs4';
-
 //import FacilDetails from "@/views/FacilDetails";
 
 export default {
@@ -47,12 +44,14 @@ export default {
       queueLen: Math.floor(Math.random() * 11),
     };
   },
-  methods: {
-    getClinicData() {
+  mounted() {
+    async function getClinicData() {
       console.log("something");
-      // get the url from the .ipyny file
-    },
+      
+    }
+    getClinicData();
   },
+  
   /*
   components:{
     FacilDetails
@@ -66,7 +65,7 @@ export default {
   text-align: left;
   padding: 10px;
   width: 850px;
-  height: 180px;
+  height: 200px;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 18px;
