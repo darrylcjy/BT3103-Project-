@@ -19,13 +19,14 @@
 
         <div class="state">
             If your ART result is negative, <br>
-            congratulations! <br>
+            <img src="@/assets/negative.png" alt="Negative FET not found"><br><br>
+            Congratulations! 
             You can resume your daily activities.
         </div>
 
         <div class="state">
             If your ART result is positive, <br>
-            don't worry! <br>
+            <img src="@/assets/positive.png" alt="Positive FET not found"> <br><br>
             Continue to self isolate till your next ART result is negative.
               <!-- include pic of positive and negative -->
         </div>
