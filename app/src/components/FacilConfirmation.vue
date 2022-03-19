@@ -116,8 +116,6 @@ export default {
 
       today = yyyy + "-" + mm + "-" + dd;
       var maxDate = yyyy2 + "-" + mm + "-" + dd;
-      console.log(today)
-      console.log(maxDate)
       document.getElementById("appt-date").setAttribute("min", today);
       document.getElementById("appt-date").setAttribute("value", today);
       document.getElementById("appt-date").setAttribute("max", maxDate);
