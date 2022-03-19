@@ -3,23 +3,30 @@
         <h1>Hello {{name}}, </h1>
         <h2>You have an appointment at the following clinic:</h2>
     </div>
-    <br>
-    <h2> Venue: </h2>
+    
+    <!-- <h2> Venue: </h2> -->
+    <label> Venue </label>
     <div id="venue">
         {{clinicName}} <br>
-        {{location}} <br>
-        {{unitno}} <br>
+        {{location}} 
+        {{unitno}} 
         {{postalCode}} <br><br>
         Distance: {{dist}} km away
     </div>
 
-    <h2> Date:</h2>
+    <br><br>
+
+    <!-- <h2> Date:</h2> -->
+    <label> Date </label>
     <div id="date">
         {{date}} <br>
         {{day}}
     </div>
 
-    <h2> Time: </h2>
+    <br><br>
+
+    <!-- <h2> Time: </h2> -->
+    <label> Time </label>
     <div id="time">
         {{time}}
     </div>
@@ -27,6 +34,8 @@
     <br>
     <p id='text'>Get directions <a v-bind:href="website" target="_blank">here</a></p>
     <button id='cancel' v-on:click="cancelAppt()">Cancel Appointment</button>
+    <button id='back' v-on:click="this.$router.push({path: '/user-home'})">Back to Home</button>
+
 </template>
 
 <script>
@@ -70,44 +79,64 @@ export default {
 
 <style>
     #venue {
-        border-style: groove;
-        width: 300px;
-        height: 150px;
+        text-align: center;
+        padding: 10px;
+        width: 800px;
+        height: auto;
+        background-color: rgba(183, 218, 250, 1);
+        border-radius: 10px;
+        font-size: 25px;
         margin: auto;
-        padding-top: 15px;
     }
 
     #date {
-        border-style: groove;
-        width: 300px;
-        height: 50px;
+        text-align: center;
+        padding: 10px;
+        width: 800px;
+        height: auto;
+        background-color: rgba(183, 218, 250, 1);
+        border-radius: 10px;
+        font-size: 25px;
         margin: auto;
-        padding-top: 7px;
     }
 
     #time {
-        border-style: groove;
-        width: 300px;
-        height: 25px;
+        text-align: center;
+        padding: 10px;
+        width: 800px;
+        height: auto;
+        background-color: rgba(183, 218, 250, 1);
+        border-radius: 10px;
+        font-size: 25px;
         margin: auto;
-        padding-top: 5px;
     }
 
-    #cancel {
-        border-style: none;
-        width: 150px;
-        height: 35px;
-        border-radius: 10px;
+    #cancel, #back {
+        all: unset;
+        font-size: 1.5rem;
         background-color: #f5f5dd;
+        padding: 10px;
+        border-radius: 10px;
+        width: 15rem;
         display: inline-block;
+        margin: 10px;
+        margin-left: 10px; 
     }
 
     #text {
         display: inline-block;
-        padding-right: 30px;
+        /* padding-right: 30px; */
+        font-size: 1.5rem;
+        padding-right: 100px;
+        /* i want to increase the space between text & button */
     }
 
-    #cancel:hover {
+    #cancel:hover, #back:hover {
         background-color: blanchedalmond;
+    }
+
+    label {
+        font-size: 24px;
+        text-align: left;
     }
 </style>
