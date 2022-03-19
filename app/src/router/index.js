@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import PersonalDetails from "@/views/PersonalDetails.vue";
-import ForgetPassword from "@/views/ForgetPassword.vue";
 import FAQ from "@/views/FAQ.vue";
 import Home from "@/views/Home.vue";
 import UserHome from "@/views/UserHome.vue";
@@ -18,13 +16,9 @@ import IsolationCheckout from "@/views/IsolationCheckout.vue";
 import Selection from "@/views/SymptomsSelection.vue";
 import Confirmation from "@/views/SymptomsConfirmation.vue";
 import Intensity from "@/views/SymptomsIntensity.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const routes = [
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
-  },
   {
     path: "/login",
     name: "Login",
@@ -36,17 +30,12 @@ const routes = [
     component: PersonalDetails,
   },
   {
-    path: "/forget-password",
-    name: "ForgetPassword",
-    component: ForgetPassword,
-  },
-  {
     path: "/faq",
     name: "FAQ",
     component: FAQ,
   },
   {
-    path: "/home",
+    path: "/",
     name: "Home",
     component: Home,
   },
@@ -112,6 +101,11 @@ const routes = [
     path: "/intensity",
     name: "Intensity",
     component: Intensity,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 

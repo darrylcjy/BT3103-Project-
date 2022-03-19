@@ -1,12 +1,10 @@
 <template>
   <!-- testing purposes -->
   <div>
-    <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
     <router-link to="/personal-details">Personal Details</router-link> |
-    <router-link to="/forget-password">Forget Password</router-link> |
     <router-link to="/faq">FAQs</router-link> |
-    <router-link to="/home">Home</router-link> |
+    <router-link to="/">Home</router-link> |
     <router-link to="/user-home">User Home</router-link> |
     <router-link to="/getting-started">Getting Started</router-link> |
     <router-link to="/health-dec">Health Declaration</router-link> |
