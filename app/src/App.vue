@@ -1,7 +1,7 @@
 <template>
   <!-- testing purposes -->
   <div>
-    <router-link to="/login">Login</router-link> |
+    <!-- <router-link to="/login">Login</router-link> | -->
     <!-- <router-link to="/personal-details">Personal Details</router-link> | -->
     <!-- <router-link to="/faq">FAQs</router-link> | -->
     <router-link to="/">Home</router-link> |
