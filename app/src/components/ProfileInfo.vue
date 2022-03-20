@@ -7,7 +7,7 @@
         <p><b>Address:</b> {{this.address}}</p>
         <p><b>Vaccination Status:</b> {{this.vax}}</p>
         <div class="edit">
-            <button class="btn">Edit<i class="fas fa-edit"></i></button>
+            <button class="btn" @click="redirect()">Edit<i class="fas fa-edit"></i></button>
         </div>
     </div>
 </template>
@@ -48,6 +48,10 @@ export default {
             this.age = data.age
             this.address = data.address
             this.vax = data.vax
+        },
+
+        redirect() {
+            this.$router.push({name:"Update"})
         }
     }
 

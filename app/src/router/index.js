@@ -17,6 +17,7 @@ import Selection from "@/views/SymptomsSelection.vue";
 import Confirmation from "@/views/SymptomsConfirmation.vue";
 import Intensity from "@/views/SymptomsIntensity.vue";
 import Profile from "@/views/Profile.vue";
+import Update from "@/views/Update.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes = [
@@ -107,6 +108,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/update",
+    name: "Update",
+    component: Update,
   },
   {
     path: "/:catchAll(.*)",

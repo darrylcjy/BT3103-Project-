@@ -18,7 +18,7 @@
         <div id="profile-dropdown">
             <button id="profile-button"> My Profile </button>
             <div id="profile-content">
-                <a href="#" v-on:click="this.$router.push({path: '/personal-details'})">Edit personal details</a>
+                <a href="#" v-on:click="this.$router.push({path: '/profile'})">Profile</a>
                 <a href="#">Logout</a>
             </div>
         </div>

@@ -21,7 +21,7 @@ export default {
         }
 
         var uiConfig = {
-            signInSuccessUrl: '/user-home',
+            signInSuccessUrl: '/personal-details',
             signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,

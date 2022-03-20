@@ -2,61 +2,42 @@
     <!-- Navigation bar -->
     <!-- Personal Details -->
     <div v-if="user">
-        <h1>Personal Details</h1>
+        <NavigationBar/>
+        <h1>Update Personal Details</h1>
         <div class="details">
             <div>Username: {{this.user.displayName}}</div>
             <div>Email: {{this.user.email}}</div>
         </div>
-        <PersonalDetailsForm :email="this.user.email"/>
+        <UpdateForm :email="this.user.email"/>
     </div>
     
 </template>
 
 <script>
-import PersonalDetailsForm from '../components/PersonalDetailsForm.vue' 
+import UpdateForm from '../components/UpdateForm.vue' 
+import NavigationBar from '../components/NavigationBar.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
-import firebaseApp from "../firebase.js";
-import {getFirestore} from "firebase/firestore";
-import {doc, getDoc} from "firebase/firestore";
-const db = getFirestore(firebaseApp);
-
 
 export default {
-    name:'PersonalDetails',
+    name:'Update',
     components: {
-        PersonalDetailsForm
+        UpdateForm,
+        NavigationBar
     },
     data() {
         return {
             user: false,
-            existData: false
         }
-    },
-    methods: {
-        check(email) {
-            getDoc(doc(db, "details", String(email))).then((docSnap) => {
-                if (docSnap.exists()) {
-                    console.log("hi", "true")
-                    this.$router.push({name: "User Home"})
-                } else {
-                    console.log("No such document!")
-                }
-            })
-        },
     },
     mounted() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = user
-                this.check(user.email)
             }
         })
-    }
+    },
 }
-                // if (this.existData) {
-                //     this.$router.push({name:"User Home"})
-                // }
 </script>
 
 <style scoped>

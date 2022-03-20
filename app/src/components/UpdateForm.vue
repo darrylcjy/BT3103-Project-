@@ -1,10 +1,10 @@
 <template>
-    <!-- Personal details form to fill in -->
+    <!-- Personal details Update to fill in -->
   <form id="form" @submit.prevent>
       <div class="inputs">
         <div class="container">
             <label for="name" class="form-label">NRIC Name</label>
-            <input type="text" id="name" class="form-text" name="name" placeholder="Name" v-model="name"> 
+            <input type="text" id="name" class="form-text" name="name" placeholder="Name"> 
             <i class="fas fa-check-circle"></i> 
             <i class="fas fa-exclamation-circle"></i> 
             <p class="error">Error Message</p>
@@ -12,7 +12,7 @@
         <div class="second-row">
             <div class="container">
                 <label for="phone" class="form-label">HP no.</label>
-                <input type="tel" name="phone" id="phone" class="form-text hp" placeholder="Contact Number" v-model="phone">
+                <input type="tel" name="phone" id="phone" class="form-text hp" placeholder="Contact Number">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -20,7 +20,7 @@
             
             <div class="container">
                 <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" id="age" class="form-text" placeholder="Age" min = "1" max="130" v-model="age">
+                <input type="number" name="age" id="age" class="form-text" placeholder="Age" min = "1" max="130">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -29,7 +29,7 @@
 
         <div class="container">
             <label for="address" class="form-label">Address</label>
-            <input type="text" name="address" id="address" class="form-text" placeholder="Home Address" v-model="address">
+            <input type="text" name="address" id="address" class="form-text" placeholder="Home Address">
             <i class="fas fa-check-circle"></i> 
             <i class="fas fa-exclamation-circle"></i> 
             <p class="error">Error Message</p>
@@ -37,8 +37,8 @@
        
         <div class="container">
             <label for="vaccination-status" class="form-label">Vaccination Status</label>
-            <select name="vaccination-status" class="form-text dropdown" id="vaccination-status" v-model="vax">
-                <option disabled value="" selected>Please select one of the following: </option>
+            <select name="vaccination-status" class="form-text dropdown" id="vaccination-status">
+                <option disabled selected value="">Please select one of the following: </option>
                 <option value="Received booster shot">Received booster shot</option>
                 <option value="Completed full regimen (2 dose)">Completed full regimen (2 dose) </option>
                 <option value="Recieved one dose">Recieved one dose</option>
@@ -54,7 +54,8 @@
       </div>
     
       <div class="btn">
-          <button class="details-btn" @click="save()" type= "submit">Submit</button>
+          <button class="data-btn" @click="getData()">Past Inputs</button>
+          <button class="details-btn" @click="save()" type= "submit">Update</button>
       </div>
   </form>
 
@@ -63,38 +64,46 @@
 <script>
 import firebaseApp from "../firebase.js";
 import {getFirestore} from "firebase/firestore";
-import {doc, setDoc} from "firebase/firestore";
+import {doc, setDoc, getDoc} from "firebase/firestore";
+import {getAuth} from 'firebase/auth'
 const db = getFirestore(firebaseApp);
+
 
 export default {
     data() {
         return {
-            name: "",
-            phone: "",
-            age: "",
-            address: "",
-            vax: ""
+            email: "",
         }
     },
-
-    props: {
-        email:String
-    }, 
-
     methods: {
+        async getData() {
+            const auth = getAuth()
+            this.email = auth.currentUser.email
+
+            let z = await getDoc(doc(db, "details", String(this.email)))
+
+            let data = z.data()
+            console.log(data.name)
+            document.getElementById("name").value = data.name
+            document.getElementById("phone").value = data.phone
+            document.getElementById("age").value = data.age
+            document.getElementById("address").value = data.address
+            document.getElementById("vaccination-status").value = data.vax
+        },
         async save() {
             try {
-                const nameval = this.name.trim()
-                const phoneval = this.phone.split(" ").join("")
-                const ageval = this.age
-                const addressval = this.address.trim()
-                const vaxstatus = this.vax
+                const nameval = document.getElementById("name").value.trim()
+                const phoneval = document.getElementById("phone").value.split(" ").join("")
+                const ageval = document.getElementById("age").value
+                const addressval = document.getElementById("address").value.trim()
+                const vaxstatus = document.getElementById("vaccination-status").value
                 if (this.checkValid(nameval, phoneval, ageval, addressval, vaxstatus)) {
                     const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, vax: vaxstatus})
                     console.log(docRef)
-                    alert("Personal Details Saved Successfully")
-                    document.getElementById('form').reset()
-                    this.$router.push({name:'User Home'})
+                    alert("Updated Personal Details Saved Successfully")
+                    document.getElementById("form").reset()
+                    this.removeClassName()
+                    this.$router.push({name:'Profile'})
                 }
             } catch (error) {
                 console.error("Error: ", error)
@@ -168,6 +177,15 @@ export default {
             const container = elem.parentElement
             container.className = "container success"
         },
+
+        removeClassName() {
+            const elems = [document.getElementById("name"),document.getElementById("phone"), document.getElementById("age"), document.getElementById("address"), document.getElementById("vaccination-status")]
+
+            elems.forEach((elem) => {
+                const container = elem.parentElement
+                container.className = "container"
+            })
+        }
     }
 }
 </script>
@@ -257,18 +275,20 @@ h1 {
     text-align: right;
 }
 
-.details-btn {
+.details-btn, 
+.data-btn {
     all:unset;
     cursor: pointer;
     font-size:1.5rem;
     background-color: #F5F5DD;
-    padding: 5px 0.5rem;
+    padding: 5px 2rem;
     border-radius: 10px;
-    width: 6rem;
     text-align: center;
+    margin: 0rem 1rem;
 }
 
 .details-btn:hover,
+.data-btn:hover,
 .form-text:hover {
     box-shadow: 1px 1px 3px grey;
 }
