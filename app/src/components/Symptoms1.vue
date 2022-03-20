@@ -2,15 +2,22 @@
   <h1>What symptoms are you experiencing?</h1>
   <p>Please select all that apply in the dropdown menu below.</p>
   <br />
-  Do you have any symptoms:
-  <input type="radio" name="symptomscheck" value="Yes" />Yes
-  <input type="radio" name="symptomscheck" value="No" />No <br /><br />
-  <div id="scrollable">
+  <p>
+    Do you have any symptoms:
+    <input type="radio" name="symptomscheck" value="Yes" />Yes
+    <input type="radio" name="symptomscheck" value="No" />No <br />
+  </p>
+  <div id="scrollable" style="text-align: left">
     <table id="symptoms">
       <thead>
         <tr>
-          <th>Symptoms</th>
-          <th>Select</th>
+          <!-- Temporary fix to align table header alignment -->
+          <th>
+            ------------------- Symptoms ---------------------------------------
+          </th>
+          <th>Select --------------------------------------</th>
+          <!-- <th>Symptoms</th>
+          <th>Select</th> -->
         </tr>
       </thead>
       <tbody>
@@ -94,26 +101,36 @@ export default {
 </script>
 
 <style>
+p {
+  font-size: 20px;
+}
 table {
-  background-color: rgb(165, 169, 170);
-  width: 40%;
+  background-color: rgba(183, 218, 250, 1);
+  width: 50%;
   border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
 }
 td {
   border: 2px solid black;
 }
 thead {
-  background-color: #b7dafa;
+  background-color: #f5f5dd;
 }
 tbody {
-  height: 150px;
+  height: 250px;
   overflow: auto;
 }
 td {
-  padding: 3px 10px;
+  padding: 7px 20px;
   display: inline-block;
   width: 49.5%;
   box-sizing: border-box;
+}
+input[type="checkbox"] {
+  transform: scale(2);
+  width: 200px;
 }
 tr,
 tbody {
@@ -126,5 +143,6 @@ tbody {
   border-radius: 10px;
   background-color: #f5f5dd;
   display: inline-block;
+  font-size: 1rem;
 }
 </style>

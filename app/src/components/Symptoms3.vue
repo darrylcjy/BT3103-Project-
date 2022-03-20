@@ -45,7 +45,12 @@
     </div>
   </div>
   <br /><br />
-  <input type="button" value="Confirm" id="confirmbutton" v-on:click="this.$router.push({path: '/med-facils'})"/>
+  <input
+    type="button"
+    value="Confirm"
+    id="confirmbutton"
+    v-on:click="this.$router.push({ path: '/med-facils' })"
+  />
 </template>
 
 <script>
@@ -83,7 +88,9 @@ export default {
 
 <style>
 .slidecontainer {
-  width: 30%;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .slider {
