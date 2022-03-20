@@ -128,7 +128,7 @@ export default {
                 this.setSuccess(nameElem)
             }
 
-            if ((phoneval.charAt(0) === "8" || phoneval.charAt(0 === "9") || phoneval.charAt(0) === "6" ) && phoneval.length == 8) {
+            if ((phoneval.charAt(0) === "8" || phoneval.charAt(0) === "9" || phoneval.charAt(0) === "6" ) && phoneval.length == 8) {
                 //success
                 this.setSuccess(phoneElem)
             } else {
