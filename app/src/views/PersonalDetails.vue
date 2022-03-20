@@ -3,9 +3,10 @@
     <!-- Personal Details -->
     <div v-if="user">
         <h1>Personal Details</h1>
+        <small>Please key in all fields</small>
         <div class="details">
-            <p>Username: {{this.user.displayName}}</p>
-            <p>Email: {{this.user.email}}</p>
+            <div>Username: {{this.user.displayName}}</div>
+            <div>Email: {{this.user.email}}</div>
         </div>
         <PersonalDetailsForm :email="this.user.email"/>
     </div>
@@ -37,6 +38,37 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.details{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.5rem;
+    
+}
+
+.details div {
+    background-color: #F5F5DD;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+h1 {
+    margin-bottom: 0.2rem;
+    text-align: center;
+}
+
+small {
+    margin-bottom: 0rem;
+    font-size: 1rem;
+}
+
+
+@media(max-width: 700px) {
+    .details{
+        flex-direction: column;
+        gap: 0rem;
+    }
+}
 
 </style>
