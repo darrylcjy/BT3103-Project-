@@ -39,6 +39,7 @@ export default {
   border-radius: 10px;
   background-color: #f5f5dd;
   display: inline-block;
+  font-size: 1rem;
 }
 
 #editbutton {
@@ -48,5 +49,14 @@ export default {
   border-radius: 10px;
   background-color: #f56f6f;
   display: inline-block;
+  font-size: 1rem;
 }
+
+/* div {
+  margin-left: auto;
+  margin-right: auto;
+}
+#confirmation p {
+  text-align: left;
+} */
 </style>
