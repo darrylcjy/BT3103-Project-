@@ -24,41 +24,78 @@
         <tr>
           <td>Aches</td>
           <td>
-            <input type="checkbox" name="checkbox1" value="Aches" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox1"
+              name="checkbox1"
+              value="Aches"
+            />&nbsp;
           </td>
         </tr>
         <tr>
           <td>Chest Pain</td>
           <td>
-            <input type="checkbox" name="checkbox2" value="Chest Pain" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox2"
+              name="checkbox2"
+              value="Chest Pain"
+            />&nbsp;
           </td>
         </tr>
         <tr>
           <td>Cough</td>
           <td>
-            <input type="checkbox" name="checkbox3" value="Cough" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox3"
+              name="checkbox3"
+              value="Cough"
+            />&nbsp;
           </td>
         </tr>
         <tr>
           <td>Diarrhoea</td>
           <td>
-            <input type="checkbox" name="checkbox4" value="Diarrhoea" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox4"
+              name="checkbox4"
+              value="Diarrhoea"
+            />&nbsp;
           </td>
         </tr>
         <tr>
           <td>Fever</td>
           <td>
-            <input type="checkbox" name="checkbox5" value="Fever" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox5"
+              name="checkbox5"
+              value="Fever"
+            />&nbsp;
           </td>
         </tr>
         <tr>
           <td>Flu</td>
-          <td><input type="checkbox" name="checkbox6" value="Flu" />&nbsp;</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox6"
+              name="checkbox6"
+              value="Flu"
+            />&nbsp;
+          </td>
         </tr>
         <tr>
           <td>Headache</td>
           <td>
-            <input type="checkbox" name="checkbox7" value="Headache" />&nbsp;
+            <input
+              type="checkbox"
+              id="checkbox7"
+              name="checkbox7"
+              value="Headache"
+            />&nbsp;
           </td>
         </tr>
         <tr>
@@ -66,6 +103,7 @@
           <td>
             <input
               type="checkbox"
+              id="checkbox8"
               name="checkbox8"
               value="Loss of taste or smell"
             />&nbsp;
@@ -76,6 +114,7 @@
           <td>
             <input
               type="checkbox"
+              id="checkbox9"
               name="checkbox9"
               value="Shortness of breath"
             />&nbsp;
@@ -85,18 +124,77 @@
     </table>
   </div>
   <br /><br />
-  <button
-    id="confirmbutton"
-    type="button"
-    v-on:click="this.$router.push({ path: '/confirmation' })"
-  >
+  <button id="confirmbutton" type="button" v-on:click="confirmsymptoms()">
     Confirm
   </button>
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+const db = getFirestore(firebaseApp);
+
 export default {
   name: "Symptoms1",
+
+  methods: {
+    async confirmsymptoms() {
+      var aches = document.getElementById("checkbox1");
+      var chestpain = document.getElementById("checkbox2");
+      var cough = document.getElementById("checkbox3");
+      var diarrhoea = document.getElementById("checkbox4");
+      var fever = document.getElementById("checkbox5");
+      var flu = document.getElementById("checkbox6");
+      var headache = document.getElementById("checkbox7");
+      var tastesmell = document.getElementById("checkbox8");
+      var breath = document.getElementById("checkbox9");
+
+      console.log(aches);
+      console.log(chestpain);
+
+      var selected = [];
+      if (aches.checked) {
+        selected.push(aches.value);
+      }
+      if (chestpain.checked) {
+        selected.push(chestpain.value);
+      }
+      if (cough.checked) {
+        selected.push(cough.value);
+      }
+      if (diarrhoea.checked) {
+        selected.push(diarrhoea.value);
+      }
+      if (fever.checked) {
+        selected.push(fever.value);
+      }
+      if (flu.checked) {
+        selected.push(flu.value);
+      }
+      if (headache.checked) {
+        selected.push(headache.value);
+      }
+      if (tastesmell.checked) {
+        selected.push(tastesmell.value);
+      }
+      if (breath.checked) {
+        selected.push(breath.value);
+      }
+
+      console.log(selected);
+      try {
+        const docRef = await setDoc(doc(db, "user_id", "symptoms"), {
+          Symptoms: selected,
+        });
+        console.log(docRef);
+        alert(`Your symptoms have been recorded!`);
+        this.$router.push({ path: "/confirmation" });
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
+    },
+  },
 };
 </script>
 
