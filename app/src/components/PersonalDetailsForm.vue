@@ -39,10 +39,10 @@
             <label for="vaccination-status" class="form-label">Vaccination Status</label>
             <select name="vaccination-status" class="form-text dropdown" id="vaccination-status" required v-model="vax">
                 <option disabled selected>Please select one of the following: </option>
-                <option value="booster">Received booster shot</option>
-                <option value="two">Completed full regimen (2 dose) </option>
-                <option value="one">Recieved at least one dose</option>
-                <option value="none">Unvaccinated</option>
+                <option value="Received booster shot">Received booster shot</option>
+                <option value="Completed full regimen (2 dose)">Completed full regimen (2 dose) </option>
+                <option value="Recieved one dose">Recieved one dose</option>
+                <option value="Unvaccinated">Unvaccinated</option>
             </select>
             
             <i class="fas fa-angle-down"></i> 
@@ -100,7 +100,7 @@ export default {
                 console.error("Error: ", error)
             }
         },
-
+        // Form Validation
         checkValid(nameval, phoneval, ageval, addressval, vaxstatus) {
             const nameElem = document.getElementById("name")
             const phoneElem = document.getElementById("phone")

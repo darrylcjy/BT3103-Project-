@@ -13,7 +13,8 @@
     <router-link to="/self-isolation-checkout">Self-Isolation Checkout</router-link> | 
     <router-link to="/Selection">Symptoms Selection</router-link> |
     <router-link to="/Confirmation">Symptoms Confirmation</router-link> |
-    <router-link to="/Intensity">Symptoms Intensity</router-link>
+    <router-link to="/Intensity">Symptoms Intensity</router-link> |
+    <router-link to="/profile">Profile</router-link>
   </div>
   <router-view />
 </template>

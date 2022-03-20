@@ -16,6 +16,7 @@ import IsolationCheckout from "@/views/IsolationCheckout.vue";
 import Selection from "@/views/SymptomsSelection.vue";
 import Confirmation from "@/views/SymptomsConfirmation.vue";
 import Intensity from "@/views/SymptomsIntensity.vue";
+import Profile from "@/views/Profile.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes = [
@@ -101,6 +102,11 @@ const routes = [
     path: "/intensity",
     name: "Intensity",
     component: Intensity,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "/:catchAll(.*)",
