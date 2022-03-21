@@ -40,6 +40,7 @@ export default {
       for (let i = 0; i < count; i++) {
         let slider_info = document.getElementById("slider" + (i + 1));
         let span_info = document.getElementById("s" + (i + 1));
+        span_info.innerHTML = slider_info.value;
         slider_info.oninput = function () {
           span_info.innerHTML = this.value;
         };
