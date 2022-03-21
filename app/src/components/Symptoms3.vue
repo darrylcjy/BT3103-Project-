@@ -3,46 +3,7 @@
   <p><b>(1 - Not Severe,&nbsp; 10 - Very Severe)</b></p>
   <br />
   <div id="intensity">
-    <!-- <p><u>Symptom 1</u>: Flu</p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider1"
-      />
-      <p>Intensity: <span id="s1"></span></p>
-    </div>
-    <p>
-      <br /><br />
-      <u>Symptom 2</u>: Cough
-    </p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider2"
-      />
-      <p>Intensity: <span id="s2"></span></p>
-    </div>
-    <br /><br />
-    <p><u>Symptom 3</u>: Loss of taste or smell</p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider3"
-      />
-      <p>Intensity: <span id="s3"></span></p>
-    </div> -->
+    <!-- insert sliders -->
   </div>
   <br /><br />
   <input
@@ -83,30 +44,16 @@ export default {
           count +
           "</u>: " +
           symp +
-          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="' +
-          count +
-          '" class="slider" id="slider' +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
           count +
           '" /><p>Intensity: <span id="s' +
           count +
           '"></span></p></div><br /><br />';
-
-        // $("#intensity").append(
-        //   "<p><u>Symptom " +
-        //     count +
-        //     "</u>: " +
-        //     symp +
-        //     '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="' +
-        //     count +
-        //     '" class="slider" id="slider' +
-        //     count +
-        //     '" /><p>Intensity: <span id="s' +
-        //     count +
-        //     '"></span></p></div>'
-        // );
       }
     }
+    display();
 
+    // Loading the slider value for "Intensity: "
     // function load() {
     //   var slider1 = document.getElementById("slider1");
     //   var output1 = document.getElementById("s1");
@@ -116,6 +63,10 @@ export default {
 
     //   var slider3 = document.getElementById("slider3");
     //   var output3 = document.getElementById("s3");
+
+    //   console.log("slider1 = " + slider1);       <--- slider value is null???
+    //   console.log("slider2 = " + slider2);       <--- slider value is null???
+    //   console.log("slider3 = " + slider3);       <--- slider value is null???
 
     //   output1.innerHTML = slider1.value;
     //   output2.innerHTML = slider2.value;
@@ -131,7 +82,6 @@ export default {
     //     output3.innerHTML = this.value;
     //   };
     // }
-    display();
     // load();
   },
 };
