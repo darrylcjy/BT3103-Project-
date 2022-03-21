@@ -2,86 +2,118 @@
   <h1>Please select the intensity of the symptoms you are experiencing:</h1>
   <p><b>(1 - Not Severe,&nbsp; 10 - Very Severe)</b></p>
   <br />
-  <div id="confirmation">
-    <p><u>Symptom 1</u>: Flu</p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider1"
-      />
-      <p>Intensity: <span id="s1"></span></p>
-    </div>
-    <p>
-      <br /><br />
-      <u>Symptom 2</u>: Cough
-    </p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider2"
-      />
-      <p>Intensity: <span id="s2"></span></p>
-    </div>
-    <br /><br />
-    <p><u>Symptom 3</u>: Loss of taste or smell</p>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="5"
-        class="slider"
-        id="slider3"
-      />
-      <p>Intensity: <span id="s3"></span></p>
-    </div>
+  <div id="intensity">
+    <!-- insert sliders -->
   </div>
   <br /><br />
   <input
     type="button"
     value="Confirm"
     id="confirmbutton"
-    v-on:click="this.$router.push({ path: '/med-facils' })"
+    v-on:click="confirmintensity()"
   />
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+
 export default {
   name: "Symptoms3",
+
   mounted() {
-    function load() {
-      var slider1 = document.getElementById("slider1");
-      var output1 = document.getElementById("s1");
+    async function display() {
+      let docSnap = await getDoc(doc(db, "user_id", "symptoms"));
+      let selected = docSnap.data().Symptoms;
+      console.log(
+        "Creating intensity sliders for the following symptoms: \n" + selected
+      );
 
-      var slider2 = document.getElementById("slider2");
-      var output2 = document.getElementById("s2");
+      let text = "";
+      var count = 0;
+      selected.forEach(createSlider);
+      document.getElementById("intensity").innerHTML = text;
 
-      var slider3 = document.getElementById("slider3");
-      var output3 = document.getElementById("s3");
+      for (let i = 0; i < count; i++) {
+        let slider_info = document.getElementById("slider" + (i + 1));
+        let span_info = document.getElementById("s" + (i + 1));
+        slider_info.oninput = function () {
+          span_info.innerHTML = this.value;
+        };
+      }
 
-      output1.innerHTML = slider1.value;
-      output2.innerHTML = slider2.value;
-      output3.innerHTML = slider3.value;
-
-      slider1.oninput = function () {
-        output1.innerHTML = this.value;
-      };
-      slider2.oninput = function () {
-        output2.innerHTML = this.value;
-      };
-      slider3.oninput = function () {
-        output3.innerHTML = this.value;
-      };
+      function createSlider(symp) {
+        count += 1;
+        text +=
+          "<p><u>Symptom " +
+          count +
+          "</u>: " +
+          symp +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
+          count +
+          '" /><p>Intensity: <span id="s' +
+          count +
+          '"></span></p></div><br /><br />';
+      }
     }
-    load();
+    display();
+
+    // Loading the slider value for "Intensity: "
+    // function load() {
+    //   var slider1 = document.getElementById("slider1");
+    //   var output1 = document.getElementById("s1");
+
+    //   var slider2 = document.getElementById("slider2");
+    //   var output2 = document.getElementById("s2");
+
+    //   var slider3 = document.getElementById("slider3");
+    //   var output3 = document.getElementById("s3");
+
+    //   console.log("slider1 = " + slider1);       <--- slider value is null???
+    //   console.log("slider2 = " + slider2);       <--- slider value is null???
+    //   console.log("slider3 = " + slider3);       <--- slider value is null???
+
+    //   output1.innerHTML = slider1.value;
+    //   output2.innerHTML = slider2.value;
+    //   output3.innerHTML = slider3.value;
+
+    //   slider1.oninput = function () {
+    //     output1.innerHTML = this.value;
+    //   };
+    //   slider2.oninput = function () {
+    //     output2.innerHTML = this.value;
+    //   };
+    //   slider3.oninput = function () {
+    //     output3.innerHTML = this.value;
+    //   };
+    // }
+    // load();
+  },
+
+  methods: {
+    async confirmintensity() {
+      var intensity = [];
+      var count = document.getElementsByClassName("slider").length;
+
+      for (let i = 0; i < count; i++) {
+        let s_value = document.getElementById("s" + (i + 1)).innerHTML;
+        intensity.push(s_value);
+      }
+      console.log(intensity);
+      try {
+        const docRef = await setDoc(doc(db, "user_id", "intensity"), {
+          Intensity: intensity,
+        });
+        console.log(docRef);
+        alert(`Your symptoms intensity have been recorded!`);
+        this.$router.push({ path: "/med-facils" });
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
+    },
   },
 };
 </script>
