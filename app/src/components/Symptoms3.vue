@@ -52,7 +52,7 @@ export default {
           count +
           "</u>: " +
           symp +
-          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5.5" class="slider" id="slider' +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
           count +
           '" /><p>Intensity: <span id="s' +
           count +
