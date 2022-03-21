@@ -2,8 +2,8 @@
   <h1>Please select the intensity of the symptoms you are experiencing:</h1>
   <p><b>(1 - Not Severe,&nbsp; 10 - Very Severe)</b></p>
   <br />
-  <div id="confirmation">
-    <p><u>Symptom 1</u>: Flu</p>
+  <div id="intensity">
+    <!-- <p><u>Symptom 1</u>: Flu</p>
     <div class="slidecontainer">
       <input
         type="range"
@@ -42,7 +42,7 @@
         id="slider3"
       />
       <p>Intensity: <span id="s3"></span></p>
-    </div>
+    </div> -->
   </div>
   <br /><br />
   <input
@@ -54,34 +54,85 @@
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+
 export default {
   name: "Symptoms3",
+
   mounted() {
-    function load() {
-      var slider1 = document.getElementById("slider1");
-      var output1 = document.getElementById("s1");
+    async function display() {
+      let docSnap = await getDoc(doc(db, "user_id", "symptoms"));
+      let selected = docSnap.data().Symptoms;
+      console.log(
+        "Creating intensity sliders for the following symptoms: \n" + selected
+      );
 
-      var slider2 = document.getElementById("slider2");
-      var output2 = document.getElementById("s2");
+      let text = "";
+      let count = 0;
+      selected.forEach(createSlider);
+      document.getElementById("intensity").innerHTML = text;
 
-      var slider3 = document.getElementById("slider3");
-      var output3 = document.getElementById("s3");
+      function createSlider(symp) {
+        count += 1;
+        text +=
+          "<p><u>Symptom " +
+          count +
+          "</u>: " +
+          symp +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="' +
+          count +
+          '" class="slider" id="slider' +
+          count +
+          '" /><p>Intensity: <span id="s' +
+          count +
+          '"></span></p></div><br /><br />';
 
-      output1.innerHTML = slider1.value;
-      output2.innerHTML = slider2.value;
-      output3.innerHTML = slider3.value;
-
-      slider1.oninput = function () {
-        output1.innerHTML = this.value;
-      };
-      slider2.oninput = function () {
-        output2.innerHTML = this.value;
-      };
-      slider3.oninput = function () {
-        output3.innerHTML = this.value;
-      };
+        // $("#intensity").append(
+        //   "<p><u>Symptom " +
+        //     count +
+        //     "</u>: " +
+        //     symp +
+        //     '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="' +
+        //     count +
+        //     '" class="slider" id="slider' +
+        //     count +
+        //     '" /><p>Intensity: <span id="s' +
+        //     count +
+        //     '"></span></p></div>'
+        // );
+      }
     }
-    load();
+
+    // function load() {
+    //   var slider1 = document.getElementById("slider1");
+    //   var output1 = document.getElementById("s1");
+
+    //   var slider2 = document.getElementById("slider2");
+    //   var output2 = document.getElementById("s2");
+
+    //   var slider3 = document.getElementById("slider3");
+    //   var output3 = document.getElementById("s3");
+
+    //   output1.innerHTML = slider1.value;
+    //   output2.innerHTML = slider2.value;
+    //   output3.innerHTML = slider3.value;
+
+    //   slider1.oninput = function () {
+    //     output1.innerHTML = this.value;
+    //   };
+    //   slider2.oninput = function () {
+    //     output2.innerHTML = this.value;
+    //   };
+    //   slider3.oninput = function () {
+    //     output3.innerHTML = this.value;
+    //   };
+    // }
+    display();
+    // load();
   },
 };
 </script>
