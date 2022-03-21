@@ -10,14 +10,14 @@
     type="button"
     value="Confirm"
     id="confirmbutton"
-    v-on:click="this.$router.push({ path: '/med-facils' })"
+    v-on:click="confirmintensity()"
   />
 </template>
 
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
 
@@ -33,9 +33,17 @@ export default {
       );
 
       let text = "";
-      let count = 0;
+      var count = 0;
       selected.forEach(createSlider);
       document.getElementById("intensity").innerHTML = text;
+
+      for (let i = 0; i < count; i++) {
+        let slider_info = document.getElementById("slider" + (i + 1));
+        let span_info = document.getElementById("s" + (i + 1));
+        slider_info.oninput = function () {
+          span_info.innerHTML = this.value;
+        };
+      }
 
       function createSlider(symp) {
         count += 1;
@@ -44,7 +52,7 @@ export default {
           count +
           "</u>: " +
           symp +
-          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5.5" class="slider" id="slider' +
           count +
           '" /><p>Intensity: <span id="s' +
           count +
@@ -83,6 +91,29 @@ export default {
     //   };
     // }
     // load();
+  },
+
+  methods: {
+    async confirmintensity() {
+      var intensity = [];
+      var count = document.getElementsByClassName("slider").length;
+
+      for (let i = 0; i < count; i++) {
+        let s_value = document.getElementById("s" + (i + 1)).innerHTML;
+        intensity.push(s_value);
+      }
+      console.log(intensity);
+      try {
+        const docRef = await setDoc(doc(db, "user_id", "intensity"), {
+          Intensity: intensity,
+        });
+        console.log(docRef);
+        alert(`Your symptoms intensity have been recorded!`);
+        this.$router.push({ path: "/med-facils" });
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
+    },
   },
 };
 </script>
