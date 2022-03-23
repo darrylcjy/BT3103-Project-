@@ -1,6 +1,6 @@
 <template>
   <div id="heading">
-    <h1>Hello {{ name }},</h1>
+    <h1>Hello {{ this.name }},</h1>
     <h2>You have an appointment at the following clinic:</h2>
   </div>
 
@@ -85,6 +85,7 @@ export default {
 
       this.date = z.data().apptDate;
       this.time = z.data().apptTime;
+      this.name = z.data().name;
 
     },
     cancelAppt() {
