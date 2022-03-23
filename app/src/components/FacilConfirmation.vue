@@ -5,7 +5,7 @@
     <div class="details-container">
       <div class="name">
         <label>NRIC Name</label>
-        <div class="row-detail">{{ username }}</div>
+        <div class="row-detail">{{ this.name }}</div>
       </div>
 
       <br />
@@ -13,14 +13,12 @@
       <div class="row2">
         <div class="wait-time">
           <label>HP no.</label>
-          <div class="row2-details">
-            +65 9{{ Math.round(Math.random() * 10000000) }}
-          </div>
+          <div class="row2-details">+65 {{ this.phone }}</div>
         </div>
         <div class="queue-len">
           <label>Age</label>
           <div class="row2-details">
-            {{ userage }}
+            {{ this.age }}
           </div>
         </div>
       </div>
@@ -28,7 +26,12 @@
 
       <div class="symptom">
         <label>Symptoms</label>
-        <div class="row-detail">{{ symptoms }}</div>
+        <div class="row-detail">
+          <div v-for="symptom in list" :key="symptom.id">
+            Symptom: {{ symptom.symptom }} --- intensity:
+            {{ symptom.intensity }}
+          </div>
+        </div>
       </div>
 
       <br />
@@ -53,6 +56,7 @@
           value="2018-07-22"
           min="2018-12-31"
           max="2018-12-31"
+          required
         />
 
         <label for="appt-time">Appointment Time:</label>
@@ -61,6 +65,7 @@
           type="time"
           id="appt-time"
           name="appt"
+          value="09:00"
           min="07:00"
           max="19:00"
           required
@@ -79,8 +84,7 @@
     </button>
     <button
       id="next"
-      v-on:click="
-        this.$router.push({ path: '/facil-confirmation/active-appts' })"     
+      v-on:click="save()"
     >
       Confirm
     </button>
@@ -88,17 +92,41 @@
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const db = getFirestore(firebaseApp);
+
 export default {
   data() {
     return {
-      username: "John Doe",
+      name: "",
+      age: "",
+      phone: "",
+      email: "", 
       // replace this when clinic data can be obtained
-      symptoms: "Symptom 1: Flu (6 - Mild)",
       clinicName: "1 BISHAN MEDICAL",
-      userage: Math.floor(Math.random() * 10),
+      symptoms: [],
+      intensity: [],
     };
   },
+  computed: {
+    list() {
+      return this.symptoms.map((itm, i) => {
+        return { symptom: itm, intensity: this.intensity[i] };
+      });
+    },
+  },
   mounted() {
+    const auth = getAuth();
+    this.email = auth.currentUser.email
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.display(user);
+      }
+    });
+
     function setMinDate() {
       var today = new Date();
       var dd = today.getDate();
@@ -121,10 +149,40 @@ export default {
       document.getElementById("appt-date").setAttribute("max", maxDate);
     }
     setMinDate();
-  }, 
-  
-};
+  },
 
+  methods: {
+    async display(user) {
+      let z = await getDoc(doc(db, "details", String(user.email)));
+
+      let data = z.data();
+      this.name = data.name;
+      this.phone = data.phone;
+      this.age = data.age;
+      
+      this.symptoms = data.symptoms;
+      this.intensity = data.intensity;
+    },
+
+    async save() {
+      try {
+        const apptDate = document.getElementById("appt-date").value;
+        const apptTime = document.getElementById("appt-time").value;
+
+        const docRef = doc(db, "details", this.email); 
+        await updateDoc(docRef, {
+          apptDate: apptDate,
+          apptTime: apptTime,
+        });
+        console.log(docRef);
+        alert("Updated Appointment Details Successfully");
+        this.$router.push({ path: '/facil-confirmation/active-appts' })
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -132,7 +190,7 @@ export default {
   text-align: left;
   padding: 10px;
   width: 850px;
-  height: 30px;
+  height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 25px;
