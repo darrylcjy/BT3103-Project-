@@ -113,7 +113,7 @@ export default {
     async confirmintensity() {
       var intensity = [];
       var count = document.getElementsByClassName("slider").length;
-
+      
       for (let i = 0; i < count; i++) {
         let s_value = document.getElementById("s" + (i + 1)).innerHTML;
         intensity.push(s_value);
