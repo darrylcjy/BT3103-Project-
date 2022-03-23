@@ -6,9 +6,11 @@
       <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Click here</button>
     </div>
     <div class="latest">
-      <h1 class="news">Latest News</h1><hr>
-      <button @click="updateMe()">Click to update</button><br><br>
-      <line-chart class="numbers" :data="chartdata"></line-chart>
+      <br><br>
+      <h1 class="news">Latest Singapore COVID-19 Numbers</h1><hr>
+      <!-- <button @click="updateMe()">Click to update</button><br><br>
+      <line-chart class="numbers" :data="chartdata"></line-chart> -->
+      <iframe class="numbers" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0"> </iframe>
     </div>
   </div>
 </template>
@@ -70,15 +72,12 @@ export default {
     color: white
   }
 
-  .latest {
-
-  }
-
   .news {
     text-align: left;
   }
 
   .numbers {
-
+    width: 1000px;
+    height: 500px;
   }
 </style>

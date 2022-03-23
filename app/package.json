@@ -10,7 +10,7 @@
   "dependencies": {
     "chart.js": "^3.7.1",
     "core-js": "^3.6.5",
-    "firebase": "^9.6.8",
+    "firebase": "^9.6.9",
     "firebaseui": "^0.600.0",
     "vue": "^3.0.0",
     "vue-chartkick": "^1.1.0",
