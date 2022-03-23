@@ -5,11 +5,14 @@
       <h2>
         <b
           >{{ name }}, for the symptoms you present, we reccommend you to visit
-          a <u>{{ facilType }}</u
-          >.</b
+          a
+          <u
+            ><div v-if="this.emergency">Hospital Emergency Department.</div>
+            <div v-else>GP clinic/ Polyclinic.</div></u
+          ></b
         >
       </h2>
-      <h2>The following are the closest {{ facilType }}s to you:</h2>
+      <h2>The following are the closest recommended facilities to you:</h2>
       <br /><br />
     </div>
 
@@ -32,7 +35,7 @@
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -41,7 +44,7 @@ export default {
       name: "",
       email: "",
       // replace this when clinic data can be obtained
-      facilType: "GP/ Polyclinic",
+      emergency: false,
       clinicName: "1 BISHAN MEDICAL",
       location: "283 BISHAN STREET 22",
       unitno: "#01-191",
@@ -51,18 +54,35 @@ export default {
       // have given up on trying to get data from .py file -- just manual copy paste the array inside
       polyclinics: [],
       hospitals: [],
+      symptoms: [],
     };
   },
   mounted() {
     const auth = getAuth();
-    this.email = auth.currentUser.email
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.display(user);
+      }
+    });
   },
   methods: {
-    async display() {
-      let z = await getDoc(doc(db, "details", String(this.email)));
+    async display(user) {
+      let z = await getDoc(doc(db, "details", String(user.email)));
 
       let data = z.data();
       this.name = data.name;
+      this.symptoms = data.symptoms;
+
+      const severe = [
+        "Bluish lips and/or face",
+        "Chest pain",
+        "Hard time staying awake",
+        "Sudden confusion",
+        "Shortness of breath",
+      ];
+
+      // conditional rendering of gp vs hospital 
+      this.emergency = severe.some((i) => this.symptoms.includes(i));
     },
   },
 };
