@@ -30,6 +30,7 @@
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { getDoc, doc } from "firebase/firestore";
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 const db = getFirestore(firebaseApp);
 
@@ -37,11 +38,21 @@ export default {
   name: "Symptoms2",
 
   mounted() {
-    async function display() {
-      let docSnap = await getDoc(doc(db, "user_id", "symptoms"));
-      let selected = docSnap.data().Symptoms;
-      console.log("The user displays the following symptoms: \n" + selected);
+    const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.display(user)
+            }
+        }); 
+  },
 
+  methods: {
+    async display(user) {
+      let docSnap = await getDoc(doc(db, "details", String(user.email)));
+
+      let selected = docSnap.data().symptoms;
+      console.log("The user displays the following symptoms: \n" + selected);
+      
       let text = "";
       let count = 0;
       selected.forEach(appendFunction);
@@ -50,10 +61,11 @@ export default {
       function appendFunction(symp) {
         count += 1;
         text += "<u>Symptom " + count + "</u>: " + symp + "<br><br>";
+
       }
+
     }
-    display();
-  },
+  }
 };
 </script>
 
