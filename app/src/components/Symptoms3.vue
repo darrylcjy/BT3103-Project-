@@ -17,50 +17,29 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 const db = getFirestore(firebaseApp);
 
 export default {
   name: "Symptoms3",
 
+  data() {
+    return {
+            email: "",
+        }
+  }, 
+
   mounted() {
-    async function display() {
-      let docSnap = await getDoc(doc(db, "user_id", "symptoms"));
-      let selected = docSnap.data().Symptoms;
-      console.log(
-        "Creating intensity sliders for the following symptoms: \n" + selected
-      );
-
-      let text = "";
-      var count = 0;
-      selected.forEach(createSlider);
-      document.getElementById("intensity").innerHTML = text;
-
-      for (let i = 0; i < count; i++) {
-        let slider_info = document.getElementById("slider" + (i + 1));
-        let span_info = document.getElementById("s" + (i + 1));
-        span_info.innerHTML = slider_info.value;
-        slider_info.oninput = function () {
-          span_info.innerHTML = this.value;
-        };
-      }
-
-      function createSlider(symp) {
-        count += 1;
-        text +=
-          "<p><u>Symptom " +
-          count +
-          "</u>: " +
-          symp +
-          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
-          count +
-          '" /><p>Intensity: <span id="s' +
-          count +
-          '"></span></p></div><br /><br />';
-      }
-    }
-    display();
+    const auth = getAuth();
+    this.email = auth.currentUser.email
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.display(user)
+            }
+        }); 
+    },
 
     // Loading the slider value for "Intensity: "
     // function load() {
@@ -92,9 +71,45 @@ export default {
     //   };
     // }
     // load();
-  },
 
   methods: {
+    async display(user) {
+      let docSnap = await getDoc(doc(db, "details", String(user.email)));
+      let selected = docSnap.data().symptoms;
+      console.log(selected)
+      console.log(
+        "Creating intensity sliders for the following symptoms: \n" + selected
+      );
+
+      let text = "";
+      var count = 0;
+      selected.forEach(createSlider);
+      document.getElementById("intensity").innerHTML = text;
+
+      for (let i = 0; i < count; i++) {
+        let slider_info = document.getElementById("slider" + (i + 1));
+        let span_info = document.getElementById("s" + (i + 1));
+        span_info.innerHTML = slider_info.value;
+        slider_info.oninput = function () {
+          span_info.innerHTML = this.value;
+        };
+      }
+
+      function createSlider(symp) {
+        count += 1;
+        text +=
+          "<p><u>Symptom " +
+          count +
+          "</u>: " +
+          symp +
+          '</p><div class="slidecontainer"><input type="range" min="1" max="10" value="5" class="slider" id="slider' +
+          count +
+          '" /><p>Intensity: <span id="s' +
+          count +
+          '"></span></p></div><br /><br />';
+      }
+    }, 
+
     async confirmintensity() {
       var intensity = [];
       var count = document.getElementsByClassName("slider").length;
@@ -104,9 +119,10 @@ export default {
         intensity.push(s_value);
       }
       console.log(intensity);
+
       try {
-        const docRef = await setDoc(doc(db, "user_id", "intensity"), {
-          Intensity: intensity,
+        const docRef = await updateDoc(doc(db, "details", String(this.email)), {
+          intensity: arrayUnion(...intensity),
         });
         console.log(docRef);
         alert(`Your symptoms intensity have been recorded!`);
