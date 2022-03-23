@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="welcome">
-      <h1 class="heading">Welcome, {{text}}</h1>
+      <h1 class="heading">Welcome, {{user.displayName}}</h1>
     </div>
     <div class="header">
       <h1>COVID Resources</h1><hr>
@@ -24,13 +24,24 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 export default {
   name: 'UserHome',
   
   data(){
     return{
-      text:"John Doe"
+      user: false,
     }
+  },
+
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    })
   }
 }
 </script>
