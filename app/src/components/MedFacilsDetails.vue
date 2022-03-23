@@ -4,8 +4,8 @@
     <div class="header">
       <h2>
         <b
-          >{{ username }}, for the symptoms you present, we reccommend you to
-          visit a <u>{{ facilType }}</u
+          >{{ name }}, for the symptoms you present, we reccommend you to visit
+          a <u>{{ facilType }}</u
           >.</b
         >
       </h2>
@@ -13,11 +13,12 @@
       <br /><br />
     </div>
 
-    <div
-      class="scrollable"
-    >
+    <div class="scrollable">
       <!-- add v-for when clinic list obtained -->
-      <div class="card" v-on:click="this.$router.push({path: '/facil-details'})">
+      <div
+        class="card"
+        v-on:click="this.$router.push({ path: '/facil-details' })"
+      >
         <h3 id="scrollspyHeading1">{{ clinicName }}</h3>
         <h4>{{ location }} {{ unitno }} {{ postalCode }}</h4>
         <h4>Distance: {{ dist }}km away</h4>
@@ -28,12 +29,17 @@
 </template>
 
 <script>
-//import FacilDetails from "@/views/FacilDetails";
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+const db = getFirestore(firebaseApp);
 
 export default {
   data() {
     return {
-      username: "John Doe",
+      name: "",
+      email: "",
       // replace this when clinic data can be obtained
       facilType: "GP/ Polyclinic",
       clinicName: "1 BISHAN MEDICAL",
@@ -42,21 +48,23 @@ export default {
       postalCode: "SINGAPORE 750283",
       dist: Math.round(Math.random() * 100) / 10,
       queueLen: Math.floor(Math.random() * 11),
+      // have given up on trying to get data from .py file -- just manual copy paste the array inside
+      polyclinics: [],
+      hospitals: [],
     };
   },
   mounted() {
-    async function getClinicData() {
-      console.log("something");
-      
-    }
-    getClinicData();
+    const auth = getAuth();
+    this.email = auth.currentUser.email
   },
-  
-  /*
-  components:{
-    FacilDetails
-  }
-  */
+  methods: {
+    async display() {
+      let z = await getDoc(doc(db, "details", String(this.email)));
+
+      let data = z.data();
+      this.name = data.name;
+    },
+  },
 };
 </script>
 
@@ -65,16 +73,16 @@ export default {
   text-align: left;
   padding: 10px;
   width: 850px;
-  height: 200px;
+  height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 18px;
 }
-.card:hover{
+.card:hover {
   background-color: skyblue;
 }
-.scrollable{
-  overflow: scroll; 
+.scrollable {
+  overflow: scroll;
   width: 900px;
   margin: auto;
   height: 600px;
