@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="welcome">
-      <h1 class="heading">Welcome, {{user.displayName}}</h1>
+      <h1 class="heading">Welcome, {{ name }}</h1>
     </div>
     <div class="header">
       <h1>COVID Resources</h1><hr>
@@ -24,14 +24,18 @@
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+const db = getFirestore(firebaseApp);
 
 export default {
   name: 'UserHome',
   
   data(){
     return{
-      user: false,
+      name: "",
     }
   },
 
@@ -39,9 +43,19 @@ export default {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.user = user;
+        this.display(user);
       }
     })
+  },
+  
+  methods: {
+    async display(user) {
+      let z = await getDoc(doc(db, "details", String(user.email)));
+
+      let data = z.data();
+      this.name = data.name;
+      console.log(this.name)
+  }
   }
 }
 </script>
