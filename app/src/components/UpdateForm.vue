@@ -65,7 +65,7 @@
 import firebaseApp from "../firebase.js";
 import {getFirestore} from "firebase/firestore";
 import {doc, setDoc, getDoc} from "firebase/firestore";
-import {getAuth} from 'firebase/auth'
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 const db = getFirestore(firebaseApp);
 
 
@@ -75,6 +75,16 @@ export default {
             email: "",
         }
     },
+
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.getData();
+      }
+    })
+    },
+
     methods: {
         async getData() {
             const auth = getAuth()
@@ -92,6 +102,9 @@ export default {
         },
         async save() {
             try {
+                const auth = getAuth()
+                this.email = auth.currentUser.email
+
                 const nameval = document.getElementById("name").value.trim()
                 const phoneval = document.getElementById("phone").value.split(" ").join("")
                 const ageval = document.getElementById("age").value
