@@ -12,8 +12,10 @@
       <thead>
         <tr>
           <!-- Temporary fix to align table header alignment -->
-          <th>---------- Symptoms -----------------</th>
-          <th>Select ----------------</th>
+          <th>
+            ------------------- Symptoms ---------------------------------------
+          </th>
+          <th>Select ---------------------------------</th>
           <!-- <th>Symptoms</th>
           <th>Select</th> -->
         </tr>
