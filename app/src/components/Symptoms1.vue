@@ -4,10 +4,16 @@
   <br />
   <p>
     Do you have any symptoms:
-    <input type="radio" name="symptomscheck" value="Yes" />Yes
-    <input type="radio" name="symptomscheck" value="No" />No <br />
+    <input
+      type="radio"
+      name="symptomscheck"
+      v-model="FormEntry"
+      value="Yes"
+    />Yes
+    <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" />No
+    <br />
   </p>
-  <div id="scrollable" style="text-align: left">
+  <div id="scrollable" style="text-align: left" v-if="FormEntry == 'Yes'">
     <table id="symptoms">
       <thead>
         <tr>
@@ -195,6 +201,7 @@ export default {
   data() {
     return {
       email: "",
+      FormEntry: "",
     };
   },
 
@@ -213,9 +220,6 @@ export default {
       var flu = document.getElementById("checkbox11");
       var headache = document.getElementById("checkbox12");
       var tastesmell = document.getElementById("checkbox13");
-
-      console.log(aches);
-      console.log(chestpain);
 
       var selected = [];
       if (aches.checked) {
