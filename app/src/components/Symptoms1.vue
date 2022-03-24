@@ -4,10 +4,16 @@
   <br />
   <p>
     Do you have any symptoms:
-    <input type="radio" name="symptomscheck" value="Yes" />Yes
-    <input type="radio" name="symptomscheck" value="No" />No <br />
+    <input
+      type="radio"
+      name="symptomscheck"
+      v-model="FormEntry"
+      value="Yes"
+    />Yes
+    <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" />No
+    <br />
   </p>
-  <div id="scrollable" style="text-align: left">
+  <div id="scrollable" style="text-align: left" v-show="FormEntry == 'Yes'">
     <table id="symptoms">
       <thead>
         <tr>
@@ -15,7 +21,7 @@
           <th>
             ------------------- Symptoms ---------------------------------------
           </th>
-          <th>Select --------------------------------------</th>
+          <th>Select ---------------------------------</th>
           <!-- <th>Symptoms</th>
           <th>Select</th> -->
         </tr>
@@ -34,7 +40,7 @@
           </td>
         </tr>
 
-         <tr>
+        <tr>
           <td>Chest pain</td>
           <td>
             <input
@@ -70,8 +76,7 @@
           </td>
         </tr>
 
-
-         <tr>
+        <tr>
           <td>Shortness of breath</td>
           <td>
             <input
@@ -107,7 +112,6 @@
             />&nbsp;
           </td>
         </tr>
-
 
         <tr>
           <td>Cough</td>
@@ -175,9 +179,6 @@
             />&nbsp;
           </td>
         </tr>
-       
-
-
       </tbody>
     </table>
   </div>
@@ -190,8 +191,8 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import {getAuth} from 'firebase/auth'
+import { doc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -199,9 +200,10 @@ export default {
 
   data() {
     return {
-            email: "",
-        }
-  }, 
+      email: "",
+      FormEntry: "",
+    };
+  },
 
   methods: {
     async confirmsymptoms() {
@@ -218,9 +220,6 @@ export default {
       var flu = document.getElementById("checkbox11");
       var headache = document.getElementById("checkbox12");
       var tastesmell = document.getElementById("checkbox13");
-
-      console.log(aches);
-      console.log(chestpain);
 
       var selected = [];
       if (aches.checked) {
@@ -270,17 +269,22 @@ export default {
           Symptoms: selected,
         });
         */
-      // get corresponding user 
-      const auth = getAuth()
-      this.email = auth.currentUser.email
-    
-       const docRef = doc(db, "details", this.email); 
-       await updateDoc(docRef, {
-         symptoms: arrayUnion(...selected)
-       })
+        // get corresponding user
+        const auth = getAuth();
+        this.email = auth.currentUser.email;
+
+        const docRef = doc(db, "details", this.email);
+        await updateDoc(docRef, {
+          symptoms: selected,
+        });
         console.log(docRef);
-        alert(`Your symptoms have been recorded!`);
-        this.$router.push({ path: "/confirmation" });
+        if (this.FormEntry == "Yes") {
+          alert(`Your symptoms have been recorded!`);
+          this.$router.push({ path: "/confirmation" });
+        } else {
+          alert(`<insert different message>!`);
+          this.$router.push({ path: "/self-isolation-checkout" });
+        }
       } catch (error) {
         console.error("Error adding document: ", error);
       }
@@ -301,8 +305,8 @@ table {
   margin-right: auto;
   font-size: 20px;
 }
-td {
-  border: 2px solid black;
+th {
+  text-align: center;
 }
 thead {
   background-color: #f5f5dd;
@@ -316,10 +320,11 @@ td {
   display: inline-block;
   width: 49.5%;
   box-sizing: border-box;
+  border: 2px solid black;
 }
 input[type="checkbox"] {
   transform: scale(2);
-  width: 200px;
+  width: 300px;
 }
 tr,
 tbody {
