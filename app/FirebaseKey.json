@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "covidcare-9c38b",
+    "private_key_id": "330df50b7013c9abbd069cf388ba06c5907436c7",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCfTO1zRtx9K5Rz\nMUBHpbyCQSdBSkrancKKIgtlIS77wzD9wEKVq6ygIvUxhGtSwiMGS9FLZ6nJjQ+n\nUu3hi3fEW4dUK1c1HZ7T1C7G3Xkc58wWPlrvXfvru59cuPBIHmUN4WdNKikfxG7i\nUkuzeR2FgA9ZvFP2CpwZMuVUrR9WtnAOlFhE7I5che6psAXFQlpN0mFADcjucE1L\ne344gUXlfJUI5HaS/8NAPwNaaosB7ig3k+52Z+WRdom3/0jX4QtysPhTMFZSNpN5\nJ4eOr+72y1zUP+pzg4j5g+ET/7GbHyIweNbkmQ2s+Yuxu3rKWOYLrV2DZotHGdmG\nmZo6i1bPAgMBAAECggEANjcnvyp4Qw9wbA3wixHgiNIkyoc+142Glp2ElEwJYfzp\n8QqcfrTZQPz0xwACyL0yz2NBXXDv650bHT7PoAnn3oeqFJ7VhMnKctyNePgKTqij\nIFTjfQDXCsEluRhmCp1xlhpHHo+BRIMFm/gXNIM9ZWCSmN9MEfpFaxwTydBL0KYn\ngCT8KjdMj8C62NoFTEEUwcbWdZUHJ6/P0XECJzJ/Pbo9kBhZsqacyYWS11QbHU70\nfuFcrQowczjzeCxUPAFPOhxIdgg3Y/KfTHIaUPuox46HERdjblYx/Pb6khzHElOY\nygg36QiNstvtCPkm8G3fBIb6+AvGtyDFM2eV1Wm4zQKBgQDeTuDgNZIKwVL4K76v\nhv8hsuOlU4w+AjISQm0BkC3T9yTQbivBJlRC0BvvMZsH9oa2maKNfWWHL7KK0MZj\nNk+MXMv0OuoydfWIn4Ob27nf7abq3RDd18r63A/HwSPhryREF1/XVZVeKjvWSOR/\neXmTsZ7RA6YIQjQYiuHCwgo7vQKBgQC3cXntv3zeamkc0fWmlSSX4DieKGm62Dz5\nSJkZhKnjebPyPC6rzmuXBjOFl7xMmKPEHoEJTYrpMpUtQPG4ZnJ8vrqDk9yZfc43\n9jKN6889IfQFKcbysfrnIftVC7qCEw2dX/oVk0pJa1e86r7qFN1I+FfWpi598nnr\nPc7c4ePfewKBgFXPWqwQ4ZN3NiCHOi6kzDxkwcxiKIMS8+LqcwskbRwhjLtLm2YN\n9n5nuDCnFDGJrkwzl3RID/WTqrY8iidnomMKustGJnpd3+3hrLpvoRrXsBN+S3Fm\nR3p3kTvIyKHnqfcCksMazPIxGTHIpzKxYAVrjWMepmsPqu5CRYyYu7x9AoGAP/el\nAd+lJlXK447fb0BQq1k3xQbon4vp7y9+m6RkLXtx4UVVLPnlEJvL+YjI05jiem/8\npQbSKrFFzar430lyIMfNeDZmVWvGLkN+q3iQIowlcGt6AYVIrbJu1uApIFSOidM+\n/KkI3YM97BWbjzrJUzmuP55hVe/ozbwW13U5peMCgYAgYbvxaPeVMaqIrjZopVGe\nTXqUPDxkTCuTvyZcGCdc9xnMjNMwUsx1J9Q9KlW+4nWELpyvUfrB0AfuN74y0oml\n+Ci0gV8PApUVZs5RqJF0WLrerIAEy4Ol6YLo53mTFOK9thXDrAFYdqrfjApmj+pT\n+xTtldR8DEOYlqOQkqVv/w==\n-----END PRIVATE KEY-----\n",
+    "client_email": "covidcare-9c38b@appspot.gserviceaccount.com",
+    "client_id": "117437609066207273878",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/covidcare-9c38b%40appspot.gserviceaccount.com"
+  }
+  
