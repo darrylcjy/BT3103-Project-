@@ -54,7 +54,6 @@
       </div>
     
       <div class="btn">
-          <button class="data-btn" @click="getData()">Past Inputs</button>
           <button class="details-btn" @click="save()" type= "submit">Update</button>
       </div>
   </form>
