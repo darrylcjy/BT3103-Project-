@@ -13,7 +13,7 @@
     <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" />No
     <br />
   </p>
-  <div id="scrollable" style="text-align: left" v-if="FormEntry == 'Yes'">
+  <div id="scrollable" style="text-align: left" v-show="FormEntry == 'Yes'">
     <table id="symptoms">
       <thead>
         <tr>
@@ -278,8 +278,13 @@ export default {
           symptoms: selected,
         });
         console.log(docRef);
-        alert(`Your symptoms have been recorded!`);
-        this.$router.push({ path: "/confirmation" });
+        if (this.FormEntry == "Yes") {
+          alert(`Your symptoms have been recorded!`);
+          this.$router.push({ path: "/confirmation" });
+        } else {
+          alert(`<insert different message>!`);
+          this.$router.push({ path: "/self-isolation-checkout" });
+        }
       } catch (error) {
         console.error("Error adding document: ", error);
       }
