@@ -12,10 +12,8 @@
       <thead>
         <tr>
           <!-- Temporary fix to align table header alignment -->
-          <th>
-            ------------------- Symptoms ---------------------------------------
-          </th>
-          <th>Select --------------------------------------</th>
+          <th>---------- Symptoms -----------------</th>
+          <th>Select ----------------</th>
           <!-- <th>Symptoms</th>
           <th>Select</th> -->
         </tr>
@@ -34,7 +32,7 @@
           </td>
         </tr>
 
-         <tr>
+        <tr>
           <td>Chest pain</td>
           <td>
             <input
@@ -70,8 +68,7 @@
           </td>
         </tr>
 
-
-         <tr>
+        <tr>
           <td>Shortness of breath</td>
           <td>
             <input
@@ -107,7 +104,6 @@
             />&nbsp;
           </td>
         </tr>
-
 
         <tr>
           <td>Cough</td>
@@ -175,9 +171,6 @@
             />&nbsp;
           </td>
         </tr>
-       
-
-
       </tbody>
     </table>
   </div>
@@ -190,8 +183,8 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import {getAuth} from 'firebase/auth'
+import { doc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -199,9 +192,9 @@ export default {
 
   data() {
     return {
-            email: "",
-        }
-  }, 
+      email: "",
+    };
+  },
 
   methods: {
     async confirmsymptoms() {
@@ -270,14 +263,14 @@ export default {
           Symptoms: selected,
         });
         */
-      // get corresponding user 
-      const auth = getAuth()
-      this.email = auth.currentUser.email
-    
-       const docRef = doc(db, "details", this.email); 
-       await updateDoc(docRef, {
-         symptoms: arrayUnion(...selected)
-       })
+        // get corresponding user
+        const auth = getAuth();
+        this.email = auth.currentUser.email;
+
+        const docRef = doc(db, "details", this.email);
+        await updateDoc(docRef, {
+          symptoms: selected,
+        });
         console.log(docRef);
         alert(`Your symptoms have been recorded!`);
         this.$router.push({ path: "/confirmation" });
@@ -301,8 +294,8 @@ table {
   margin-right: auto;
   font-size: 20px;
 }
-td {
-  border: 2px solid black;
+th {
+  text-align: center;
 }
 thead {
   background-color: #f5f5dd;
@@ -316,10 +309,11 @@ td {
   display: inline-block;
   width: 49.5%;
   box-sizing: border-box;
+  border: 2px solid black;
 }
 input[type="checkbox"] {
   transform: scale(2);
-  width: 200px;
+  width: 300px;
 }
 tr,
 tbody {
