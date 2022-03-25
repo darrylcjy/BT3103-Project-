@@ -44,7 +44,7 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
@@ -88,18 +88,19 @@ export default {
       this.name = z.data().name;
 
     },
-    cancelAppt() {
-      var positive = window.confirm(
-        "Would you like to make another appointment?"
-      );
-      if (positive) {
-        // user answers in positive: ie: want to make new appt
-        this.$router.push({ path: "/facil-confirmation" });
-      } else {
-        // clear the active appointments page & replace with "you have no appts!"
-
-        // route them back to list of medical facilities (idk)
-        this.$router.push({ path: "/med-facils" });
+    async cancelAppt() {
+      try {
+        var positive = window.confirm("Would you like to cancel your appointment?")
+        if (positive) {   //  user wants to cancel appointment, delete from database
+          console.log("User wants to cancel appointment")
+          const auth = getAuth();
+          const user = auth.currentUser.email;
+          await deleteDoc(doc(db, "Appointments", user))
+          console.log("Document deleted successfully")
+          this.$router.push({ path: "/user-home" });
+        }
+      } catch (error) {
+        console.error("The erorr is ", error);
       }
     },
   },

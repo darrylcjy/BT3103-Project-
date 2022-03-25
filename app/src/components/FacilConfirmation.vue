@@ -93,8 +93,8 @@
 
 <script>
 import firebaseApp from "../firebase.js";
-import { getFirestore, updateDoc } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
@@ -168,11 +168,14 @@ export default {
       try {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
+        const apptClinc = this.clinicName
 
-        const docRef = doc(db, "details", this.email); 
-        await updateDoc(docRef, {
+        // Appointment as Collection > User Email as Document > appt date
+        const docRef = doc(db, "Appointments", this.email); 
+        await setDoc(docRef, {
           apptDate: apptDate,
           apptTime: apptTime,
+          apptClinc: apptClinc,
         });
         console.log(docRef);
         alert("Updated Appointment Details Successfully");
