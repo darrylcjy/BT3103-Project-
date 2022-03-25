@@ -1,44 +1,55 @@
 <template>
   <div id="heading">
     <h1>Hello {{ this.name }},</h1>
+  </div>
+
+  <!-- if user has an appointment, render this div -->
+    <!-- note to self: on mounted, display() method called, which calls hasAppointment() method,  
+      which changes this.appt data, and the value is passed into v-if condition-->
+  <div id="appointment" v-if=this.appt>
     <h2>You have an appointment at the following clinic:</h2>
+
+    <!-- <h2> Venue: </h2> -->
+    <label> Venue </label>
+    <div id="venue">
+      {{ clinicName }} <br />
+      {{ location }}
+      {{ unitno }}
+      {{ postalCode }} <br /><br />
+      Distance: {{ dist }} km away
+    </div>
+
+    <br /><br />
+
+    <!-- <h2> Date:</h2> -->
+    <label> Date </label>
+    <div id="date">
+      {{ this.date }} <br />
+      {{ day }}
+    </div>
+
+    <br /><br />
+
+    <!-- <h2> Time: </h2> -->
+    <label> Time </label>
+    <div id="time">
+      {{ this.time }}
+    </div>
+
+    <br /><br />
+    <p id="text">
+      Get directions <a v-bind:href="website" target="_blank">here</a>
+    </p>
+    <button id="cancel" v-on:click="cancelAppt()">Cancel Appointment</button>
+    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+      Back to Home
+    </button>
   </div>
 
-  <!-- <h2> Venue: </h2> -->
-  <label> Venue </label>
-  <div id="venue">
-    {{ clinicName }} <br />
-    {{ location }}
-    {{ unitno }}
-    {{ postalCode }} <br /><br />
-    Distance: {{ dist }} km away
-  </div>
-
-  <br /><br />
-
-  <!-- <h2> Date:</h2> -->
-  <label> Date </label>
-  <div id="date">
-    {{ this.date }} <br />
-    {{ day }}
-  </div>
-
-  <br /><br />
-
-  <!-- <h2> Time: </h2> -->
-  <label> Time </label>
-  <div id="time">
-    {{ this.time }}
-  </div>
-
-  <br />
-  <p id="text">
-    Get directions <a v-bind:href="website" target="_blank">here</a>
-  </p>
-  <button id="cancel" v-on:click="cancelAppt()">Cancel Appointment</button>
-  <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
-    Back to Home
-  </button>
+ <!-- if user does not have an appointment, render this div -->
+ <div id="non-appointment" v-else> 
+   <h2>You have no active appointments</h2>
+</div>
 </template>
 
 <script>
@@ -55,6 +66,8 @@ export default {
     return {
       name: "",
       email: "",
+
+      appt: false,
 
       clinicName: "1 BISHAN MEDICAL",
       location: "283 BISHAN STREET 22",
@@ -80,6 +93,7 @@ export default {
     });
   },
   methods: {
+    
     async display(user) {
       let z = await getDoc(doc(db, "details", String(user.email)));
 
@@ -87,7 +101,9 @@ export default {
       this.time = z.data().apptTime;
       this.name = z.data().name;
 
+      this.hasAppointment()
     },
+
     async cancelAppt() {
       try {
         var positive = window.confirm("Would you like to cancel your appointment?")
@@ -103,6 +119,25 @@ export default {
         console.error("The erorr is ", error);
       }
     },
+
+    async hasAppointment() {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser.email;
+        const docRef = doc(db, "Appointments", user)
+        const hasAppt = await getDoc(docRef)
+        // console.log(hasAppt)
+        if (hasAppt._document) {
+          console.log("User has an existing appointment");
+          this.appt = true;
+        } else {
+          console.log("User does not have an existing appointment");
+          this.appt = false;
+        }
+      } catch (error) {
+        console.error("The error is ", error)
+      }
+    }
   },
 };
 </script>
