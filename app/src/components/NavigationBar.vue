@@ -19,7 +19,7 @@
             <button id="profile-button"> My Profile </button>
             <div id="profile-content">
                 <a href="#" v-on:click="this.$router.push({path: '/profile'})">Profile</a>
-                <a href="#">Logout</a>
+                <a href="#" v-on:click="signOut()">Logout</a>
             </div>
         </div>
 
@@ -33,8 +33,17 @@
 </template>
 
 <script>
-export default {
+import { getAuth, signOut } from "firebase/auth";
 
+export default {
+    methods: {
+        signOut() {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            signOut(auth, user)
+            this.$router.push({path: '/'})
+        }
+    }
 }
 </script>
 

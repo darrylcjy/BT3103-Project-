@@ -17,8 +17,8 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
-import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
 
@@ -27,56 +27,25 @@ export default {
 
   data() {
     return {
-            email: "",
-        }
-  }, 
+      email: "",
+    };
+  },
 
   mounted() {
     const auth = getAuth();
-    this.email = auth.currentUser.email
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                this.display(user)
-            }
-        }); 
-    },
-
-    // Loading the slider value for "Intensity: "
-    // function load() {
-    //   var slider1 = document.getElementById("slider1");
-    //   var output1 = document.getElementById("s1");
-
-    //   var slider2 = document.getElementById("slider2");
-    //   var output2 = document.getElementById("s2");
-
-    //   var slider3 = document.getElementById("slider3");
-    //   var output3 = document.getElementById("s3");
-
-    //   console.log("slider1 = " + slider1);       <--- slider value is null???
-    //   console.log("slider2 = " + slider2);       <--- slider value is null???
-    //   console.log("slider3 = " + slider3);       <--- slider value is null???
-
-    //   output1.innerHTML = slider1.value;
-    //   output2.innerHTML = slider2.value;
-    //   output3.innerHTML = slider3.value;
-
-    //   slider1.oninput = function () {
-    //     output1.innerHTML = this.value;
-    //   };
-    //   slider2.oninput = function () {
-    //     output2.innerHTML = this.value;
-    //   };
-    //   slider3.oninput = function () {
-    //     output3.innerHTML = this.value;
-    //   };
-    // }
-    // load();
+    this.email = auth.currentUser.email;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.display(user);
+      }
+    });
+  },
 
   methods: {
     async display(user) {
       let docSnap = await getDoc(doc(db, "details", String(user.email)));
       let selected = docSnap.data().symptoms;
-      console.log(selected)
+      console.log(selected);
       console.log(
         "Creating intensity sliders for the following symptoms: \n" + selected
       );
@@ -108,21 +77,21 @@ export default {
           count +
           '"></span></p></div><br /><br />';
       }
-    }, 
+    },
 
     async confirmintensity() {
-      var intensity = [];
+      var Intensity = [];
       var count = document.getElementsByClassName("slider").length;
-      
+
       for (let i = 0; i < count; i++) {
         let s_value = document.getElementById("s" + (i + 1)).innerHTML;
-        intensity.push(s_value);
+        Intensity.push(s_value);
       }
-      console.log(intensity);
+      console.log(Intensity);
 
       try {
         const docRef = await updateDoc(doc(db, "details", String(this.email)), {
-          intensity: arrayUnion(...intensity),
+          intensity: Intensity,
         });
         console.log(docRef);
         alert(`Your symptoms intensity have been recorded!`);
