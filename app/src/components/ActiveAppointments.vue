@@ -48,7 +48,13 @@
 
  <!-- if user does not have an appointment, render this div -->
  <div id="non-appointment" v-else> 
-   <h2>You have no active appointments</h2>
+
+   <h2>You have <u>no</u> active appointments</h2>
+   <img src="../assets/cancelled.png" alt="No icon found"> <br>
+   <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button>
+   <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+      Back to Home
+    </button>
 </div>
 </template>
 
@@ -177,7 +183,8 @@ export default {
 }
 
 #cancel,
-#back {
+#back,
+#query {
   all: unset;
   font-size: 1.5rem;
   background-color: #f5f5dd;
@@ -189,6 +196,11 @@ export default {
   margin-left: 10px;
 }
 
+#query {
+  margin: 20px;
+  width: 28rem;
+}
+
 #text {
   display: inline-block;
   /* padding-right: 30px; */
@@ -198,7 +210,8 @@ export default {
 }
 
 #cancel:hover,
-#back:hover {
+#back:hover,
+#query:hover {
   background-color: blanchedalmond;
 }
 
