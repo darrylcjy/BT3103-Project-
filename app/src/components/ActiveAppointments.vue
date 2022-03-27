@@ -1,50 +1,67 @@
 <template>
   <div id="heading">
     <h1>Hello {{ this.name }},</h1>
+  </div>
+
+  <!-- if user has an appointment, render this div -->
+    <!-- note to self: on mounted, display() method called, which calls hasAppointment() method,  
+      which changes this.appt data, and the value is passed into v-if condition-->
+  <div id="appointment" v-if=this.appt>
     <h2>You have an appointment at the following clinic:</h2>
+
+    <!-- <h2> Venue: </h2> -->
+    <label> Venue </label>
+    <div id="venue">
+      {{ clinicName }} <br />
+      {{ location }}
+      {{ unitno }}
+      {{ postalCode }} <br /><br />
+      Distance: {{ dist }} km away
+    </div>
+
+    <br /><br />
+
+    <!-- <h2> Date:</h2> -->
+    <label> Date </label>
+    <div id="date">
+      {{ this.date }} <br />
+      {{ day }}
+    </div>
+
+    <br /><br />
+
+    <!-- <h2> Time: </h2> -->
+    <label> Time </label>
+    <div id="time">
+      {{ this.time }}
+    </div>
+
+    <br /><br />
+    <p id="text">
+      Get directions <a v-bind:href="website" target="_blank">here</a>
+    </p>
+    <button id="cancel" v-on:click="cancelAppt()">Cancel Appointment</button>
+    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+      Back to Home
+    </button>
   </div>
 
-  <!-- <h2> Venue: </h2> -->
-  <label> Venue </label>
-  <div id="venue">
-    {{ clinicName }} <br />
-    {{ location }}
-    {{ unitno }}
-    {{ postalCode }} <br /><br />
-    Distance: {{ dist }} km away
-  </div>
+ <!-- if user does not have an appointment, render this div -->
+ <div id="non-appointment" v-else> 
 
-  <br /><br />
-
-  <!-- <h2> Date:</h2> -->
-  <label> Date </label>
-  <div id="date">
-    {{ this.date }} <br />
-    {{ day }}
-  </div>
-
-  <br /><br />
-
-  <!-- <h2> Time: </h2> -->
-  <label> Time </label>
-  <div id="time">
-    {{ this.time }}
-  </div>
-
-  <br />
-  <p id="text">
-    Get directions <a v-bind:href="website" target="_blank">here</a>
-  </p>
-  <button id="cancel" v-on:click="cancelAppt()">Cancel Appointment</button>
-  <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
-    Back to Home
-  </button>
+   <h2>You have <u>no</u> active appointments</h2>
+   <img src="../assets/cancelled.png" alt="No icon found"> <br>
+   <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button>
+   <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+      Back to Home
+    </button>
+</div>
 </template>
 
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
@@ -55,6 +72,8 @@ export default {
     return {
       name: "",
       email: "",
+
+      appt: false,
 
       clinicName: "1 BISHAN MEDICAL",
       location: "283 BISHAN STREET 22",
@@ -80,6 +99,7 @@ export default {
     });
   },
   methods: {
+    
     async display(user) {
       let z = await getDoc(doc(db, "details", String(user.email)));
 
@@ -87,21 +107,43 @@ export default {
       this.time = z.data().apptTime;
       this.name = z.data().name;
 
+      this.hasAppointment()
     },
-    cancelAppt() {
-      var positive = window.confirm(
-        "Would you like to make another appointment?"
-      );
-      if (positive) {
-        // user answers in positive: ie: want to make new appt
-        this.$router.push({ path: "/facil-confirmation" });
-      } else {
-        // clear the active appointments page & replace with "you have no appts!"
 
-        // route them back to list of medical facilities (idk)
-        this.$router.push({ path: "/med-facils" });
+    async cancelAppt() {
+      try {
+        var positive = window.confirm("Would you like to cancel your appointment?")
+        if (positive) {   //  user wants to cancel appointment, delete from database
+          console.log("User wants to cancel appointment")
+          const auth = getAuth();
+          const user = auth.currentUser.email;
+          await deleteDoc(doc(db, "Appointments", user))
+          console.log("Document deleted successfully")
+          this.$router.push({ path: "/user-home" });
+        }
+      } catch (error) {
+        console.error("The erorr is ", error);
       }
     },
+
+    async hasAppointment() {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser.email;
+        const docRef = doc(db, "Appointments", user)
+        const hasAppt = await getDoc(docRef)
+        // console.log(hasAppt)
+        if (hasAppt._document) {
+          console.log("User has an existing appointment");
+          this.appt = true;
+        } else {
+          console.log("User does not have an existing appointment");
+          this.appt = false;
+        }
+      } catch (error) {
+        console.error("The error is ", error)
+      }
+    }
   },
 };
 </script>
@@ -141,7 +183,8 @@ export default {
 }
 
 #cancel,
-#back {
+#back,
+#query {
   all: unset;
   font-size: 1.5rem;
   background-color: #f5f5dd;
@@ -153,6 +196,11 @@ export default {
   margin-left: 10px;
 }
 
+#query {
+  margin: 20px;
+  width: 28rem;
+}
+
 #text {
   display: inline-block;
   /* padding-right: 30px; */
@@ -162,7 +210,8 @@ export default {
 }
 
 #cancel:hover,
-#back:hover {
+#back:hover,
+#query:hover {
   background-color: blanchedalmond;
 }
 
