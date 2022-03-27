@@ -123,12 +123,12 @@ export default {
                 //success
                 this.setSuccess(phoneElem)
             } else {
-                this.setFail(phoneElem, "Please enter a valid Singapore Phone Number")
+                this.setFail(phoneElem, "Enter a valid SG Phone Number")
                 valid = false
             }
 
             if (ageval < 0 || ageval > 150 || ageval === "") {
-                this.setFail(ageElem, "Please enter a valid age")
+                this.setFail(ageElem, "Enter a valid age")
                 valid = false
             } else {
                 this.setSuccess(ageElem)
@@ -145,7 +145,7 @@ export default {
 
             if (vaxstatus === "") {
                 //add fail class + message
-                this.setFail(vaxElem, "Please select one of the available options from the above dropdown menu")
+                this.setFail(vaxElem, "Please select one of the available options")
                 valid = false
             } else {
                 //success class

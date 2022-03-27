@@ -19,9 +19,9 @@
         <tr>
           <!-- Temporary fix to align table header alignment -->
           <th>
-            ------------------- Symptoms ---------------------------------------
+            Symptoms 
           </th>
-          <th>Select ---------------------------------</th>
+          <th>Select</th>
           <!-- <th>Symptoms</th>
           <th>Select</th> -->
         </tr>
@@ -300,22 +300,27 @@ p {
 table {
   background-color: rgba(183, 218, 250, 1);
   width: 50%;
-  border: 2px solid black;
+  border: 1px solid black;
   margin-left: auto;
   margin-right: auto;
   font-size: 20px;
+  border-collapse: collapse;
 }
 th {
   text-align: center;
 }
+
 thead {
   background-color: #f5f5dd;
 }
+
 tbody {
   height: 250px;
   overflow: auto;
+  overflow-x: hidden;
 }
-td {
+
+td,th {
   padding: 7px 20px;
   display: inline-block;
   width: 49.5%;
@@ -330,6 +335,11 @@ tr,
 tbody {
   display: block;
 }
+
+thead tr:first-child {
+  padding-right: 1rem;
+}
+
 #confirmbutton {
   border-style: none;
   width: 150px;
