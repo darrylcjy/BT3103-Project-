@@ -12,7 +12,7 @@
         <div class="second-row">
             <div class="container">
                 <label for="phone" class="form-label">HP no.</label>
-                <input type="tel" name="phone" id="phone" class="form-text hp" placeholder="Contact Number" v-model="phone">
+                <input type="number" name="phone" id="phone" class="form-text hp" placeholder="Contact Number" v-model="phone">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -30,6 +30,14 @@
         <div class="container">
             <label for="address" class="form-label">Address</label>
             <input type="text" name="address" id="address" class="form-text" placeholder="Home Address" v-model="address">
+            <i class="fas fa-check-circle"></i> 
+            <i class="fas fa-exclamation-circle"></i> 
+            <p class="error">Error Message</p>
+        </div>
+
+        <div class="container">
+            <label for="postal" class="form-label">Postal Code</label>
+            <input type="number" name="postal" id="postal" class="form-text" placeholder="Postal Code" v-model="postal">
             <i class="fas fa-check-circle"></i> 
             <i class="fas fa-exclamation-circle"></i> 
             <p class="error">Error Message</p>
@@ -73,7 +81,8 @@ export default {
             phone: "",
             age: "",
             address: "",
-            vax: ""
+            vax: "",
+            postal: ""
         }
     },
 
@@ -85,12 +94,13 @@ export default {
         async save() {
             try {
                 const nameval = this.name.trim()
-                const phoneval = this.phone.split(" ").join("")
+                const phoneval = this.phone
                 const ageval = this.age
                 const addressval = this.address.trim()
+                const postal = this.postal
                 const vaxstatus = this.vax
-                if (this.checkValid(nameval, phoneval, ageval, addressval, vaxstatus)) {
-                    const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, vax: vaxstatus})
+                if (this.checkValid(nameval, phoneval, ageval, addressval, vaxstatus, postal)) {
+                    const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, postal: postal, vax: vaxstatus})
                     console.log(docRef)
                     alert("Personal Details Saved Successfully")
                     document.getElementById('form').reset()
@@ -101,11 +111,12 @@ export default {
             }
         },
         // Form Validation
-        checkValid(nameval, phoneval, ageval, addressval, vaxstatus) {
+        checkValid(nameval, phoneval, ageval, addressval, vaxstatus, postal) {
             const nameElem = document.getElementById("name")
             const phoneElem = document.getElementById("phone")
             const ageElem = document.getElementById("age")
             const addElem = document.getElementById("address")
+            const postalElem = document.getElementById("postal")
             const vaxElem = document.getElementById("vaccination-status")
             let valid = true
             
@@ -119,11 +130,11 @@ export default {
                 this.setSuccess(nameElem)
             }
 
-            if ((phoneval.charAt(0) === "8" || phoneval.charAt(0) === "9" || phoneval.charAt(0) === "6" ) && phoneval.length == 8) {
+            if ((phoneval.toString().charAt(0) === "8" || phoneval.toString().charAt(0) === "9" || phoneval.toString().charAt(0) === "6" ) && phoneval.toString().length == 8) {
                 //success
                 this.setSuccess(phoneElem)
             } else {
-                this.setFail(phoneElem, "Enter a valid SG Phone Number")
+                this.setFail(phoneElem, "Enter a valid SG phone number")
                 valid = false
             }
 
@@ -150,6 +161,13 @@ export default {
             } else {
                 //success class
                 this.setSuccess(vaxElem)
+            }
+
+            if (postal === "" || postal.toString().length != 6) {
+                this.setFail(postalElem, "Enter a valid SG postal code")
+                valid = false
+            } else {
+                this.setSuccess(postalElem)
             }
 
             return valid
@@ -180,7 +198,7 @@ export default {
 }
 
 .inputs {
-    margin: 1.5rem 1.5rem;
+    margin: 0.5rem 1.5rem;
     text-align: left; 
 }
 
@@ -202,10 +220,11 @@ export default {
 
 .container {
     position: relative;
+    margin-bottom: 1rem;
 }
 
 i {
-    visibility: hidden;
+    display: none;
     position: absolute;
     top:2.7rem;
     right: -3.1rem;
@@ -213,7 +232,7 @@ i {
 }
 
 .container i.fa-angle-down{
-    visibility: visible;
+    display:block;
     right: 0rem;
 }
 
@@ -221,30 +240,37 @@ i {
 show success or failure */
 .container.success .form-text{
     border-color: rgb(54, 170, 54);
+    background-color: rgb(253, 255, 253);
 }
 
 .container.success i.fa-check-circle {
-    visibility: visible;
+    display:block;
     color: rgb(54, 170, 54);
 }
 
 .container.fail .form-text {
     border-color: rgb(214, 90, 45);
+    background-color: rgb(255, 248, 248);
 }
 
 .container.fail i.fa-exclamation-circle {
-    visibility: visible;
+    display:block;
     color:rgb(214, 90, 45);
 }
 
 .container.fail .error {
-    visibility: visible;
+    display:block;
     color:rgb(214, 90, 45);
 }
 
+.container.fail {
+    margin-bottom: 0rem;
+}
+
 .error {
-    visibility: hidden;
-    margin-top: 0.4rem;
+    display: none;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 h1 {

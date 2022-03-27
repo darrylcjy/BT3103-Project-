@@ -5,6 +5,7 @@
         <p><b>Phone Number:</b> {{this.phone}}</p>
         <p><b>Age:</b> {{this.age}}</p>
         <p><b>Address:</b> {{this.address}}</p>
+        <p><b>Postal Code:</b> {{this.postal}}</p>
         <p><b>Vaccination Status:</b> {{this.vax}}</p>
         <div class="edit">
             <button class="btn" @click="redirect()">Edit<i class="fas fa-edit"></i></button>
@@ -27,6 +28,7 @@ export default {
             age: "",
             address: "",
             vax: "",
+            postal: ""
         }
     },
     mounted() {
@@ -47,6 +49,7 @@ export default {
             this.phone = data.phone
             this.age = data.age
             this.address = data.address
+            this.postal = data.postal
             this.vax = data.vax
         },
 
@@ -67,7 +70,7 @@ export default {
     padding: 1.5rem 2rem;
     box-shadow: 1px 1px 3px grey;
     border-radius: 1rem;
-    transform: translate(0, 25%)
+    transform: translate(0, 10%)
 }
 
 p {
