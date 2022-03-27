@@ -325,19 +325,29 @@ td,th {
   display: inline-block;
   width: 49.5%;
   box-sizing: border-box;
-  border: 2px solid black;
 }
+
 input[type="checkbox"] {
   transform: scale(2);
-  width: 300px;
+  width: 100%;
 }
+
 tr,
 tbody {
   display: block;
 }
 
+tr {
+  border: 1px solid black;
+}
+
 thead tr:first-child {
   padding-right: 1rem;
+}
+
+tr > td:last-child,
+tr > th:last-child {
+  border-left: 3px solid black;
 }
 
 #confirmbutton {
@@ -348,5 +358,10 @@ thead tr:first-child {
   background-color: #f5f5dd;
   display: inline-block;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+#confirmbutton:hover {
+  box-shadow: 1px 1px 3px grey;
 }
 </style>
