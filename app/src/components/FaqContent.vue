@@ -5,7 +5,7 @@
 
     <!-- Radio Buttons to select content -->
     <div class="selection">
-      <p>Please select one of the following to see the relevant FAQs:</p>
+      <p>Please select one of the following:</p>
       <div class="choice">
         <input type="radio" id="covid-positive" v-model= "selected" value="covid-positive" checked>
         <label for="covid-positive">COVID Positive</label>
@@ -184,80 +184,33 @@
       </div>
 
       <div v-if="selected == 'safety-measures'" class="current-measures">
-        <p class="header-faq">Current Safe Management Measures</p>
-
-        <div class="content-measures">
-          <div class="row">
-            <div class="measures">
-              <p class="measure-title">HOUSEHOLD VISITS</p>
-              <p>Up to 5 household visitors at any one time.</p>
-              <p>Unvaccinated should exercise caution, stay at home as much as possible.</p>
-            </div>
-
-            <div class="measures">
-              <p class="measure-title">COFFEESHOPS AND HAWKER CENTRES</p>
-              <p>All vaccinated*: Group sizes of up to 5 persons, at places with VDS checks; otherwise up to 2 persons per group.</p>
-              <p>Unvaccinated: No dining-in. May take-away food.</p>
-            </div>
-
-            <div class="measures">
-              <p class="measure-title">F&amp;B ESTABLISHMENTS</p>
-              <p class="description">All vaccinated*: Group sizes of up to 5 persons.</p>
-              <p class="description">Unvaccinated: No dining-in. May take-away food.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="measures">
-              <p class="measure-title">SOCIAL GATHERINGS</p>
-              <p class="description">Group Sizes of up to 5 persons</p>
-            </div>
-
-            <div class="measures">
-              <p class="measure-title">ATTRACTIONS, SHOWS &amp; CRUISES</p>
-              <p class="description">Entry allowed only if vaccinated.</p>
-            </div>
-            
-            <div class="measures">
-              <p class="measure-title">MUSEUMS &amp; PUBLIC LIBRARIES</p>
-              <p class="description">Entry allowed only if vaccinated</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="measures">
-              <p class="measure-title">SPORTS ACTIVITIES &amp; CLASSES</p>
-              <p class="description">Group sizes of up to 5 persons. There are limits placed on class size (based on type of activity (30/50) or venue capacity).</p>
-            </div>
-            
-
-            <div class="measures">
-              <p class="measure-title">SAFE DISTANCING</p>
-              <p class="description">Only required between groups or individuals in mask-off settings</p>
-            </div>
-
-            <div class="measures">
-              <p class="measure-title">SHOPPING MALLS &amp; LARGE STANDALONE STORES</p>
-              <p class="description">Entry allowed only if vaccinated. 50% cap.</p>
-              <p class="description">Note: Standalone supermarkets exempted</p>
-            </div>
+        <div class="images">
+          <p class= "header-faq">Newest Updates to Measures</p>
+          <p class="footnote">For more information on the current measures, click <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a></p>
+          <img v-show="imgshow == 'img1'" src="../assets/measures2903.png" alt="Measures Updates" height="500px">
+          <img v-show="imgshow == 'img2'" src="../assets/measures2.png" alt="Measures Updates" height="420px">
+          <div class="img-choice">
+            <input type="radio" name="r-btn" id="r1" v-model="imgshow" value="img1">
+            <input type="radio" name="r-btn" id="r2" v-model="imgshow" value="img2">
           </div>
         </div>
-      
-        <p class="footnote">* An individual is considered vaccinated if he/ she has been: a) fully vaccinated (status seen in TraceTogether) and had their vaccination records ingested in MOH national IT systems; or b) recovered from COVID-19 within the last 180 days.</p>
-        <p class="footnote">^ VDS refers to Vaccination Differentiated Safe Management Measures</p>
-        <p class="footnote">Other measures can be found <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a></p> 
       </div>
-
     </div>
-    
   </div>
-  
 </template>
 
 <script>
 export default {
   data() {
     return {
-      selected: "covid-positive"
+      selected: "covid-positive",
+      imgshow: "img1"
+    }
+  },
+  
+  mounted() {
+    if (this.$route.params.measure === "2") {
+      this.selected = "close-contact"
     }
   }
 
@@ -296,6 +249,7 @@ h1 {
 .selection > p {
   margin-bottom: 1rem;
   margin-top: 0rem;
+  font-size: 1.5rem;
 }
 
 .choice {
@@ -346,60 +300,43 @@ h1 {
 }
 
 /* For the measures styling */
-
-.current-measures {
-  max-width:70rem;
-  margin: auto;
-  line-height: 2rem;
-}
-
-.content-measures {
-  display: flex;
-  flex-direction: column;
-  gap:1rem;
-}
-
-.row {
-  flex:1;
-  display: flex;
-  justify-content: space-between;
-}
-
-.measures {
-  font-size: 1.25rem;
-  padding: 0.75rem;
-  width: 50rem;
-  text-align: center;
-  margin: 0.75rem;
-  box-shadow: 0.5px 0.5px 3px grey;
-  border-radius: 0.5rem;
-}
-
-.measure-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
 @media(max-width: 775px) {
-  .content-measures, .row {
-    display: block;
-  }
-
-  .measures {
-    width: auto;
-  }
-
   .selection{
     flex-direction: column;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
   }
 }
 
 .footnote {
-  font-size: 1.3rem;
-  padding: 0.75rem;  
+  font-size: 1rem;  
 }
 
+img {
+  display: block;
+  box-shadow: 1px 1px 3px gray;
+  max-width: 725px;
+  height: 420px;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin: auto;
+}
 
+.images h1 {
+  margin-bottom: 1.5rem;
+}
 
+.img-choice input {
+  border: 0px;
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.img-choice {
+  margin: 0.25rem 1rem;
+}
 </style>

@@ -19,7 +19,7 @@
             <button id="profile-button"> My Profile </button>
             <div id="profile-content">
                 <a href="#" v-on:click="this.$router.push({path: '/profile'})">Profile</a>
-                <a href="#">Logout</a>
+                <a href="#" v-on:click="signOut()">Logout</a>
             </div>
         </div>
 
@@ -29,11 +29,21 @@
         </i>
 
     </div>
+
 </template>
 
 <script>
-export default {
+import { getAuth, signOut } from "firebase/auth";
 
+export default {
+    methods: {
+        signOut() {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            signOut(auth, user)
+            this.$router.push({path: '/'})
+        }
+    }
 }
 </script>
 
@@ -51,7 +61,7 @@ export default {
     #navbar {
         overflow: hidden;
         background-color: #F5F5DD;
-        width: 100%
+        width: 100%;
     }
 
     /* covidcare dropdown */
@@ -83,8 +93,9 @@ export default {
     #covidcare-content, 
     #profile-content {
         display: none;
-        position: fixed;
-        min-width: 120px;
+        position: absolute;     /* changed from fixed to absolute*/
+        left: 1 rem;
+        min-width: 146px;
         background-color: #f9f9f9;
         box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.2);   /* horizontal (-ve is left, + is right), vertical (-ve is top, + is bottom), blur effect, spread radius */
     }

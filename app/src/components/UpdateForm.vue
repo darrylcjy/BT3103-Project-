@@ -12,15 +12,15 @@
         <div class="second-row">
             <div class="container">
                 <label for="phone" class="form-label">HP no.</label>
-                <input type="tel" name="phone" id="phone" class="form-text hp" placeholder="Contact Number">
+                <input type="number" name="phone" id="phone" class="form-text hp" placeholder="Contact Number">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
             </div>
             
             <div class="container">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" id="age" class="form-text" placeholder="Age" min = "1" max="130">
+                <label for="year" class="form-label">Year of Birth</label>
+                <input type="number" name="year" id="year" class="form-text" placeholder="Year" min = "1900" max="2099">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -35,6 +35,14 @@
             <p class="error">Error Message</p>
         </div>
        
+       <div class="container">
+            <label for="postal" class="form-label">Postal Code</label>
+            <input type="number" name="postal" id="postal" class="form-text" placeholder="Postal Code">
+            <i class="fas fa-check-circle"></i> 
+            <i class="fas fa-exclamation-circle"></i> 
+            <p class="error">Error Message</p>
+        </div>
+
         <div class="container">
             <label for="vaccination-status" class="form-label">Vaccination Status</label>
             <select name="vaccination-status" class="form-text dropdown" id="vaccination-status">
@@ -54,7 +62,6 @@
       </div>
     
       <div class="btn">
-          <button class="data-btn" @click="getData()">Past Inputs</button>
           <button class="details-btn" @click="save()" type= "submit">Update</button>
       </div>
   </form>
@@ -64,7 +71,7 @@
 <script>
 import firebaseApp from "../firebase.js";
 import {getFirestore} from "firebase/firestore";
-import {doc, setDoc, getDoc} from "firebase/firestore";
+import {doc, updateDoc, getDoc} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 const db = getFirestore(firebaseApp);
 
@@ -96,8 +103,9 @@ export default {
             console.log(data.name)
             document.getElementById("name").value = data.name
             document.getElementById("phone").value = data.phone
-            document.getElementById("age").value = data.age
+            document.getElementById("year").value = data.year
             document.getElementById("address").value = data.address
+            document.getElementById("postal").value = data.postal
             document.getElementById("vaccination-status").value = data.vax
         },
         async save() {
@@ -106,12 +114,13 @@ export default {
                 this.email = auth.currentUser.email
 
                 const nameval = document.getElementById("name").value.trim()
-                const phoneval = document.getElementById("phone").value.split(" ").join("")
-                const ageval = document.getElementById("age").value
+                const phoneval = document.getElementById("phone").value
+                const yearval = document.getElementById("year").value
                 const addressval = document.getElementById("address").value.trim()
                 const vaxstatus = document.getElementById("vaccination-status").value
-                if (this.checkValid(nameval, phoneval, ageval, addressval, vaxstatus)) {
-                    const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, vax: vaxstatus})
+                const postal = document.getElementById("postal").value
+                if (this.checkValid(nameval, phoneval, yearval, addressval, postal, vaxstatus)) {
+                    const docRef = await updateDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, year: yearval, address: addressval, postal: postal, vax: vaxstatus})
                     console.log(docRef)
                     alert("Updated Personal Details Saved Successfully")
                     document.getElementById("form").reset()
@@ -123,11 +132,12 @@ export default {
             }
         },
         // Form Validation
-        checkValid(nameval, phoneval, ageval, addressval, vaxstatus) {
+        checkValid(nameval, phoneval, yearval, addressval, postal, vaxstatus) {
             const nameElem = document.getElementById("name")
             const phoneElem = document.getElementById("phone")
-            const ageElem = document.getElementById("age")
+            const yearElem = document.getElementById("year")
             const addElem = document.getElementById("address")
+            const postalElem = document.getElementById("postal")
             const vaxElem = document.getElementById("vaccination-status")
             let valid = true
             
@@ -141,19 +151,19 @@ export default {
                 this.setSuccess(nameElem)
             }
 
-            if ((phoneval.charAt(0) === "8" || phoneval.charAt(0) === "9" || phoneval.charAt(0) === "6" ) && phoneval.length == 8) {
+            if ((phoneval.toString().charAt(0) === "8" || phoneval.toString().charAt(0) === "9" || phoneval.toString().charAt(0) === "6") && phoneval.toString().length === 8) {
                 //success
                 this.setSuccess(phoneElem)
             } else {
-                this.setFail(phoneElem, "Please enter a valid Singapore Phone Number")
+                this.setFail(phoneElem, "Enter a valid SG phone number")
                 valid = false
             }
 
-            if (ageval < 0 || ageval > 150 || ageval === "") {
-                this.setFail(ageElem, "Please enter a valid age")
+            if (yearval < 1900 || yearval > 2099 || yearval === "") {
+                this.setFail(yearElem, "Enter a valid year")
                 valid = false
             } else {
-                this.setSuccess(ageElem)
+                this.setSuccess(yearElem)
             }
 
             if (addressval === "") {
@@ -167,11 +177,18 @@ export default {
 
             if (vaxstatus === "") {
                 //add fail class + message
-                this.setFail(vaxElem, "Please select one of the available options from the above dropdown menu")
+                this.setFail(vaxElem, "Please select one of the available options")
                 valid = false
             } else {
                 //success class
                 this.setSuccess(vaxElem)
+            }
+
+            if (postal === "" || postal.toString().length != 6) {
+                this.setFail(postalElem, "Enter a valid SG postal code")
+                valid = false
+            } else {
+                this.setSuccess(postalElem)
             }
 
             return valid
@@ -192,7 +209,7 @@ export default {
         },
 
         removeClassName() {
-            const elems = [document.getElementById("name"),document.getElementById("phone"), document.getElementById("age"), document.getElementById("address"), document.getElementById("vaccination-status")]
+            const elems = [document.getElementById("name"),document.getElementById("phone"), document.getElementById("year"), document.getElementById("address"), document.getElementById("postal"),document.getElementById("vaccination-status")]
 
             elems.forEach((elem) => {
                 const container = elem.parentElement
@@ -211,7 +228,7 @@ export default {
 }
 
 .inputs {
-    margin: 1.5rem 1.5rem;
+    margin: 0.5rem 1.5rem;
     text-align: left; 
 }
 
@@ -233,10 +250,11 @@ export default {
 
 .container {
     position: relative;
+    margin-bottom: 1rem;
 }
 
 i {
-    visibility: hidden;
+    display:none;
     position: absolute;
     top:2.7rem;
     right: -3.1rem;
@@ -244,7 +262,7 @@ i {
 }
 
 .container i.fa-angle-down{
-    visibility: visible;
+    display:block;
     right: 0rem;
 }
 
@@ -252,30 +270,37 @@ i {
 show success or failure */
 .container.success .form-text{
     border-color: rgb(54, 170, 54);
+    background-color: rgb(253, 255, 253);
 }
 
 .container.success i.fa-check-circle {
-    visibility: visible;
+    display:block;
     color: rgb(54, 170, 54);
 }
 
 .container.fail .form-text {
     border-color: rgb(214, 90, 45);
+    background-color: rgb(255, 248, 248);
 }
 
 .container.fail i.fa-exclamation-circle {
-    visibility: visible;
+    display:block;
     color:rgb(214, 90, 45);
 }
 
 .container.fail .error {
-    visibility: visible;
+    display:block;
     color:rgb(214, 90, 45);
 }
 
+.container.fail {
+    margin-bottom: 0rem;
+}
+
 .error {
-    visibility: hidden;
-    margin-top: 0.4rem;
+    display:none;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 h1 {

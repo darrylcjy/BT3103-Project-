@@ -15,10 +15,6 @@
 <script>
 import PersonalDetailsForm from '../components/PersonalDetailsForm.vue' 
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
-import firebaseApp from "../firebase.js";
-import {getFirestore} from "firebase/firestore";
-import {doc, getDoc} from "firebase/firestore";
-const db = getFirestore(firebaseApp);
 
 
 export default {
@@ -29,34 +25,17 @@ export default {
     data() {
         return {
             user: false,
-            existData: false
         }
-    },
-    methods: {
-        check(email) {
-            getDoc(doc(db, "details", String(email))).then((docSnap) => {
-                if (docSnap.exists()) {
-                    console.log("hi", "true")
-                    this.$router.push({name: "User Home"})
-                } else {
-                    console.log("No such document!")
-                }
-            })
-        },
     },
     mounted() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = user
-                this.check(user.email)
             }
         })
     }
 }
-                // if (this.existData) {
-                //     this.$router.push({name:"User Home"})
-                // }
 </script>
 
 <style scoped>

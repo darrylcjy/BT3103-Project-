@@ -20,7 +20,7 @@
         <div class="state">
             If your ART result is negative, <br>
             <img src="@/assets/negative.png" alt="Negative FET not found"><br><br>
-            Congratulations! 
+            Congratulations! <br>
             You can resume your daily activities.
         </div>
 
@@ -98,7 +98,9 @@ export default {
     }
 
     .state {
-        border: 1px solid black;
+        background-color: #F5F5DD;
+        /* border: 1px solid black; */
+        border-radius: 10px;
         display: inline-block;
         padding: 10px; 
         margin: 25px;

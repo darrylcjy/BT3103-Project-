@@ -3,8 +3,9 @@
         <h1>Profile Page</h1>
         <p><b>Name:</b> {{this.name}}</p>
         <p><b>Phone Number:</b> {{this.phone}}</p>
-        <p><b>Age:</b> {{this.age}}</p>
+        <p><b>Age:</b> {{this.age}} (Birth Year: {{this.year}})</p>
         <p><b>Address:</b> {{this.address}}</p>
+        <p><b>Postal Code:</b> {{this.postal}}</p>
         <p><b>Vaccination Status:</b> {{this.vax}}</p>
         <div class="edit">
             <button class="btn" @click="redirect()">Edit<i class="fas fa-edit"></i></button>
@@ -24,9 +25,11 @@ export default {
         return {
             name: "",
             phone: "",
-            age: "",
+            year: "",
             address: "",
             vax: "",
+            postal: "",
+            age: ""
         }
     },
     mounted() {
@@ -45,13 +48,21 @@ export default {
             let data = z.data()
             this.name = data.name
             this.phone = data.phone
-            this.age = data.age
+            this.year = data.year
             this.address = data.address
+            this.postal = data.postal
             this.vax = data.vax
         },
 
         redirect() {
             this.$router.push({name:"Update"})
+        }
+    },
+
+    watch: {
+        year(val) {
+            let currentYear = new Date().getFullYear()
+            this.age = currentYear - val
         }
     }
 
@@ -67,7 +78,7 @@ export default {
     padding: 1.5rem 2rem;
     box-shadow: 1px 1px 3px grey;
     border-radius: 1rem;
-    transform: translate(0, 25%)
+    transform: translate(0, 10%)
 }
 
 p {
