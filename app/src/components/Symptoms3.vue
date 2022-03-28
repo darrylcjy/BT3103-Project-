@@ -85,7 +85,7 @@ export default {
 
       for (let i = 0; i < count; i++) {
         let s_value = document.getElementById("s" + (i + 1)).innerHTML;
-        Intensity.push(s_value);
+        Intensity.push(parseInt(s_value));
       }
       console.log(Intensity);
 
@@ -95,7 +95,12 @@ export default {
         });
         console.log(docRef);
         alert(`Your symptoms intensity have been recorded!`);
-        this.$router.push({ path: "/med-facils" });
+        // console.log("Max Intensity is: " + Math.max(...Intensity));
+        if (Math.max(...Intensity) >= 7) {
+          this.$router.push({ path: "/med-facils" });
+        } else {
+          this.$router.push({ path: "/self-isolation-checkout" });
+        }
       } catch (error) {
         console.error("Error adding document: ", error);
       }
