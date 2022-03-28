@@ -4,9 +4,6 @@
   <br />
   <div id="confirmation">
     <p id="display"></p>
-    <!-- <p><u>Symptom 1</u>: Flu</p>
-    <p><u>Symptom 2</u>: Cough</p>
-    <p><u>Symptom 3</u>: Loss of taste or smell</p> -->
   </div>
   <br /><br />
   <button
@@ -17,11 +14,7 @@
     Edit
   </button>
   &nbsp;
-  <button
-    id="confirmbutton"
-    type="button"
-    v-on:click="this.$router.push({ path: '/intensity' })"
-  >
+  <button id="confirmbutton" type="button" v-on:click="confirmation()">
     Confirm
   </button>
 </template>
@@ -37,8 +30,15 @@ const db = getFirestore(firebaseApp);
 export default {
   name: "Symptoms2",
 
+  data() {
+    return {
+      email: "",
+    };
+  },
+
   mounted() {
     const auth = getAuth();
+    this.email = auth.currentUser.email;
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
@@ -61,6 +61,23 @@ export default {
       function appendFunction(symp) {
         count += 1;
         text += "<u>Symptom " + count + "</u>: " + symp + "<br><br>";
+      }
+    },
+    async confirmation() {
+      let docSnap = await getDoc(doc(db, "details", String(this.email)));
+      let selected = docSnap.data().symptoms;
+      if (
+        selected.includes("Bluish lips and/or face") ||
+        selected.includes("Chest pain") ||
+        selected.includes("Hard time staying awake") ||
+        selected.includes("Shortness of Breath") ||
+        selected.includes("Sudden confusion") ||
+        selected.includes("Sudden weakness") ||
+        selected.includes("Uncontrollable bleeding")
+      ) {
+        this.$router.push({ path: "/med-facils" });
+      } else {
+        this.$router.push({ path: "/intensity" });
       }
     },
   },
