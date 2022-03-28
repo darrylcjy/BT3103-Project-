@@ -18,23 +18,32 @@
       <thead>
         <tr>
           <!-- Temporary fix to align table header alignment -->
-          <th>
-            Symptoms 
-          </th>
+          <th>Symptoms</th>
           <th>Select</th>
           <!-- <th>Symptoms</th>
           <th>Select</th> -->
         </tr>
       </thead>
       <tbody>
-        <!-- Severe symtoms -->
         <tr>
-          <td>Bluish lips and/or face</td>
+          <td>Aches</td>
           <td>
             <input
               type="checkbox"
               id="checkbox1"
               name="checkbox1"
+              value="Aches"
+            />&nbsp;
+          </td>
+        </tr>
+
+        <tr>
+          <td>Bluish lips and/or face</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox2"
+              name="checkbox2"
               value="Bluish lips and/or face"
             />&nbsp;
           </td>
@@ -45,70 +54,9 @@
           <td>
             <input
               type="checkbox"
-              id="checkbox2"
-              name="checkbox2"
-              value="Chest pain"
-            />&nbsp;
-          </td>
-        </tr>
-
-        <tr>
-          <td>Hard time staying awake</td>
-          <td>
-            <input
-              type="checkbox"
               id="checkbox3"
               name="checkbox3"
-              value="Hard time staying awake"
-            />&nbsp;
-          </td>
-        </tr>
-
-        <tr>
-          <td>Sudden confusion</td>
-          <td>
-            <input
-              type="checkbox"
-              id="checkbox4"
-              name="checkbox4"
-              value="Sudden confusion"
-            />&nbsp;
-          </td>
-        </tr>
-
-        <tr>
-          <td>Shortness of breath</td>
-          <td>
-            <input
-              type="checkbox"
-              id="checkbox5"
-              name="checkbox5"
-              value="Shortness of breath"
-            />&nbsp;
-          </td>
-        </tr>
-
-        <tr>
-          <td>Uncontrollable bleeding</td>
-          <td>
-            <input
-              type="checkbox"
-              id="checkbox6"
-              name="checkbox6"
-              value="Uncontrollable Bleeding"
-            />&nbsp;
-          </td>
-        </tr>
-
-        <!-- Non severe symtoms -->
-        <tr>
-          <td>Aches</td>
-          <td>
-            <input
-              type="checkbox"
-              id="checkbox7"
-              name="checkbox7"
-              value="Aches"
+              value="Chest pain"
             />&nbsp;
           </td>
         </tr>
@@ -118,42 +66,57 @@
           <td>
             <input
               type="checkbox"
-              id="checkbox8"
-              name="checkbox8"
+              id="checkbox4"
+              name="checkbox4"
               value="Cough"
             />&nbsp;
           </td>
         </tr>
+
         <tr>
           <td>Diarrhoea</td>
           <td>
             <input
               type="checkbox"
-              id="checkbox9"
-              name="checkbox9"
+              id="checkbox5"
+              name="checkbox5"
               value="Diarrhoea"
             />&nbsp;
           </td>
         </tr>
+
         <tr>
           <td>Fever</td>
           <td>
             <input
               type="checkbox"
-              id="checkbox10"
-              name="checkbox10"
+              id="checkbox6"
+              name="checkbox6"
               value="Fever"
             />&nbsp;
           </td>
         </tr>
+
         <tr>
           <td>Flu</td>
           <td>
             <input
               type="checkbox"
-              id="checkbox11"
-              name="checkbox11"
+              id="checkbox7"
+              name="checkbox7"
               value="Flu"
+            />&nbsp;
+          </td>
+        </tr>
+
+        <tr>
+          <td>Hard time staying awake</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox8"
+              name="checkbox8"
+              value="Hard time staying awake"
             />&nbsp;
           </td>
         </tr>
@@ -162,8 +125,8 @@
           <td>
             <input
               type="checkbox"
-              id="checkbox12"
-              name="checkbox12"
+              id="checkbox9"
+              name="checkbox9"
               value="Headache"
             />&nbsp;
           </td>
@@ -173,9 +136,53 @@
           <td>
             <input
               type="checkbox"
+              id="checkbox10"
+              name="checkbox10"
+              value="Loss of taste or smell"
+            />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>Shortness of breath</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox11"
+              name="checkbox11"
+              value="Shortness of breath"
+            />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>Sudden confusion</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox12"
+              name="checkbox12"
+              value="Sudden confusion"
+            />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>Sudden weakness</td>
+          <td>
+            <input
+              type="checkbox"
               id="checkbox13"
               name="checkbox13"
-              value="Loss of taste or smell"
+              value="Sudden weakness"
+            />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>Uncontrollable bleeding</td>
+          <td>
+            <input
+              type="checkbox"
+              id="checkbox14"
+              name="checkbox14"
+              value="Uncontrollable bleeding"
             />&nbsp;
           </td>
         </tr>
@@ -207,23 +214,27 @@ export default {
 
   methods: {
     async confirmsymptoms() {
-      var blueFace = document.getElementById("checkbox1");
-      var chestpain = document.getElementById("checkbox2");
-      var tired = document.getElementById("checkbox3");
-      var suddenConfuse = document.getElementById("checkbox4");
-      var breath = document.getElementById("checkbox5");
-      var bleeding = document.getElementById("checkbox6");
-      var aches = document.getElementById("checkbox7");
-      var cough = document.getElementById("checkbox8");
-      var diarrhoea = document.getElementById("checkbox9");
-      var fever = document.getElementById("checkbox10");
-      var flu = document.getElementById("checkbox11");
-      var headache = document.getElementById("checkbox12");
-      var tastesmell = document.getElementById("checkbox13");
+      var aches = document.getElementById("checkbox1");
+      var bluelipsface = document.getElementById("checkbox2");
+      var chestpain = document.getElementById("checkbox3");
+      var cough = document.getElementById("checkbox4");
+      var diarrhoea = document.getElementById("checkbox5");
+      var fever = document.getElementById("checkbox6");
+      var flu = document.getElementById("checkbox7");
+      var stayawake = document.getElementById("checkbox8");
+      var headache = document.getElementById("checkbox9");
+      var tastesmell = document.getElementById("checkbox10");
+      var breath = document.getElementById("checkbox11");
+      var confusion = document.getElementById("checkbox12");
+      var weakness = document.getElementById("checkbox13");
+      var bleeding = document.getElementById("checkbox14");
 
       var selected = [];
       if (aches.checked) {
         selected.push(aches.value);
+      }
+      if (bluelipsface.checked) {
+        selected.push(bluelipsface.value);
       }
       if (chestpain.checked) {
         selected.push(chestpain.value);
@@ -240,6 +251,9 @@ export default {
       if (flu.checked) {
         selected.push(flu.value);
       }
+      if (stayawake.checked) {
+        selected.push(stayawake.value);
+      }
       if (headache.checked) {
         selected.push(headache.value);
       }
@@ -249,17 +263,14 @@ export default {
       if (breath.checked) {
         selected.push(breath.value);
       }
-      if (blueFace.checked) {
-        selected.push(blueFace.value);
+      if (confusion.checked) {
+        selected.push(confusion.value);
       }
-      if (suddenConfuse.checked) {
-        selected.push(suddenConfuse.value);
+      if (weakness.checked) {
+        selected.push(weakness.value);
       }
       if (bleeding.checked) {
         selected.push(bleeding.value);
-      }
-      if (tired.checked) {
-        selected.push(tired.value);
       }
 
       console.log(selected);
@@ -320,7 +331,8 @@ tbody {
   overflow-x: hidden;
 }
 
-td,th {
+td,
+th {
   padding: 7px 20px;
   display: inline-block;
   width: 49.5%;

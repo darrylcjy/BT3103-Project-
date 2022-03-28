@@ -77,11 +77,13 @@ export default {
         "Bluish lips and/or face",
         "Chest pain",
         "Hard time staying awake",
-        "Sudden confusion",
         "Shortness of breath",
+        "Sudden confusion",
+        "Sudden weakness",
+        "Uncontrollable bleeding",
       ];
 
-      // conditional rendering of gp vs hospital 
+      // conditional rendering of gp vs hospital
       this.emergency = severe.some((i) => this.symptoms.includes(i));
     },
   },

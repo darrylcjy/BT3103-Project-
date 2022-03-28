@@ -4,9 +4,6 @@
   <br />
   <div id="confirmation">
     <p id="display"></p>
-    <!-- <p><u>Symptom 1</u>: Flu</p>
-    <p><u>Symptom 2</u>: Cough</p>
-    <p><u>Symptom 3</u>: Loss of taste or smell</p> -->
   </div>
   <br /><br />
   <button
@@ -14,14 +11,10 @@
     type="button"
     v-on:click="this.$router.push({ path: '/selection' })"
   >
-    Reset
+    Edit
   </button>
   &nbsp;
-  <button
-    id="confirmbutton"
-    type="button"
-    v-on:click="this.$router.push({ path: '/intensity' })"
-  >
+  <button id="confirmbutton" type="button" v-on:click="confirmation()">
     Confirm
   </button>
 </template>
@@ -30,20 +23,27 @@
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { getDoc, doc } from "firebase/firestore";
-import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
 
 export default {
   name: "Symptoms2",
 
+  data() {
+    return {
+      email: "",
+    };
+  },
+
   mounted() {
     const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                this.display(user)
-            }
-        }); 
+    this.email = auth.currentUser.email;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.display(user);
+      }
+    });
   },
 
   methods: {
@@ -52,7 +52,7 @@ export default {
 
       let selected = docSnap.data().symptoms;
       console.log("The user displays the following symptoms: \n" + selected);
-      
+
       let text = "";
       let count = 0;
       selected.forEach(appendFunction);
@@ -61,11 +61,26 @@ export default {
       function appendFunction(symp) {
         count += 1;
         text += "<u>Symptom " + count + "</u>: " + symp + "<br><br>";
-
       }
-
-    }
-  }
+    },
+    async confirmation() {
+      let docSnap = await getDoc(doc(db, "details", String(this.email)));
+      let selected = docSnap.data().symptoms;
+      if (
+        selected.includes("Bluish lips and/or face") ||
+        selected.includes("Chest pain") ||
+        selected.includes("Hard time staying awake") ||
+        selected.includes("Shortness of Breath") ||
+        selected.includes("Sudden confusion") ||
+        selected.includes("Sudden weakness") ||
+        selected.includes("Uncontrollable bleeding")
+      ) {
+        this.$router.push({ path: "/med-facils" });
+      } else {
+        this.$router.push({ path: "/intensity" });
+      }
+    },
+  },
 };
 </script>
 
