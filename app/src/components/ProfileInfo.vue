@@ -3,7 +3,7 @@
         <h1>Profile Page</h1>
         <p><b>Name:</b> {{this.name}}</p>
         <p><b>Phone Number:</b> {{this.phone}}</p>
-        <p><b>Age:</b> {{this.age}}</p>
+        <p><b>Age:</b> {{this.age}} (Birth Year: {{this.year}})</p>
         <p><b>Address:</b> {{this.address}}</p>
         <p><b>Postal Code:</b> {{this.postal}}</p>
         <p><b>Vaccination Status:</b> {{this.vax}}</p>
@@ -25,10 +25,11 @@ export default {
         return {
             name: "",
             phone: "",
-            age: "",
+            year: "",
             address: "",
             vax: "",
-            postal: ""
+            postal: "",
+            age: ""
         }
     },
     mounted() {
@@ -47,7 +48,7 @@ export default {
             let data = z.data()
             this.name = data.name
             this.phone = data.phone
-            this.age = data.age
+            this.year = data.year
             this.address = data.address
             this.postal = data.postal
             this.vax = data.vax
@@ -55,6 +56,13 @@ export default {
 
         redirect() {
             this.$router.push({name:"Update"})
+        }
+    },
+
+    watch: {
+        year(val) {
+            let currentYear = new Date().getFullYear()
+            this.age = currentYear - val
         }
     }
 

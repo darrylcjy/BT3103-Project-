@@ -19,8 +19,8 @@
             </div>
             
             <div class="container">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" id="age" class="form-text" placeholder="Age" min = "1" max="130" v-model="age">
+                <label for="year" class="form-label">Year of Birth</label>
+                <input type="number" name="year" id="year" class="form-text" placeholder="Year" min = "1900" max="2099" v-model="year">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -79,7 +79,7 @@ export default {
         return {
             name: "",
             phone: "",
-            age: "",
+            year: "",
             address: "",
             vax: "",
             postal: ""
@@ -95,12 +95,12 @@ export default {
             try {
                 const nameval = this.name.trim()
                 const phoneval = this.phone
-                const ageval = this.age
+                const yearval = this.year
                 const addressval = this.address.trim()
                 const postal = this.postal
                 const vaxstatus = this.vax
-                if (this.checkValid(nameval, phoneval, ageval, addressval, vaxstatus, postal)) {
-                    const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, postal: postal, vax: vaxstatus})
+                if (this.checkValid(nameval, phoneval, yearval, addressval, vaxstatus, postal)) {
+                    const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, year: yearval, address: addressval, postal: postal, vax: vaxstatus})
                     console.log(docRef)
                     alert("Personal Details Saved Successfully")
                     document.getElementById('form').reset()
@@ -111,10 +111,10 @@ export default {
             }
         },
         // Form Validation
-        checkValid(nameval, phoneval, ageval, addressval, vaxstatus, postal) {
+        checkValid(nameval, phoneval, yearval, addressval, vaxstatus, postal) {
             const nameElem = document.getElementById("name")
             const phoneElem = document.getElementById("phone")
-            const ageElem = document.getElementById("age")
+            const yearElem = document.getElementById("year")
             const addElem = document.getElementById("address")
             const postalElem = document.getElementById("postal")
             const vaxElem = document.getElementById("vaccination-status")
@@ -138,11 +138,11 @@ export default {
                 valid = false
             }
 
-            if (ageval < 0 || ageval > 150 || ageval === "") {
-                this.setFail(ageElem, "Enter a valid age")
+            if (yearval < 1900 || yearval > 2099 || yearval === "") {
+                this.setFail(yearElem, "Enter a valid year")
                 valid = false
             } else {
-                this.setSuccess(ageElem)
+                this.setSuccess(yearElem)
             }
 
             if (addressval === "") {

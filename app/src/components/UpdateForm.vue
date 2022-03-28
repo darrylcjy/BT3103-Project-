@@ -19,8 +19,8 @@
             </div>
             
             <div class="container">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" id="age" class="form-text" placeholder="Age" min = "1" max="130">
+                <label for="year" class="form-label">Year of Birth</label>
+                <input type="number" name="year" id="year" class="form-text" placeholder="Year" min = "1900" max="2099">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -103,7 +103,7 @@ export default {
             console.log(data.name)
             document.getElementById("name").value = data.name
             document.getElementById("phone").value = data.phone
-            document.getElementById("age").value = data.age
+            document.getElementById("year").value = data.year
             document.getElementById("address").value = data.address
             document.getElementById("postal").value = data.postal
             document.getElementById("vaccination-status").value = data.vax
@@ -115,12 +115,12 @@ export default {
 
                 const nameval = document.getElementById("name").value.trim()
                 const phoneval = document.getElementById("phone").value
-                const ageval = document.getElementById("age").value
+                const yearval = document.getElementById("year").value
                 const addressval = document.getElementById("address").value.trim()
                 const vaxstatus = document.getElementById("vaccination-status").value
                 const postal = document.getElementById("postal").value
-                if (this.checkValid(nameval, phoneval, ageval, addressval, postal, vaxstatus)) {
-                    const docRef = await updateDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, age: ageval, address: addressval, postal: postal, vax: vaxstatus})
+                if (this.checkValid(nameval, phoneval, yearval, addressval, postal, vaxstatus)) {
+                    const docRef = await updateDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, year: yearval, address: addressval, postal: postal, vax: vaxstatus})
                     console.log(docRef)
                     alert("Updated Personal Details Saved Successfully")
                     document.getElementById("form").reset()
@@ -132,10 +132,10 @@ export default {
             }
         },
         // Form Validation
-        checkValid(nameval, phoneval, ageval, addressval, postal, vaxstatus) {
+        checkValid(nameval, phoneval, yearval, addressval, postal, vaxstatus) {
             const nameElem = document.getElementById("name")
             const phoneElem = document.getElementById("phone")
-            const ageElem = document.getElementById("age")
+            const yearElem = document.getElementById("year")
             const addElem = document.getElementById("address")
             const postalElem = document.getElementById("postal")
             const vaxElem = document.getElementById("vaccination-status")
@@ -159,11 +159,11 @@ export default {
                 valid = false
             }
 
-            if (ageval < 0 || ageval > 150 || ageval === "") {
-                this.setFail(ageElem, "Enter a valid age")
+            if (yearval < 1900 || yearval > 2099 || yearval === "") {
+                this.setFail(yearElem, "Enter a valid year")
                 valid = false
             } else {
-                this.setSuccess(ageElem)
+                this.setSuccess(yearElem)
             }
 
             if (addressval === "") {
@@ -209,7 +209,7 @@ export default {
         },
 
         removeClassName() {
-            const elems = [document.getElementById("name"),document.getElementById("phone"), document.getElementById("age"), document.getElementById("address"), document.getElementById("postal"),document.getElementById("vaccination-status")]
+            const elems = [document.getElementById("name"),document.getElementById("phone"), document.getElementById("year"), document.getElementById("address"), document.getElementById("postal"),document.getElementById("vaccination-status")]
 
             elems.forEach((elem) => {
                 const container = elem.parentElement
