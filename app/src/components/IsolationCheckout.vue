@@ -34,12 +34,12 @@
     </div> <br>
 
     <div id="third-days">
-        <h2> Day 7 </h2>
+        <h2> Day {{this.day}} </h2>
         <!-- based on user's personal info, we can show either 7 days or 14 days -->
         <!-- 7 days for fully vaccinated + children below 12 -->
         <!-- 14 days for partially vaccinated/ unvaccinated individuals above 12 -->
         Congratulations! You may resume your daily activities.  <br>
-        If possible, please minimize your social activities for the next 7 days.
+        If possible, please minimize your social activities for the next {{this.day}} days.
     </div>
     
     <!-- WARNING --> <br><br>
@@ -73,7 +73,7 @@ export default {
     data() {
         return {
             name: "",
-            day: 7
+            day: 0,
         }
     },
     mounted() {
@@ -81,6 +81,7 @@ export default {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.display(user)
+                this.getMaxDays(user)
             }
         })
     },
@@ -89,7 +90,34 @@ export default {
             let x = await getDoc(doc(db, "details", String(user.email)));
             
             this.name = x.data().name; 
-        }
+        },
+
+        // assumption: 2 shots and 2 shots + 1 booster considered fully vaccinated
+            // 7 days - fully vaccinated individuals + children below 12
+            // 14 days - partialy/unvaccinated individuals above 12 
+        async getMaxDays(user) {   
+            let x = await getDoc(doc(db, "details", String(user.email)));
+            let maxDays = 0;
+            
+            const age = x.data().age;
+            const vaccinationStatus = x.data().vax;
+
+            // console.log(age)
+
+            if (age > 12) {     // for individuals 12 and above
+                // console.log("12 years and above")
+                if (vaccinationStatus == "Received booster shot" || vaccinationStatus == "Completed full regimen (2 dose)") {   // for fully vaccinated
+                    maxDays = 7;
+                } else {    // for not fully vaccinated
+                    maxDays = 14;
+                }
+            } else {    // for chilldren below 12 years
+                // console.log("12 years and below")
+                maxDays = 7;
+            }
+            this.day = maxDays
+        },
+
     }
 }
 </script>
