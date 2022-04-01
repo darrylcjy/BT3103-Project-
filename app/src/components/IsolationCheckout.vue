@@ -1,7 +1,7 @@
 <template>
     <div id = "heading">
         <h1>Hello {{this.name}}, </h1>
-        <h1>The symptoms that you present do not require medical attention.</h1>
+        <h1>The symptoms that you present <u>do not</u> require medical attention.</h1>
     </div>
     
     <!-- PROTOCOL --> 
@@ -41,19 +41,22 @@
         Congratulations! You may resume your daily activities.  <br>
         If possible, please minimize your social activities for the next {{this.day}} days.
     </div>
+    <br><br><br>
+
+    <h1>When should I seek medical attention?</h1>
     
-    <!-- WARNING --> <br><br>
+    <!-- WARNING --> 
     <div class="warning">
-        <h2 style="text-align:center"> Contact 995</h2>
+        <h2 style="text-align:center"> Contact 995 immediately</h2>
         If you are experiecing any of the following symptoms:
         <li>Chest pain</li>
-        <li>Shortness of breadth</li>
-        <li>Sudden weakness on one side</li>
+        <li>Shortness of breath</li>
+        <li>Weakness over one side of the body</li>
         <li>Oximeter SpO2 reading below 92%</li> <br>
     </div>
 
     <div class="warning">
-        <h2 style="text-align:center">Visit the nearest GP</h2>
+        <h2 style="text-align:center">Visit the nearest medical clinic</h2>
         If you are experiencing any of the following symptoms: 
         <li>Prolonged fever >= 3 days</li>
         <li>Persistent diarrhea and vomiting</li>
@@ -132,6 +135,8 @@ export default {
         border-radius: 10px;
         font-size: 20px;    /* originally 25*/
         margin: auto;
+        box-shadow: 1px 1px 5px black;
+        
     }
 
     #first-days h2, #second-days h2, #third-days h2 {
@@ -158,13 +163,25 @@ export default {
     }
 
     .warning {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         display: inline-block;
         padding: 10px;
         margin: 15px;
-        width: 30%;
+        width: 35%;
         text-align: left;
         border-radius: 10px;
+        font-size: 20px;
+        background-color: rgba(183, 218, 250, 1);
+        /* background-color: rgba(183, 218, 250, 0.15); */
+        box-shadow: 1px 1px 5px black;
     }
 
+    .warning h2 {
+        text-align: center;
+        background-color: #F5F5DD;
+        padding: 5px;
+        margin: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;   
+    }
 </style>
