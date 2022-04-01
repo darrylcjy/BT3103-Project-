@@ -104,7 +104,7 @@ export default {
                     console.log(docRef)
                     alert("Personal Details Saved Successfully")
                     document.getElementById('form').reset()
-                    this.$router.push({name:'User Home'})
+                    this.$router.push({name:'Health Dec'})
                 }
             } catch (error) {
                 console.error("Error: ", error)

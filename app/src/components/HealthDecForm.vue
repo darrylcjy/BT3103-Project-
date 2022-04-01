@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>Please state if you have the following medical conditions</h1>
+    <h2>Please state if you have the following medical conditions</h2>
     <form name="declaration" id="declaration">
       <div>
         1. Pregnant
@@ -33,8 +33,9 @@
 
 <script>
 import firebaseApp from "../firebase.js"
-import { getFirestore } from "firebase/firestore"
-import { doc, setDoc } from "firebase/firestore";
+import { getFirestore, updateDoc } from "firebase/firestore"
+import { doc } from "firebase/firestore"
+import { getAuth } from 'firebase/auth'
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -42,33 +43,44 @@ export default {
   
   methods: {
     async savetofs() {
-      var radio1 = document.getElementsByName("question1");
-      var q1 = Array.from(radio1).find(radio => radio.checked);
-      var q1value = q1.value;
+      try {
+        var radio1 = document.getElementsByName("question1");
+        var q1 = Array.from(radio1).find(radio => radio.checked);
+        var q1value = q1.value;
 
-      var radio2 = document.getElementsByName("question2");
-      var q2 = Array.from(radio2).find(radio => radio.checked);
-      var q2value = q2.value;
+        var radio2 = document.getElementsByName("question2");
+        var q2 = Array.from(radio2).find(radio => radio.checked);
+        var q2value = q2.value;
 
-      var radio3 = document.getElementsByName("question1");
-      var q3 = Array.from(radio3).find(radio => radio.checked);
-      var q3value = q3.value;
+        var radio3 = document.getElementsByName("question3");
+        var q3 = Array.from(radio3).find(radio => radio.checked);
+        var q3value = q3.value;
 
-      var radio4 = document.getElementsByName("question1");
-      var q4 = Array.from(radio4).find(radio => radio.checked);
-      var q4value = q4.value;
+        var radio4 = document.getElementsByName("question4");
+        var q4 = Array.from(radio4).find(radio => radio.checked);
+        var q4value = q4.value;
 
-      alert("Saving")
+        alert("Saving")
 
-      try{
-        const docRef = await setDoc(doc(db, "Dec", "eg"),{
-          Q1: q1value, Q2: q2value, Q3: q3value, Q4: q4value
-        })
-        console.log(docRef)
-        document.getElementById('declaration').reset();
-      }
-      catch(error) {
-        console.error("Error adding document: ", error);
+        try{
+          const auth = getAuth()
+          this.email = auth.currentUser.email
+
+          const docRef = doc(db, "details", this.email);
+          await updateDoc(docRef, {
+            pregnant: q1value, hiv: q2value, cancer: q3value, immunocompromised: q4value
+          });
+          console.log(docRef)
+          document.getElementById('declaration').reset();
+
+          alert("Responses saved successfully!")
+          
+        }
+        catch(error) {
+          console.error("Error adding document: ", error);
+        }
+      } catch (error) {
+        alert("Please ensure all questions have been answered")
       }
     }
   }
@@ -83,8 +95,8 @@ export default {
     padding: 1rem 2rem 1rem 1rem;
   }
 
-  #declaration {
-    /* display: inline-block;
-    text-align: right; */
-  }
+  /* #declaration {
+    display: inline-block;
+    text-align: right;
+  } */
 </style>
