@@ -88,7 +88,7 @@ export default {
       time: "",
 
       website:
-        "https://www.google.com/maps/place/1+Bishan+Medical+Clinic/@1.3590939,103.8424033,17z/data=!4m5!3m4!1s0x31da1718a8100001:0xba24b3317af11a87!8m2!3d1.3590885!4d103.8445973",
+        ""
     };
   },
   mounted() {
@@ -96,6 +96,7 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
+        this.getWebsite(this.clinicName)
       }
     });
   },
@@ -145,6 +146,17 @@ export default {
       } catch (error) {
         console.error("The error is ", error)
       }
+    },
+
+    async getWebsite(clinicName) {
+      var words = clinicName.split(" ");  // get individual word
+      var parsed = "";
+      for (var i = 0; i < words.length; i+=1) {
+        // console.log(words[i]) 
+        parsed += "+" + words[i]
+        console.log(parsed)
+      }
+      this.website = "https://www.google.com/maps/search/?api=1&query=" + parsed
     }
   },
 };
