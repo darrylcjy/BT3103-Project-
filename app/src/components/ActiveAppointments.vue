@@ -51,7 +51,8 @@
 
    <h2>You have <u>no</u> active appointments</h2>
    <img src="../assets/cancelled.png" alt="No icon found"> <br>
-   <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button>
+   <!-- <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button><br> -->
+   <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
       Back to Home
     </button>
@@ -184,7 +185,8 @@ export default {
 
 #cancel,
 #back,
-#query {
+#query, 
+#checkout {
   all: unset;
   font-size: 1.5rem;
   background-color: #f5f5dd;
@@ -211,7 +213,8 @@ export default {
 
 #cancel:hover,
 #back:hover,
-#query:hover {
+#query:hover,
+#checkout:hover {
   background-color: blanchedalmond;
 }
 
