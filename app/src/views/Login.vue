@@ -1,7 +1,12 @@
 <template>
     <!-- Navigation bar -->
     <!-- Descriptions -->
-    <div class="login">
+    <div v-if="user">
+        <h2>You are logged in!</h2>
+        <a href="/user-home">Go to Home</a>
+    </div>
+
+    <div class="login" v-else>
         <div class="description">
             <div class="main">
                 <p class="heading">COVIDCARE</p>
@@ -14,19 +19,35 @@
         </div>
         <!-- Login Form -->
         <LoginFirebaseUI id="ui"/>
-
     </div>
 
 </template>
 
 <script>
 import LoginFirebaseUI from '../components/LoginForm.vue' 
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 export default {
     name:'Login',
     components: {
         LoginFirebaseUI
     },
+
+    data() {
+        return {
+            user: false
+        }
+    },
+
+    mounted() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.user = user
+            }
+        })
+    },
+
     methods: {
         home() {
             this.$router.push({name:'Home'})

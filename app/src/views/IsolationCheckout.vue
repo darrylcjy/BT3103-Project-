@@ -1,17 +1,41 @@
 <template>
-    <NavigationBar/>
-    <IsolationCheckout/>
+    <div v-if="user">
+        <NavigationBar/>
+        <IsolationCheckout/>
+    </div>
+
+  <div v-else>
+      <NotLoggedIn/>
+  </div>
 </template>
 
 <script>
 import NavigationBar from '../components/NavigationBar.vue'
 import IsolationCheckout from '../components/IsolationCheckout.vue'
+import NotLoggedIn from '../components/NotLoggedIn.vue'
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 export default {
     name: 'Self-Isolation Checkout',
     components: {
         IsolationCheckout,
-        NavigationBar
+        NavigationBar,
+        NotLoggedIn
+    },
+
+    data() {
+      return {
+        user: false
+      }
+    },
+
+    mounted() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.user = user
+        }
+      })
     }
 }
 </script>

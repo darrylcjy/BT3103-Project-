@@ -10,19 +10,24 @@
         </div>
         <UpdateForm :email="this.user.email"/>
     </div>
-    
+
+    <div v-else>
+        <NotLoggedIn/>
+    </div>
 </template>
 
 <script>
 import UpdateForm from '../components/UpdateForm.vue' 
 import NavigationBar from '../components/NavigationBar.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import NotLoggedIn from '../components/NotLoggedIn.vue'
 
 export default {
     name:'Update',
     components: {
         UpdateForm,
-        NavigationBar
+        NavigationBar,
+        NotLoggedIn
     },
     data() {
         return {

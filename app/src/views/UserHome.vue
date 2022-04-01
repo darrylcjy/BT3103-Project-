@@ -1,13 +1,19 @@
 <template>
-    <NavigationBar/>
-    <!-- Contact Us -->
-    <UserHome/>
-    <br>
+    <div v-if="user">
+        <NavigationBar/>
+        <!-- Contact Us -->
+        <UserHome/>
+    </div>
+
+    <div v-else>
+        <NotLoggedIn/>
+    </div>
 </template>
 
 <script>
 import UserHome from '../components/UserHomePage.vue' 
 import NavigationBar from '../components/NavigationBar.vue' 
+import NotLoggedIn from '../components/NotLoggedIn.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 export default {
@@ -15,10 +21,11 @@ export default {
     components: {
         UserHome,
         NavigationBar,
+        NotLoggedIn
     },
     data() {
         return {
-            user: false,
+            user: false
         }
     },
     mounted() {

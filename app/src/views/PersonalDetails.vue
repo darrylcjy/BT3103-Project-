@@ -10,17 +10,21 @@
         <PersonalDetailsForm :email="this.user.email"/>
     </div>
     
+    <div v-else>
+        <NotLoggedIn/>
+    </div>
 </template>
 
 <script>
 import PersonalDetailsForm from '../components/PersonalDetailsForm.vue' 
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
-
+import NotLoggedIn from '../components/NotLoggedIn.vue'
 
 export default {
     name:'PersonalDetails',
     components: {
-        PersonalDetailsForm
+        PersonalDetailsForm,
+        NotLoggedIn
     },
     data() {
         return {
