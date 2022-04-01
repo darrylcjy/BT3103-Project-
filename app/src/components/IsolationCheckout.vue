@@ -1,5 +1,6 @@
 <template>
     <div id = "heading">
+        <h1>Hello {{this.name}}, </h1>
         <h1>The symptoms that you present do not require medical attention.</h1>
     </div>
     
@@ -63,11 +64,31 @@
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
+const db = getFirestore(firebaseApp);
+
 export default {
     data() {
         return {
-            name: "John Doe",
+            name: "",
             day: 7
+        }
+    },
+    mounted() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.display(user)
+            }
+        })
+    },
+    methods: {
+        async display(user) {
+            let x = await getDoc(doc(db, "details", String(user.email)));
+            
+            this.name = x.data().name; 
         }
     }
 }
