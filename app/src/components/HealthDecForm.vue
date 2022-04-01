@@ -26,7 +26,7 @@
         <input type="radio" name="question4" value="No">No
       </div>
       <br>
-      <input type="button" name="" value="Save" v-on:click="savetofs()">
+      <input type="button" name="" class="btn" value="Save" v-on:click="savetofs()">
     </form>
   </div>
 </template>
@@ -74,13 +74,14 @@ export default {
           document.getElementById('declaration').reset();
 
           alert("Responses saved successfully!")
-          
+          this.$router.push({name:'Profile'})
         }
         catch(error) {
           console.error("Error adding document: ", error);
         }
       } catch (error) {
         alert("Please ensure all questions have been answered")
+        document.getElementById('declaration').reset();
       }
     }
   }
@@ -99,4 +100,17 @@ export default {
     display: inline-block;
     text-align: right;
   } */
+
+  .btn {
+    all:unset;
+    width: 100px;
+    height: 30px;
+    background: #F5F5DD;
+
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px 0.5rem;
+    border-radius: 10px;
+    text-align: center;
+  }
 </style>
