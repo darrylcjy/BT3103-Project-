@@ -10,8 +10,8 @@
     <h2>You have an appointment at the following clinic:</h2>
 
     <!-- <h2> Venue: </h2> -->
-    <label> Venue </label>
-    <div id="venue">
+    <label><b> Location </b></label>
+    <div id="location">
       {{ clinicName }} <br />
       {{ location }}
       {{ unitno }}
@@ -22,7 +22,7 @@
     <br /><br />
 
     <!-- <h2> Date:</h2> -->
-    <label> Date </label>
+    <label><b> Date </b></label>
     <div id="date">
       {{ this.date }} <br />
       {{ day }}
@@ -31,7 +31,7 @@
     <br /><br />
 
     <!-- <h2> Time: </h2> -->
-    <label> Time </label>
+    <label><b> Time </b></label>
     <div id="time">
       {{ this.time }}
     </div>
@@ -83,7 +83,7 @@ export default {
       dist: 1.2,
 
       date: "",
-      day: "Friday",
+      day: "",
 
       time: "",
 
@@ -102,11 +102,12 @@ export default {
   methods: {
     
     async display(user) {
-      let z = await getDoc(doc(db, "details", String(user.email)));
-
-      this.date = z.data().apptDate;
-      this.time = z.data().apptTime;
-      this.name = z.data().name;
+      let userDetails = await getDoc(doc(db, "details", String(user.email)));
+      let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
+      
+      this.date = userAppt.data().apptDate;
+      this.time = userAppt.data().apptTime;
+      this.name = userDetails.data().name;
 
       this.hasAppointment()
     },
@@ -150,7 +151,7 @@ export default {
 </script>
 
 <style>
-#venue {
+#location {
   text-align: center;
   padding: 10px;
   width: 800px;
@@ -159,6 +160,7 @@ export default {
   border-radius: 10px;
   font-size: 25px;
   margin: auto;
+  box-shadow: 1px 1px 5px black;
 }
 
 #date {
@@ -170,6 +172,7 @@ export default {
   border-radius: 10px;
   font-size: 25px;
   margin: auto;
+  box-shadow: 1px 1px 5px black;
 }
 
 #time {
@@ -181,6 +184,7 @@ export default {
   border-radius: 10px;
   font-size: 25px;
   margin: auto;
+  box-shadow: 1px 1px 5px black;
 }
 
 #cancel,
