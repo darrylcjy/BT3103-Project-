@@ -1,7 +1,9 @@
 <template>
     <div v-if="user">
-        <!-- Navigation bar -->
-        <NavigationBar/>
+        <div v-if="filled">
+          <!-- Navigation bar -->
+          <NavigationBar/>
+        </div>
         <!-- Contact Us -->
         <HealthDec/>
     </div>
@@ -16,8 +18,13 @@ import HealthDec from '../components/HealthDecForm.vue'
 import NavigationBar from '../components/NavigationBar.vue'
 import NotLoggedIn from '../components/NotLoggedIn.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import firebaseApp from "../firebase.js";
+import {getFirestore} from "firebase/firestore";
+import {doc, getDoc} from "firebase/firestore";
+const db = getFirestore(firebaseApp);
 
 export default {
+
     name:'FAQ',
     components: {
         HealthDec,
@@ -27,7 +34,8 @@ export default {
 
     data() {
       return {
-        user: false
+        user: false,
+        filled: false
       }
     },
 
@@ -35,9 +43,26 @@ export default {
       const auth = getAuth()
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          this.user = user
+          this.user = user;
+          this.getData();
         }
       })
+    },
+
+    methods: {
+      async getData() {
+            const auth = getAuth()
+            this.email = auth.currentUser.email
+
+            let z = await getDoc(doc(db, "details", String(this.email)))
+
+            let data = z.data()
+            console.log(data.name)
+
+            if (data.pregnant == "Yes" || data.pregnant == "No") {
+              this.filled = true
+            }
+      }
     }
 }
 </script>
