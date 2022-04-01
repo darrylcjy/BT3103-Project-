@@ -40,10 +40,6 @@ export default {
         float: right;
     }
 
-    #profile-button {
-        text-decoration: underline;
-    }
-
     #profile-button:hover{
         color: rgb(14, 83, 185)
     }
