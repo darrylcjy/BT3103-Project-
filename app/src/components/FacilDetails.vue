@@ -6,7 +6,7 @@
     <div class="clinic-details">
       <h3 id="scrollspyHeading1">{{ this.clinicName }}</h3>
       <h4>{{ this.clinicAddress }}, Singapore {{ this.clinicPC }}</h4>
-      <h4>Telephone No: +65 {{ this.tel }}</h4>
+      <h4 v-if="!this.emergency">Telephone No: +65 {{ this.tel }}</h4>
       <h4 v-if="!this.emergency">Opening Hours: {{ this.opening }}</h4>
     </div>
     <br />
