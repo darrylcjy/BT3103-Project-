@@ -197,6 +197,7 @@ export default {
   border-radius: 10px;
   font-size: 25px;
   margin: auto;
+  box-shadow: 1px 1px 5px black;
 }
 label {
   font-size: 24px;
@@ -217,6 +218,7 @@ label {
   border-radius: 10px;
   font-size: 25px;
   text-align: left;
+  box-shadow: 1px 1px 5px black;
 }
 .appt-container {
   display: flex;
@@ -234,6 +236,7 @@ label {
   width: 6rem;
   display: inline-block;
   margin: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 #next:hover,
 #previous:hover {

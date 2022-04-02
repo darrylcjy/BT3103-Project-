@@ -143,19 +143,20 @@ export default {
 .card {
   text-align: left;
   padding: 10px;
-  width: 850px;
+  width: flex;
   height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 18px;
   margin: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 .card:hover {
   background-color: skyblue;
 }
 .scrollable {
   overflow: auto;
-  width: 900px;
+  width: flex;
   margin: auto;
   height: 600px;
   max-height: 600px;
