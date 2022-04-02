@@ -4,8 +4,8 @@
     <br />
 
     <div class="clinic-details">
-      <h3 id="scrollspyHeading1">{{ clinicName }}</h3>
-      <h4>{{ location }} {{ unitno }} {{ postalCode }}</h4>
+      <h3 id="scrollspyHeading1">{{ this.clinicName }}</h3>
+      <h4>{{ this.clinicAddress }}, Singapore {{ this.clinicPC }}</h4>
       <h4>Distance: {{ dist }}km away</h4>
     </div>
     <br />
@@ -23,12 +23,7 @@
     </div>
     <br /><br />
     <h5 class="directions">
-      Get directions
-      <a
-        href="https://www.google.com/maps/@1.359872,103.7427559,15z"
-        target="_blank"
-        >here</a
-      >
+      Get directions <a v-bind:href="website" target="_blank">here</a>
     </h5>
     <br />
     <button
@@ -42,20 +37,54 @@
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const db = getFirestore(firebaseApp);
+
 export default {
   data() {
     return {
-      username: "John Doe",
-      // replace this when clinic data can be obtained
-      facilType: "GP/ Polyclinic",
-      clinicName: "1 BISHAN MEDICAL",
-      location: "283 BISHAN STREET 22",
-      unitno: "#01-191",
-      postalCode: "SINGAPORE 750283",
+      clinicName: "", 
+      clinicAddress: "", 
+      clinicPC: "", 
       dist: Math.round(Math.random() * 100) / 10,
       queueLen: Math.floor(Math.random() * 11),
+      website:"", 
     };
   },
+  mounted() {
+    const auth = getAuth();
+    this.email = auth.currentUser.email;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.display(user);
+      }
+    });
+  },
+  methods: {
+    async display(user) {
+      let apptData = await getDoc(doc(db, "Appointments", String(user.email)));
+
+      let data = apptData.data();
+      this.clinicAddress = data.clinicAddress;
+      this.clinicPC = data.facilPC;
+      this.clinicName = data.apptClinic;
+      this.getWebsite(this.clinicName)
+
+    },
+    async getWebsite(clinicName) {
+      var words = clinicName.split(" ");  // get individual word
+      var parsed = "";
+      for (var i = 0; i < words.length; i+=1) {
+        // console.log(words[i]) 
+        parsed += "+" + words[i]
+        console.log(parsed)
+      }
+      this.website = "https://www.google.com/maps/search/?api=1&query=" + parsed
+    }
+  }
 };
 </script>
 
