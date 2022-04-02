@@ -17,15 +17,22 @@
     </div>
 
     <div class="scrollable">
-      <!-- add v-for when clinic list obtained -->
-      <div
-        class="card"
-        v-on:click="this.$router.push({ path: '/facil-details' })"
-      >
-        <h3 id="scrollspyHeading1">{{ clinicName }}</h3>
-        <h4>{{ location }} {{ unitno }} {{ postalCode }}</h4>
-        <h4>Distance: {{ dist }}km away</h4>
-        <h4>Number of patients in queue: {{ queueLen }}</h4>
+      <div v-for="facil in facils" :key="facil.id">
+        <div class="card" v-on:click="click(facil)">
+          <h3 id="scrollspyHeading1">{{ facil["name"] || facil["name "] }}</h3>
+          <h4 v-if="this.emergency">
+            {{ facil["address"] || facil["address "] }}, Singapore
+            {{ facil["postalCode"] || facil["postalCode "] }}
+          </h4>
+          <h4 v-else>
+            {{ facil.street }} {{ facil.block }}, Singapore
+            {{ facil.postalCode }}
+          </h4>
+          <h4>Distance: {{ dist }}km away</h4>
+          <h4>
+            Number of patients in queue: {{ Math.floor(Math.random() * 11) }}
+          </h4>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +41,7 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, setDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
@@ -43,22 +50,16 @@ export default {
     return {
       name: "",
       email: "",
-      // replace this when clinic data can be obtained
+      userPC: "",
       emergency: false,
-      clinicName: "1 BISHAN MEDICAL",
-      location: "283 BISHAN STREET 22",
-      unitno: "#01-191",
-      postalCode: "SINGAPORE 750283",
       dist: Math.round(Math.random() * 100) / 10,
-      queueLen: Math.floor(Math.random() * 11),
-      // have given up on trying to get data from .py file -- just manual copy paste the array inside
-      polyclinics: [],
-      hospitals: [],
+      facils: [],
       symptoms: [],
     };
   },
   mounted() {
     const auth = getAuth();
+    this.email = auth.currentUser.email;
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
@@ -67,11 +68,13 @@ export default {
   },
   methods: {
     async display(user) {
-      let z = await getDoc(doc(db, "details", String(user.email)));
+      let userData = await getDoc(doc(db, "details", String(user.email)));
+      var facils;
 
-      let data = z.data();
+      let data = userData.data();
       this.name = data.name;
       this.symptoms = data.symptoms;
+      this.userPC = data.postal;
 
       const severe = [
         "Bluish lips and/or face",
@@ -84,7 +87,53 @@ export default {
       ];
 
       // conditional rendering of gp vs hospital
+      // rendering to GP based on threshold 7 done in Symptoms3.vue
       this.emergency = severe.some((i) => this.symptoms.includes(i));
+
+      if (this.emergency) {
+        facils = await getDocs(collection(db, "hospitals "));
+      } else {
+        facils = await getDocs(collection(db, "clinics"));
+      }
+      facils.forEach((doc) => {
+        this.facils.push(doc.data());
+      });
+
+      // sort by ascending postal code difference
+      this.facils.sort(function(a, b) {
+        return JSON.parse(a.postalCode) - JSON.parse(b.postalCode)
+      })
+
+    },
+
+    async click(facil) {
+      try {
+        const docRef = doc(db, "Appointments", this.email);
+
+
+        if (this.emergency) {
+          await setDoc(docRef, {
+            apptClinic: facil.name || facil["name "],
+            clinicAddress: facil["address"] || facil["address "], 
+            facilPC: facil["postalCode"] || facil["postalCode "], 
+            // distance:
+            // qLen:
+          });
+        } else {
+          await setDoc(docRef, {
+            apptClinic: facil.name,
+            clinicAddress: facil.street + " " + facil.block, 
+            facilPC: facil.postalCode
+            // distance:
+            // qLen:
+          });
+        }
+        console.log(docRef);
+        alert("Clinic has been selected");
+        this.$router.push({ path: "/facil-details" });
+      } catch (error) {
+        console.error("Error: ", error);
+      }
     },
   },
 };
@@ -99,14 +148,16 @@ export default {
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 18px;
+  margin: 10px;
 }
 .card:hover {
   background-color: skyblue;
 }
 .scrollable {
-  overflow: scroll;
+  overflow: auto;
   width: 900px;
   margin: auto;
   height: 600px;
+  max-height: 600px;
 }
 </style>
