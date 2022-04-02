@@ -3,7 +3,7 @@
     <div class = "intro">
       <h2 class="question">Have you tested COVID-positive or been exposed to COVID?</h2>
       <h3 class="prompt">Unsure what to do next?</h3>
-      <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Click here</button>
+      <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Get started!</button>
     </div>
     <div class="latest">
       <br><br>
