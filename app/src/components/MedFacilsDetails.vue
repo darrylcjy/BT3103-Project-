@@ -104,12 +104,19 @@ export default {
       });
 
       console.log(this.facils);
-              console.log(this.facilsRender);
+      console.log(this.facilsRender);
 
-      // sort by ascending postal code difference
-      this.facilsRender.sort(function (a, b) {
-        return JSON.parse(a.postalCode) - JSON.parse(b.postalCode);
-      });
+      // sort by ascending postal code difference -- clinic
+      if (!this.emergency) {
+        this.facilsRender.sort(function (a, b) {
+          return JSON.parse(a.postalCode) - JSON.parse(b.postalCode);
+        });
+      } else {
+        // sort by ascending alphabetical -- hospital
+        this.facilsRender.sort(function (a, b) {
+          return JSON.parse(a.name) - JSON.parse(b.name);
+        });
+      }
 
       // push first 5 options in
       this.facils.push(...this.facilsRender.slice(0, 5));
@@ -138,7 +145,7 @@ export default {
             apptClinic: facil.name,
             clinicAddress: facil.street + " " + facil.block,
             facilPC: facil.postalCode,
-            tel: facil.tel, 
+            tel: facil.tel,
             opening: facil.opening,
             // qLen:
           });
