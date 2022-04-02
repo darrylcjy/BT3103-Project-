@@ -38,7 +38,7 @@
 
       <div class="med-facil">
         <label>Medical Facility of Choice</label>
-        <div class="row-detail">{{ clinicName }}</div>
+        <div class="row-detail">{{ this.clinicName }}</div>
       </div>
     </div>
 
@@ -93,8 +93,8 @@
 
 <script>
 import firebaseApp from "../firebase.js";
-import { getFirestore } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
@@ -105,8 +105,7 @@ export default {
       age: "",
       phone: "",
       email: "", 
-      // replace this when clinic data can be obtained
-      clinicName: "1 BISHAN MEDICAL",
+      clinicName: "",
       symptoms: [],
       intensity: [],
     };
@@ -154,11 +153,13 @@ export default {
   methods: {
     async display(user) {
       let z = await getDoc(doc(db, "details", String(user.email)));
+      let apptDetails = await getDoc(doc(db, "Appointments", String(user.email)));
 
       let data = z.data();
       this.name = data.name;
       this.phone = data.phone;
       this.age = data.age;
+      this.clinicName = apptDetails.data().apptClinic;
       
       this.symptoms = data.symptoms;
       this.intensity = data.intensity;
@@ -168,14 +169,12 @@ export default {
       try {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
-        const apptClinc = this.clinicName
 
         // Appointment as Collection > User Email as Document > appt date
         const docRef = doc(db, "Appointments", this.email); 
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           apptDate: apptDate,
           apptTime: apptTime,
-          apptClinc: apptClinc,
         });
         console.log(docRef);
         alert("Updated Appointment Details Successfully");
