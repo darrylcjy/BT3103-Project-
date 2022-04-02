@@ -1,5 +1,5 @@
 <template>
-    <h1>You are not logged in</h1>
+    <h2>You are not logged in</h2>
     <a href="/">Return to Home</a>
 </template>
 

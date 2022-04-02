@@ -1,7 +1,7 @@
 <template>
     <!-- Form to Login Firebase ui-->
     <div>
-        <h1>Welcome to CovidCare</h1>
+        <h1>Login to CovidCare</h1>
         <div id="firebaseui-auth-container"></div>
     </div>
 </template>

@@ -9,11 +9,10 @@
     <div class="login" v-else>
         <div class="description">
             <div class="main">
-                <p class="heading">COVIDCARE</p>
-                <div class="content">This web application is created to guide you through the current COVID-19 procedures. If you are COVID-Positive, a close contact or want to get relevant COVID information, this application is for you. We hope that COVIDCARE will serve you well.</div>
+                <p class="heading">Welcome!</p>
+                <div class="content">CovidCare is created to guide you through the current COVID-19 procedures. If you are COVID-19 positive, a close contact or want to get relevant COVID-19 information, this application is for you. We hope to serve you well.</div>
                 <div class="last">
-                    <p>Log in now to get started OR</p>
-                    <button @click="home()">return to home page</button>
+                    <button @click="home()">Return to Home</button>
                 </div>
             </div>
         </div>
@@ -77,7 +76,7 @@ export default {
 
 .heading {
     font-size: 2.5rem;
-    letter-spacing: 8px;
+    /* letter-spacing: 8px; */
     margin-bottom: 0rem;
 }
 
