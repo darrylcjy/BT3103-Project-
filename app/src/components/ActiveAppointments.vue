@@ -89,7 +89,7 @@ export default {
         ""
     };
   },
-  mounted() {
+  beforeMount() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {

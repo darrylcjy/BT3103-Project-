@@ -28,7 +28,8 @@
             {{ facil.street }} {{ facil.block }}, Singapore
             {{ facil.postalCode }}
           </h4>
-          <h4>Distance: {{ dist }}km away</h4>
+          <h4 v-if="!this.emergency">Telephone No: +65 {{ facil.tel }}</h4>
+          <h4 v-if="!this.emergency">Opening Hours: {{ facil.opening }}</h4>
           <h4>
             Number of patients in queue: {{ Math.floor(Math.random() * 11) }}
           </h4>
@@ -36,7 +37,7 @@
       </div>
     </div>
 
-    <button v-on:click="loadMore()"> Load More</button>
+    <button v-on:click="loadMore()">Load More</button>
   </div>
 </template>
 
@@ -54,11 +55,10 @@ export default {
       email: "",
       userPC: "",
       emergency: false,
-      dist: Math.round(Math.random() * 100) / 10,
       facils: [],
-      facilsRender: [], 
+      facilsRender: [],
       symptoms: [],
-      showCounter: 5, 
+      showCounter: 5,
     };
   },
   mounted() {
@@ -101,45 +101,45 @@ export default {
       }
       facils.forEach((doc) => {
         this.facilsRender.push(doc.data());
-        // push first 5 options in 
-        if (this.facils.length < 5) {
-          this.facils.push(doc.data());
-        }
       });
 
-      console.log(this.facils)
+      console.log(this.facils);
+              console.log(this.facilsRender);
 
       // sort by ascending postal code difference
-      this.facils.sort(function(a, b) {
-        return JSON.parse(a.postalCode) - JSON.parse(b.postalCode)
-      }); 
+      this.facilsRender.sort(function (a, b) {
+        return JSON.parse(a.postalCode) - JSON.parse(b.postalCode);
+      });
 
+      // push first 5 options in
+      this.facils.push(...this.facilsRender.slice(0, 5));
     },
 
     loadMore() {
-      this.facils.push(...this.facilsRender.slice(this.showCounter, this.showCounter + 5))
-      this.showCounter += 5; 
+      this.facils.push(
+        ...this.facilsRender.slice(this.showCounter, this.showCounter + 5)
+      );
+      this.showCounter += 5;
     },
 
     async click(facil) {
       try {
         const docRef = doc(db, "Appointments", this.email);
 
-
         if (this.emergency) {
           await setDoc(docRef, {
             apptClinic: facil.name || facil["name "],
-            clinicAddress: facil["address"] || facil["address "], 
-            facilPC: facil["postalCode"] || facil["postalCode "], 
-            // distance:
+            clinicAddress: facil["address"] || facil["address "],
+            facilPC: facil["postalCode"] || facil["postalCode "],
             // qLen:
           });
         } else {
           await setDoc(docRef, {
             apptClinic: facil.name,
-            clinicAddress: facil.street + " " + facil.block, 
-            facilPC: facil.postalCode
-            // distance:
+            clinicAddress: facil.street + " " + facil.block,
+            facilPC: facil.postalCode,
+            tel: facil.tel, 
+            opening: facil.opening,
             // qLen:
           });
         }

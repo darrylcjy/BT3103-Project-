@@ -6,7 +6,8 @@
     <div class="clinic-details">
       <h3 id="scrollspyHeading1">{{ this.clinicName }}</h3>
       <h4>{{ this.clinicAddress }}, Singapore {{ this.clinicPC }}</h4>
-      <h4>Distance: {{ dist }}km away</h4>
+      <h4>Telephone No: +65 {{ this.tel }}</h4>
+      <h4 v-if="!this.emergency">Opening Hours: {{ this.opening }}</h4>
     </div>
     <br />
     <div class="row2">
@@ -21,11 +22,11 @@
         </div>
       </div>
     </div>
-    <br /><br />
+    <br />
     <h5 class="directions">
       Get directions <a v-bind:href="website" target="_blank">here</a>
     </h5>
-    <br />
+    
     <button
       id="previous"
       v-on:click="this.$router.push({ path: '/med-facils' })"
@@ -71,6 +72,8 @@ export default {
       this.clinicAddress = data.clinicAddress;
       this.clinicPC = data.facilPC;
       this.clinicName = data.apptClinic;
+      this.tel = data.tel;
+      this.opening = data.opening;
       this.getWebsite(this.clinicName)
 
     },
@@ -93,7 +96,7 @@ export default {
   text-align: left;
   padding: 10px;
   width: 850px;
-  height: 210px;
+  height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 25px;
@@ -115,7 +118,7 @@ label {
 .row2-details {
   padding: 10px;
   width: 400px;
-  height: 60px;
+  height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 40px;
