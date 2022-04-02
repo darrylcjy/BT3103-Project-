@@ -35,6 +35,8 @@
         </div>
       </div>
     </div>
+
+    <button v-on:click="loadMore()"> Load More</button>
   </div>
 </template>
 
@@ -54,7 +56,9 @@ export default {
       emergency: false,
       dist: Math.round(Math.random() * 100) / 10,
       facils: [],
+      facilsRender: [], 
       symptoms: [],
+      showCounter: 5, 
     };
   },
   mounted() {
@@ -96,14 +100,25 @@ export default {
         facils = await getDocs(collection(db, "clinics"));
       }
       facils.forEach((doc) => {
-        this.facils.push(doc.data());
+        this.facilsRender.push(doc.data());
+        // push first 5 options in 
+        if (this.facils.length < 5) {
+          this.facils.push(doc.data());
+        }
       });
+
+      console.log(this.facils)
 
       // sort by ascending postal code difference
       this.facils.sort(function(a, b) {
         return JSON.parse(a.postalCode) - JSON.parse(b.postalCode)
-      })
+      }); 
 
+    },
+
+    loadMore() {
+      this.facils.push(...this.facilsRender.slice(this.showCounter, this.showCounter + 5))
+      this.showCounter += 5; 
     },
 
     async click(facil) {
@@ -143,21 +158,34 @@ export default {
 .card {
   text-align: left;
   padding: 10px;
-  width: 850px;
+  width: flex;
   height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
   font-size: 18px;
   margin: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 .card:hover {
   background-color: skyblue;
 }
 .scrollable {
   overflow: auto;
-  width: 900px;
+  width: flex;
   margin: auto;
   height: 600px;
   max-height: 600px;
+}
+button {
+  all: unset;
+  font-size: 1rem;
+  background-color: #f5f5dd;
+  padding: 10px;
+  border-radius: 10px;
+  width: auto;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 1px 1px 5px black;
+  font-weight: bolder;
 }
 </style>
