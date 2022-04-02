@@ -3,7 +3,7 @@
     <!-- Descriptions -->
     <div v-if="user">
         <h2>You are logged in!</h2>
-        <a href="/user-home">Go to Home</a>
+        <router-link to="/user-home">Go to Home</router-link>
     </div>
 
     <div class="login" v-else>

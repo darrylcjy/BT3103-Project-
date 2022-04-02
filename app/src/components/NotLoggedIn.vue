@@ -1,6 +1,6 @@
 <template>
     <h2>You are not logged in</h2>
-    <a href="/">Return to Home</a>
+    <router-link to="/">Return to Home</router-link>
 </template>
 
 <script>
