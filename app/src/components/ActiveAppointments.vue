@@ -12,10 +12,9 @@
     <!-- <h2> Venue: </h2> -->
     <label><b> Location </b></label>
     <div id="location">
-      {{ clinicName }} <br />
-      {{ location }}
-      {{ unitno }}
-      {{ postalCode }} <br /><br />
+      {{this.clinicName }} <br />
+      {{ this.clinicAddress }}, Singapore {{this.clinicPC}}
+      <br /><br />
       Distance: {{ dist }} km away
     </div>
 
@@ -76,10 +75,9 @@ export default {
 
       appt: false,
 
-      clinicName: "1 BISHAN MEDICAL",
-      location: "283 BISHAN STREET 22",
-      unitno: "#01-191",
-      postalCode: "SINGAPORE 750283",
+      clinicName: "",
+      clinicAddress: "",
+      clinicPC: "",
       dist: 1.2,
 
       date: "",
@@ -109,6 +107,10 @@ export default {
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
       this.name = userDetails.data().name;
+
+      this.clinicName = userAppt.data().apptClinic; 
+      this.clinicAddress = userAppt.data().clinicAddress; 
+      this.clinicPC = userAppt.data().facilPC; 
 
       this.hasAppointment()
     },
