@@ -3,7 +3,7 @@
         <h1>Profile</h1>
         <p><b>Name:</b> {{this.name}}</p>
         <p><b>Phone Number:</b> {{this.phone}}</p>
-        <p><b>Age:</b> {{this.age}} (Birth Year: {{this.year}})</p>
+        <p><b>Age:</b> {{this.age}}</p>
         <p><b>Address:</b> {{this.address}}</p>
         <p><b>Postal Code:</b> {{this.postal}}</p>
         <p><b>Vaccination Status:</b> {{this.vax}}</p>

@@ -11,12 +11,14 @@
     
     <!-- Contact Us -->
     <Home/>
+    <Covid-Info/>
 </template>
 
 <script>
 import Home from '../components/HomePage.vue' 
 import NavigationBar from '../components/NavigationBar.vue'
 import NavigationBarUnauthorized from '../components/NavigationBarUnauthorized.vue'
+import CovidInfo from '../components/CovidInfo.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 export default {
@@ -24,7 +26,8 @@ export default {
     components: {
         Home,
         NavigationBar,
-        NavigationBarUnauthorized
+        NavigationBarUnauthorized,
+        CovidInfo
     },
 
     data() {

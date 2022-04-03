@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>FAQs</h1>
-    <p class="more-info">Last updated: 19/3/2022. More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a></p>
+    <p class="more-info">Last updated: 19/3/22. More FAQs can be obtained <a href="https://ask.gov.sg/agency/moh" target="_blank">here</a>.</p>
 
     <!-- Radio Buttons to select content -->
     <div class="selection">
@@ -14,11 +14,6 @@
       <div class="choice">
         <input type="radio" id="close-contact" v-model= "selected" value="close-contact">
         <label for="close-contact">Close Contact</label>
-      </div>
-      
-      <div class="choice">
-        <input type="radio" id="safety-measures" v-model= "selected" value="safety-measures">
-        <label for="safety-measures">COVID Related Measures</label>
       </div>
     </div>
   
@@ -182,19 +177,6 @@
           </div>
         </details>
       </div>
-
-      <div v-if="selected == 'safety-measures'" class="current-measures">
-        <div class="images">
-          <p class= "header-faq">Newest Updates to Measures</p>
-          <p class="footnote">For more information on the current measures, click <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a></p>
-          <img v-show="imgshow == 'img1'" src="../assets/measures2903.png" alt="Measures Updates" height="500px">
-          <img v-show="imgshow == 'img2'" src="../assets/measures2.png" alt="Measures Updates" height="420px">
-          <div class="img-choice">
-            <input type="radio" name="r-btn" id="r1" v-model="imgshow" value="img1">
-            <input type="radio" name="r-btn" id="r2" v-model="imgshow" value="img2">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -238,12 +220,19 @@ h1 {
 
 /* Selection radio buttons styling */
 .selection {
-  background-color: rgba(245, 245, 221, 0.5);
   font-size: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: center;
   padding: 0.5rem;
+}
+
+label {
+  color: rgb(155, 155, 155);
+}
+
+input[type="radio"]:checked + label {
+  color: #2c3e50;
 }
 
 .selection > p {
@@ -269,12 +258,6 @@ h1 {
   text-align: left;
 }
 
-.positive,
-.close-contact,
-.current-measures {
-  margin-bottom: 1rem ;
-}
-
 
 .faq {
   padding: 1rem;
@@ -285,7 +268,6 @@ h1 {
 }
 
 .faq:hover{
-  background-color: rgba(183, 218, 250, 0.15);
   box-shadow: 1px 1px 3px black;
   cursor: pointer;
 }
@@ -299,44 +281,14 @@ h1 {
   font-size: 1.25rem;
 }
 
-/* For the measures styling */
+.content {
+  margin-bottom: 5rem;
+}
+
 @media(max-width: 775px) {
   .selection{
     flex-direction: column;
     width: 100%;
   }
-
-  img {
-    width: 100%;
-  }
-}
-
-.footnote {
-  font-size: 1rem;  
-}
-
-img {
-  display: block;
-  box-shadow: 1px 1px 3px gray;
-  max-width: 725px;
-  height: 420px;
-  padding: 1rem;
-  border-radius: 1rem;
-  margin: auto;
-}
-
-.images h1 {
-  margin-bottom: 1.5rem;
-}
-
-.img-choice input {
-  border: 0px;
-  width: 1.2rem;
-  height: 1.2rem;
-  cursor: pointer;
-}
-
-.img-choice {
-  margin: 0.25rem 1rem;
 }
 </style>

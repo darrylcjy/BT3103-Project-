@@ -3,6 +3,7 @@
         <NavigationBar/>
         <!-- Contact Us -->
         <UserHome/>
+        <CovidInfo/>
     </div>
 
     <div v-else>
@@ -14,6 +15,7 @@
 import UserHome from '../components/UserHomePage.vue' 
 import NavigationBar from '../components/NavigationBar.vue' 
 import NotLoggedIn from '../components/NotLoggedIn.vue'
+import CovidInfo from '../components/CovidInfo.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 export default {
@@ -21,7 +23,8 @@ export default {
     components: {
         UserHome,
         NavigationBar,
-        NotLoggedIn
+        NotLoggedIn,
+        CovidInfo
     },
     data() {
         return {

@@ -5,30 +5,12 @@
       <h3 class="prompt">Unsure what to do next?</h3>
       <button class="btn" type="button" v-on:click="this.$router.push({path: '/login'})">Get started!</button>
     </div>
-    <div class="latest">
-      <br><br>
-      <h1 class="news">Latest Singapore COVID-19 Numbers</h1><hr>
-      <!-- <button @click="updateMe()">Click to update</button><br><br>
-      <line-chart class="numbers" :data="chartdata"></line-chart> -->
-      <iframe class="numbers" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0"> </iframe>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Home',
-
-  data(){
-    return{
-      chartdata: {'Monday': 2, 'Tuesday': 5, 'Wednesday': 2, 'Thursday': 5, 'Friday': 6}
-    }
-  },
-  methods:{
-    updateMe: function() {
-      this.chartdata = {'Monday': Math.random()*5, 'Tuesday': 5, 'Wednesday': Math.random()*5, 'Thursday': 5, 'Friday': 6}
-    }
-  }
 }
 </script>
 
@@ -72,12 +54,4 @@ export default {
     color: white
   }
 
-  .news {
-    text-align: left;
-  }
-
-  .numbers {
-    width: 1000px;
-    height: 500px;
-  }
 </style>
