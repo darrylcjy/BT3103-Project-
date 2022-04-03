@@ -1,5 +1,12 @@
 <template>
-    <div class="info">
+    <div class="bar">
+        <!-- Styling of Profile Page -->
+        <input type="radio" name="details" id="details" v-model="selected" value="details">
+        <label for="details"><span>1</span> Personal Details</label>
+        <input type="radio" name="health" id="health" v-model="selected" value="health">
+        <label for="health"><span>2</span> Health Conditions</label>
+    </div>
+    <div class="info" v-if="selected === 'details'">
         <h1>Profile</h1>
         <p><b>Name:</b> {{this.name}}</p>
         <p><b>Phone Number:</b> {{this.phone}}</p>
@@ -11,8 +18,7 @@
             <button class="btn" @click="redirect()">Edit Profile<i class="fas fa-edit"></i></button>
         </div>
     </div>
-    <br><br>
-    <div class="health">
+    <div class="health" v-else>
         <h1>Declared Health Conditions</h1>
         <p><b>Pregnant:</b> {{this.pregnant}}</p>
         <p><b>HIV/AIDS:</b> {{this.hiv}}</p>
@@ -35,13 +41,19 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
         return {
+            // added to suppress warning
             name: "",
             phone: "",
             year: "",
             address: "",
             vax: "",
             postal: "",
-            age: ""
+            age: "",
+            selected: "details",
+            pregnant: "",
+            hiv: "",
+            cancer: "",
+            immunocompromised:""
         }
     },
     mounted() {
@@ -90,6 +102,46 @@ export default {
 </script>
 
 <style scoped>
+/* Selection for viewing */
+.bar {
+    max-width: 700px;
+    padding: 2rem;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    color: rgb(183, 183, 183);
+    font-weight: bold;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    transition: 0.3s ease-in-out;
+}
+
+input[type="radio"]:checked + label {
+  color: #2c3e50;
+}
+
+input[type="radio"]:checked + label > span {
+    border-color: #2c3e50;
+}
+
+span {
+    display: inline-block;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgb(183, 183, 183);
+    border-radius: 50%;
+}
+
+/* Personal Details & health condition*/
 .info {
     max-width: 700px;
     text-align: left;
@@ -98,7 +150,6 @@ export default {
     padding: 1.5rem 2rem;
     box-shadow: 1px 1px 3px grey;
     border-radius: 1rem;
-    transform: translate(0, 10%)
 }
 
 .health {
@@ -109,10 +160,10 @@ export default {
     padding: 1.5rem 2rem;
     box-shadow: 1px 1px 3px grey;
     border-radius: 1rem;
-    transform: translate(0, 10%)
 }
 
-p {
+.info p,
+.health p {
     font-size: 1.5rem;
     border-bottom: 1px solid rgb(185, 185, 185);
 }

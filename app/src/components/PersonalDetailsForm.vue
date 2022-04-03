@@ -37,7 +37,7 @@
 
         <div class="container">
             <label for="postal" class="form-label">Postal Code</label>
-            <input type="number" name="postal" id="postal" class="form-text" placeholder="Postal Code" v-model="postal">
+            <input type="text" name="postal" id="postal" class="form-text" placeholder="Postal Code" v-model="postal">
             <i class="fas fa-check-circle"></i> 
             <i class="fas fa-exclamation-circle"></i> 
             <p class="error">Error Message</p>
@@ -97,7 +97,7 @@ export default {
                 const phoneval = this.phone
                 const yearval = this.year
                 const addressval = this.address.trim()
-                const postal = this.postal
+                const postal = this.postal.trim()
                 const vaxstatus = this.vax
                 if (this.checkValid(nameval, phoneval, yearval, addressval, vaxstatus, postal)) {
                     const docRef = await setDoc(doc(db, "details", this.email), {name: nameval, phone: phoneval, year: yearval, address: addressval, postal: postal, vax: vaxstatus})
@@ -163,8 +163,8 @@ export default {
                 this.setSuccess(vaxElem)
             }
 
-            if (postal === "" || postal.toString().length != 6) {
-                this.setFail(postalElem, "Enter a valid SG postal code")
+            if (postal === "" || isNaN(postal) || postal.length != 6) {
+                this.setFail(postalElem, "Enter a valid SG postal code (6 digits)")
                 valid = false
             } else {
                 this.setSuccess(postalElem)
@@ -240,7 +240,7 @@ i {
 show success or failure */
 .container.success .form-text{
     border-color: rgb(54, 170, 54);
-    background-color: rgb(253, 255, 253);
+    background-color: rgb(240, 252, 240);
 }
 
 .container.success i.fa-check-circle {
