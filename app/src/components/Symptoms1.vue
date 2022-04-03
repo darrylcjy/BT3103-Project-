@@ -214,6 +214,11 @@ export default {
 
   methods: {
     async confirmsymptoms() {
+      if (this.FormEntry == "") {
+        alert("Please select an option!");
+        return;
+      }
+
       var aches = document.getElementById("checkbox1");
       var bluelipsface = document.getElementById("checkbox2");
       var chestpain = document.getElementById("checkbox3");
