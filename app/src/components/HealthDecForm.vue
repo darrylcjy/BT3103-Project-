@@ -64,11 +64,16 @@ export default {
 
         try{
           const auth = getAuth()
+          var atRisk = false; 
           this.email = auth.currentUser.email
+
+          if (q1value == "Yes" || q2value == "yes" || q3value == "yes" || q4value == "yes") {
+            atRisk = true; 
+          }
 
           const docRef = doc(db, "details", this.email);
           await updateDoc(docRef, {
-            pregnant: q1value, hiv: q2value, cancer: q3value, immunocompromised: q4value
+            pregnant: q1value, hiv: q2value, cancer: q3value, immunocompromised: q4value, atRisk: atRisk, 
           });
           console.log(docRef)
           document.getElementById('declaration').reset();

@@ -7,7 +7,7 @@
           >{{ name }}, for the symptoms you present, we reccommend you to visit
           a
           <u
-            ><div v-if="this.emergency">Hospital Emergency Department.</div>
+            ><div v-if="this.emergency || this.atRisk">Hospital Emergency Department.</div>
             <div v-else>GP clinic/ Polyclinic.</div></u
           ></b
         >
@@ -20,7 +20,7 @@
       <div v-for="facil in facils" :key="facil.id">
         <div class="card" v-on:click="click(facil)">
           <h3 id="scrollspyHeading1">{{ facil["name"] || facil["name "] }}</h3>
-          <h4 v-if="this.emergency">
+          <h4 v-if="this.emergency || this.atRisk">
             {{ facil["address"] || facil["address "] }}, Singapore
             {{ facil["postalCode"] || facil["postalCode "] }}
           </h4>
@@ -28,8 +28,8 @@
             {{ facil.street }} {{ facil.block }}, Singapore
             {{ facil.postalCode }}
           </h4>
-          <h4 v-if="!this.emergency">Telephone No: +65 {{ facil.tel }}</h4>
-          <h4 v-if="!this.emergency">Opening Hours: {{ facil.opening }}</h4>
+          <h4 v-if="!this.emergency && !this.atRisk">Telephone No: +65 {{ facil.tel }}</h4>
+          <h4 v-if="!this.emergency && !this.atRisk">Opening Hours: {{ facil.opening }}</h4>
           <h4>
             Number of patients in queue: {{ Math.floor(Math.random() * 11) }}
           </h4>
@@ -55,6 +55,7 @@ export default {
       email: "",
       userPC: "",
       emergency: false,
+      atRisk: false, 
       facils: [],
       facilsRender: [],
       symptoms: [],
@@ -79,6 +80,7 @@ export default {
       this.name = data.name;
       this.symptoms = data.symptoms;
       this.userPC = data.postal;
+      this.atRisk = data.atRisk; 
 
       const severe = [
         "Bluish lips and/or face",
@@ -94,7 +96,7 @@ export default {
       // rendering to GP based on threshold 7 done in Symptoms3.vue
       this.emergency = severe.some((i) => this.symptoms.includes(i));
 
-      if (this.emergency) {
+      if (this.emergency || this.atRisk) {
         facils = await getDocs(collection(db, "hospitals "));
       } else {
         facils = await getDocs(collection(db, "clinics"));
@@ -107,17 +109,12 @@ export default {
       console.log(this.facilsRender);
 
       // sort by ascending postal code difference -- clinic
-      if (!this.emergency) {
+      if (!this.emergency && !this.atRisk) {
         this.facilsRender.sort(function (a, b) {
           return JSON.parse(a.postalCode) - JSON.parse(b.postalCode);
         });
-      } else {
-        // sort by ascending alphabetical -- hospital
-        this.facilsRender.sort(function (a, b) {
-          return JSON.parse(a.name) - JSON.parse(b.name);
-        });
       }
-
+      
       // push first 5 options in
       this.facils.push(...this.facilsRender.slice(0, 5));
     },
