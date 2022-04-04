@@ -103,10 +103,14 @@ export default {
             let x = await getDoc(doc(db, "details", String(user.email)));
             let maxDays = 0;
             
-            const age = x.data().age;
-            const vaccinationStatus = x.data().vax;
+            const birthYear = x.data().year;
+            const currentYear = new Date().getFullYear()
+            const age = currentYear - birthYear;
+            // console.log(birthYear);
+            // console.log(currentYear);
+            // console.log(age);
 
-            // console.log(age)
+            const vaccinationStatus = x.data().vax;
 
             if (age > 12) {     // for individuals 12 and above
                 // console.log("12 years and above")
