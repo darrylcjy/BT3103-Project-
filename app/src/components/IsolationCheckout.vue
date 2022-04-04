@@ -15,7 +15,7 @@
     </div> <br>
 
     <div id="second-days">
-        <h2>Day 4 - ~</h2>
+        <h2>Day 4 - Day {{this.middleDay}}</h2>
         Administer an ART test. <br>
 
         <div class="state">
@@ -34,7 +34,7 @@
     </div> <br>
 
     <div id="third-days">
-        <h2> Day {{this.day}} </h2>
+        <h2> Day {{this.lastDay}} </h2>
         <!-- based on user's personal info, we can show either 7 days or 14 days -->
         <!-- 7 days for fully vaccinated + children below 12 -->
         <!-- 14 days for partially vaccinated/ unvaccinated individuals above 12 -->
@@ -76,7 +76,8 @@ export default {
     data() {
         return {
             name: "",
-            day: 0,
+            lastDay: 0,
+            middleDay: 0,
         }
     },
     mounted() {
@@ -118,7 +119,8 @@ export default {
                 // console.log("12 years and below")
                 maxDays = 7;
             }
-            this.day = maxDays
+            this.lastDay = maxDays
+            this.middleDay = maxDays - 1
         },
 
     }
