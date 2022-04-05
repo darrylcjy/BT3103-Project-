@@ -1,11 +1,15 @@
 <template>
     <div v-if="user">
-        <div v-if="filled">
-          <!-- Navigation bar -->
-          <NavigationBar/>
-        </div>
-        <!-- Contact Us -->
+      <div v-if="noprofile">
+        <NoProfile/>
+      </div>
+      <div v-else-if="nohealth">
         <HealthDec/>
+      </div>
+      <div v-else>
+        <NavigationBar/>
+        <HealthDec/>
+      </div>
     </div>
 
     <div v-else>
@@ -17,6 +21,7 @@
 import HealthDec from '../components/HealthDecForm.vue' 
 import NavigationBar from '../components/NavigationBar.vue'
 import NotLoggedIn from '../components/NotLoggedIn.vue'
+import NoProfile from '../components/NoProfile.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import firebaseApp from "../firebase.js";
 import {getFirestore} from "firebase/firestore";
@@ -29,13 +34,15 @@ export default {
     components: {
         HealthDec,
         NavigationBar,
-        NotLoggedIn
+        NotLoggedIn,
+        NoProfile
     },
 
     data() {
       return {
         user: false,
-        filled: false
+        nohealth: false,
+        noprofile: false
       }
     },
 
@@ -51,17 +58,23 @@ export default {
 
     methods: {
       async getData() {
-            const auth = getAuth()
-            this.email = auth.currentUser.email
+        const auth = getAuth()
+        this.email = auth.currentUser.email
 
-            let z = await getDoc(doc(db, "details", String(this.email)))
+        let z = await getDoc(doc(db, "details", String(this.email)))
 
-            let data = z.data()
-            console.log(data.name)
+        let data = z.data()
 
-            if (data.pregnant == "Yes" || data.pregnant == "No") {
-              this.filled = true
-            }
+        try {
+          console.log(data.name)
+
+          if (data.pregnant == null) {
+            this.nohealth = true
+          }
+        } catch (error) {
+          console.error("Error getting document: ", error);
+          this.noprofile = true
+        }
       }
     }
 }
