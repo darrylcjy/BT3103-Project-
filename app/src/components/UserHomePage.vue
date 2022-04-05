@@ -2,14 +2,16 @@
   <div class="main">
     <div class="welcome">
       <h1 class="heading">Welcome, {{ name }}</h1>
+      <button class="btn" type="button" v-on:click="this.$router.push({path: '/getting-started'})">Get started!</button>
     </div>
+    <br>
     <div class="header">
       <h1>COVID Resources</h1><hr>
     </div>
     <div class="resources">
-      <div class="subresource" v-on:click="this.$router.push({path: '/getting-started'})">
+      <div class="subresource" v-on:click="this.$router.push({path: '/facil-confirmation/active-appts'})">
         <img class="image" src="../assets/userhome2.png" alt="">
-        <h2>Getting Started</h2>
+        <h2>Active Appointments</h2>
       </div>
       <div class="subresource" v-on:click="this.$router.push({path: '/faq'})">
         <img class="image" src="../assets/userhome3.png" alt="">
@@ -71,13 +73,14 @@ export default {
   .welcome {
     background: url("../assets/userhome1.png");
     height: 300px;
-    display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .heading {
+    position: relative;
     color: white;
+    top: 100px;
   }
 
   .header {
@@ -101,5 +104,20 @@ export default {
   h2 {
     background: skyblue;
     margin-top: 0;
+  }
+
+  .btn {
+    all: unset;
+    position: relative;
+    width: 130px;
+    height: 40px;
+    top: 100px;
+    background: #f5f5dd;
+
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px 0.5rem;
+    border-radius: 10px;
+    text-align: center;
   }
 </style>

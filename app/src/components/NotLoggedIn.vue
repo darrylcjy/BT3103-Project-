@@ -1,11 +1,11 @@
 <template>
     <h2>You are not logged in</h2>
-    <router-link to="/">Return to Home</router-link>
+    <router-link to="/login">Proceed to Login</router-link>
 </template>
 
 <script>
 export default({
-    name:'Profile'
+    name:'NotLoggedIn'
 })
 </script>
 
