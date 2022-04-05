@@ -61,15 +61,17 @@
 
         <label for="appt-time">Appointment Time:</label>
 
+        <!-- value="09:00" -->
+        <div v-on:click="setValidTime(facil)">
         <input
           type="time"
           id="appt-time"
           name="appt"
-          value="09:00"
           min="07:00"
           max="19:00"
           required
         />
+        </div>
       </div>
     </div>
 
@@ -106,6 +108,8 @@ export default {
       phone: "",
       email: "", 
       clinicName: "",
+      opening: "", 
+      qLen: 0,
       symptoms: [],
       intensity: [],
     };
@@ -132,6 +136,9 @@ export default {
       var mm = today.getMonth() + 1; //January is 0!
       var yyyy = today.getFullYear();
       var yyyy2 = yyyy + 1;
+      // var hour = today.getHours(); 
+      // var minutes = today.getMinutes(); 
+
 
       if (dd < 10) {
         dd = "0" + dd;
@@ -146,6 +153,7 @@ export default {
       document.getElementById("appt-date").setAttribute("min", today);
       document.getElementById("appt-date").setAttribute("value", today);
       document.getElementById("appt-date").setAttribute("max", maxDate);
+      // document.getElementById("appt-time").setAttribute("value", hour + ":" + minutes);
     }
     setMinDate();
   },
@@ -183,6 +191,40 @@ export default {
         console.error("Error: ", error);
       }
     },
+
+    setValidTime(facil) {
+      var now = new Date();
+      // this is in local time :> 
+      // earliest appt time today is current time + 0.5hr (travelling time) + estimated waiting time 
+      var apptTime = new Date(now.getTime() + (30 + facil.qLen * 15)*60000); 
+      var hour = apptTime.getHours(); 
+      var minutes = apptTime.getMinutes(); 
+      var today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
+      var isToday = document.getElementById("appt-date").value == today ? true : false 
+      var openTime, closeTime;
+
+      // if patient wants to book appt today: 
+      // clinic: check if exceed closing hours with < 1hr. if so, set min appt date to next day 
+      // NOTE only clinic will have "opening" hours attribute since hospitals are open 24/7
+      if (facil.opening) {
+          openTime = facil.opening.split("-")[0];
+          closeTime = facil.opening.split("-")[1];
+          if (isToday && hour > closeTime.slice(0,2)) { 
+            window.alert("There are no available appointments for this facility today! Choose another date or another facility")
+            var nextDay = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDate() + 1)
+            document.getElementById("appt-date").setAttribute("min", nextDay)
+            document.getElementById("appt-date").setAttribute("value", nextDay)
+            apptTime = openTime; 
+          } else {
+            apptTime = hour + ":" + minutes
+          }
+      } else { // hospital
+        apptTime = isToday ? (hour + ":" + minutes) : "00:00"
+        closeTime = "23:59"
+      }
+      document.getElementById("appt-time").setAttribute("min", apptTime);
+      document.getElementById("appt-time").setAttribute("max", closeTime); 
+    }
   },
 };
 </script>

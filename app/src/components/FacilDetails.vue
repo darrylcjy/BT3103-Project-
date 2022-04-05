@@ -13,12 +13,12 @@
     <div class="row2">
       <div class="wait-time">
         <label>Estimated waiting time</label>
-        <div class="row2-details">{{ queueLen * 15 }} mins</div>
+        <div class="row2-details">{{ this.qLen * 15 }} mins</div>
       </div>
       <div class="queue-len">
         <label>Number of patients in queue</label>
         <div class="row2-details">
-          {{ queueLen }}
+          {{ this.qLen }}
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ export default {
       clinicAddress: "", 
       clinicPC: "", 
       dist: Math.round(Math.random() * 100) / 10,
-      queueLen: Math.floor(Math.random() * 11),
+      qLen: 0,
       website:"", 
     };
   },
@@ -74,6 +74,7 @@ export default {
       this.clinicName = data.apptClinic;
       this.tel = data.tel;
       this.opening = data.opening;
+      this.qLen = data.qLen; 
       this.getWebsite(this.clinicName)
 
     },
