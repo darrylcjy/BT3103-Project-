@@ -3,11 +3,15 @@
   <div>
     <div class="header">
       <h2>
-        <b
-          >{{ name }}, for the symptoms you present, we recommend you to visit
-          a
+        <b>
+          <div v-if="!this.atRisk">
+            {{ name }}, for the symptoms you present, we recommend you to visit a
+          </div>
+          <div v-else>{{ name }}, due to pre-exisiting health conditions, we recommend you to visit a</div>
           <u
-            ><div v-if="this.emergency || this.atRisk">Hospital Emergency Department.</div>
+            ><div v-if="this.emergency || this.atRisk">
+              Hospital Emergency Department.
+            </div>
             <div v-else>GP clinic/ Polyclinic.</div></u
           ></b
         >
@@ -18,11 +22,17 @@
 
     <div class="search-box">
       <!-- <label>Search for:</label> <br> -->
-      <input type="text" v-model="search" placeholder="Search for medical facility ..."/> <br><br>
+      <input
+        type="text"
+        v-model="search"
+        placeholder="Search for medical facility ..."
+      />
+      <br /><br />
     </div>
 
     <div class="scrollable">
-      <div v-for="facil in filteredList" :key="facil.id"> <!-- changed facils to filteredList -->
+      <div v-for="facil in filteredList" :key="facil.id">
+        <!-- changed facils to filteredList -->
         <div class="card" v-on:click="click(facil)">
           <h3 id="scrollspyHeading1">{{ facil["name"] || facil["name "] }}</h3>
           <h4 v-if="this.emergency || this.atRisk">
@@ -33,10 +43,15 @@
             {{ facil.street }} {{ facil.block }}, Singapore
             {{ facil.postalCode }}
           </h4>
-          <h4 v-if="!this.emergency && !this.atRisk">Telephone No: +65 {{ facil.tel }}</h4>
-          <h4 v-if="!this.emergency && !this.atRisk">Opening Hours: {{ facil.opening }}</h4>
+          <h4 v-if="!this.emergency && !this.atRisk">
+            Telephone No: +65 {{ facil.tel }}
+          </h4>
+          <h4 v-if="!this.emergency && !this.atRisk">
+            Opening Hours: {{ facil.opening }}
+          </h4>
           <h4>
-            Number of patients in queue: {{ Math.floor(Math.random() * 11) }}
+            Number of patients in queue:
+            {{ Math.floor((facil["name"] || facil["name "] / 3).length) }}
           </h4>
         </div>
       </div>
@@ -60,7 +75,7 @@ export default {
       email: "",
       userPC: "",
       emergency: false,
-      atRisk: false, 
+      atRisk: false,
       facils: [],
       facilsRender: [],
       symptoms: [],
@@ -86,7 +101,7 @@ export default {
       this.name = data.name;
       this.symptoms = data.symptoms;
       this.userPC = data.postal;
-      this.atRisk = data.atRisk; 
+      this.atRisk = data.atRisk;
 
       const severe = [
         "Bluish lips and/or face",
@@ -120,7 +135,7 @@ export default {
           return JSON.parse(a.postalCode) - JSON.parse(b.postalCode);
         });
       }
-      
+
       // push first 5 options in
       this.facils.push(...this.facilsRender.slice(0, 5));
     },
@@ -141,7 +156,7 @@ export default {
             apptClinic: facil.name || facil["name "],
             clinicAddress: facil["address"] || facil["address "],
             facilPC: facil["postalCode"] || facil["postalCode "],
-            // qLen:
+            qLen: Math.floor((facil["name"] || facil["name "] / 7).length),
           });
         } else {
           await setDoc(docRef, {
@@ -150,7 +165,7 @@ export default {
             facilPC: facil.postalCode,
             tel: facil.tel,
             opening: facil.opening,
-            // qLen:
+            qLen: Math.floor((facil["name"] || facil["name "] / 7).length),
           });
         }
         console.log(docRef);
@@ -162,15 +177,16 @@ export default {
     },
   },
   computed: {
-    filteredList(){
-      console.log("In filteredList method")
-      console.log(this.facilsRender)
-      console.log(this.facils)
-      return this.facilsRender.filter(facil => {
-        return facil.name.toLowerCase().includes(this.search.toLowerCase())
-      })
-    }
-  }
+    filteredList() {
+      console.log("In filteredList method");
+      console.log(this.facilsRender);
+      console.log(this.facils);
+      return this.facilsRender.filter((facil) => {
+        var facilName = facil.name ? facil.name : facil["name "]
+        return facilName.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
+  },
 };
 </script>
 
