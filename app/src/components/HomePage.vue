@@ -1,9 +1,12 @@
 <template>
   <div class = "main">
     <div class = "intro">
-      <h2 class="question">Have you tested COVID-positive or been exposed to COVID?</h2>
-      <h3 class="prompt">Unsure what to do next?</h3>
-      <button class="btn" type="button" v-on:click="this.$router.push({path: '/getting-started'})">Get started!</button>
+      <div class="text">
+        <p class="question">Have you tested COVID-positive or been exposed to COVID?</p>
+        <p class="prompt">Unsure what to do next?</p>
+        <button class="btn" type="button" v-on:click="this.$router.push({path: '/getting-started'})">Get started!</button>
+      </div>
+      <img src="../assets/banner.png" alt="banner">
     </div>
   </div>
 </template>
@@ -16,26 +19,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .main {
-    max-width: 1000px;
-    margin: auto;
-    padding: 1rem 2rem 1rem 1rem;
+  .intro {
+    position: relative;
+    background-color: #2C3E50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .intro {
-    background: url("../assets/home.jpg");
-    height: 200px
+  img {
+    padding: 1rem;
+  }
+
+  .text {
+    text-align: left;
+    width: 45%;
   }
 
   .question {
-    position: relative;
-    top: 40px;
-    color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 2.25rem;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .prompt {
-    position: relative;
-    top: 30px;
+    font-size: 1.5rem;
+    margin-top: 0.8rem;
+    color:White;
   }
 
   .btn {
@@ -43,15 +56,34 @@ export default {
     position: relative;
     width: 140px;
     height: 30px;
-    top: 40px;
-    background: blue;
+    background: #B7DAFA;
 
     cursor: pointer;
-    font-size:1rem;
+    font-size:1.25rem;
+    font-weight: bold;
     padding: 5px 0.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
-    color: white
+    color: #2C3E50;
   }
 
+  .btn:hover {
+    box-shadow: 1px 1px 3px white;
+  }
+
+  @media(max-width: 1000px) {
+    img {
+        display: none;
+    }
+
+    .intro {
+      height: auto;
+    }
+
+    .text {
+      width: 80%;
+      text-align: center;
+      padding: 2rem;
+    }
+  }
 </style>
