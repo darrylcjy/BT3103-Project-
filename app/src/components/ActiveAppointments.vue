@@ -6,16 +6,15 @@
   <!-- if user has an appointment, render this div -->
     <!-- note to self: on mounted, display() method called, which calls hasAppointment() method,  
       which changes this.appt data, and the value is passed into v-if condition-->
-  <div id="appointment" v-if=this.appt>
+  <div id="appointment" v-if=appt>
     <h2>You have an appointment at the following clinic:</h2>
 
     <!-- <h2> Venue: </h2> -->
     <label><b> Location </b></label>
     <div id="location">
       {{this.clinicName }} <br />
-      {{ this.clinicAddress }}, Singapore {{this.clinicPC}}
-      <br /><br />
-      Distance: {{ dist }} km away
+      {{ this.clinicAddress }} <br>
+      Singapore {{this.clinicPC}}
     </div>
 
     <br /><br />
@@ -49,13 +48,13 @@
  <div id="non-appointment" v-else> 
 
    <h2>You have <u>no</u> active appointments</h2>
-   <img src="../assets/cancelled.png" alt="No icon found"> <br>
+   <img src="../assets/cancelled.png" alt="No icon found"> <br> -->
    <!-- <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button><br> -->
    <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
       Back to Home
     </button>
-</div>
+</div> 
 </template>
 
 <script>
@@ -78,7 +77,6 @@ export default {
       clinicName: "",
       clinicAddress: "",
       clinicPC: "",
-      dist: 1.2,
 
       date: "",
       day: "",
@@ -104,9 +102,9 @@ export default {
       let userDetails = await getDoc(doc(db, "details", String(user.email)));
       let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
       
+      this.name = userDetails.data().name;
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
-      this.name = userDetails.data().name;
 
       this.clinicName = userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
