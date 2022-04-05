@@ -156,7 +156,7 @@ export default {
             apptClinic: facil.name || facil["name "],
             clinicAddress: facil["address"] || facil["address "],
             facilPC: facil["postalCode"] || facil["postalCode "],
-            qLen: Math.floor((facil["name"] || facil["name "] / 3).length),
+            qLen: Math.floor((facil.name || facil["name "]).length / 3),
           });
         } else {
           await setDoc(docRef, {
@@ -165,7 +165,7 @@ export default {
             facilPC: facil.postalCode,
             tel: facil.tel,
             opening: facil.opening,
-            qLen: Math.floor((facil["name"] || facil["name "] / 3).length),
+            qLen: Math.floor((facil.name || facil["name "]).length / 3),
           });
         }
         console.log(docRef);
