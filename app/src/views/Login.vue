@@ -61,11 +61,11 @@ export default {
 }
 
 .description {
-    width: 55%;
+    width: 50%;
     padding: 1.5rem;
-    background-color: #B7DAFA ;
     box-shadow: 1px 1px 3px grey;
-    background: linear-gradient(270deg, rgba(183,218,250,1) 45%, rgba(246,237,255,1) 100%);
+    background: rgb(44,62,80);
+    color: whitesmoke;
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
     min-height: 100vh;
@@ -78,12 +78,13 @@ export default {
     font-size: 2.5rem;
     /* letter-spacing: 8px; */
     margin-bottom: 0rem;
+    letter-spacing: 3px;
 }
 
 .content {
     width: 80%;
     font-size: 1.25rem;
-    line-height: 1.7rem;
+    line-height: 2rem;
     text-align: justify;
     margin: 1rem auto;
 }
@@ -102,22 +103,22 @@ p {
 
 button {
     all:unset;
-    background: none;
+    background-color: #B7DAFA;
+    color: #2C3E50;
     cursor: pointer;
     font-size: 1.25rem;
     font-weight: bold;
-    color:inherit;
     padding: 0.5rem 1rem;
     margin-top: 0.7rem;
     border: 1px solid black;
-    border-radius: 1rem;
+    border-radius: 5px;
 }
 
 button:hover {
     box-shadow: 1px 1px 4px grey;
 }
 
-@media(max-width: 750px) {
+@media(max-width: 1000px) {
     .login {
         flex-direction: column;
         min-width: 450px;
@@ -127,11 +128,8 @@ button:hover {
     .description {
         width: 100%;
         padding: 1.5rem 0rem;
-        border-radius:1.5rem;
         min-height: auto;
-        background-color: #B7DAFA ;
-        box-shadow: 1px 1px 3px grey;
-        background: linear-gradient(270deg, rgba(183,218,250,1) 45%, rgba(246,237,255,1) 100%);
+        border-radius: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;

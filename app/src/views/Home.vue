@@ -16,6 +16,7 @@
       <NavigationBarUnauthorized/>
       <Home/>
       <Covid-Info/>
+      <Footer/>
     </div>    
 </template>
 
@@ -26,6 +27,7 @@ import NavigationBarUnauthorized from '../components/NavigationBarUnauthorized.v
 import CovidInfo from '../components/CovidInfo.vue'
 import NoProfile from '../components/NoProfile.vue'
 import NoHealth from '../components/NoHealth.vue'
+import Footer from '../components/Footer.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import firebaseApp from "../firebase.js"
 import {getFirestore} from "firebase/firestore"
@@ -40,7 +42,8 @@ export default {
         NavigationBarUnauthorized,
         CovidInfo,
         NoProfile,
-        NoHealth
+        NoHealth,
+        Footer
     },
 
     data() {

@@ -3,11 +3,13 @@
         <div class="latest">
             <br>
             <h1 class="news">Latest Singapore COVID-19 Numbers</h1><hr>
-            <iframe class="numbers" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0"> </iframe>
+            <div class="graph">
+                <iframe class="numbers" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0"> </iframe>
+            </div>
         </div>
         <div class="measures">
             <h1 class= "header-faq">Latest Updates to Safe Management Measures</h1> <hr>
-            <p class="note">Last Updated: 29/03/22. For further information on current SMMs, click <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a>.</p>
+            <p class="note">Last Updated: 05/04/22. For further information on current SMMs, click <a href="https://www.moh.gov.sg/covid-19-phase-advisory" target="_blank">here</a>.</p>
             <div class="images">
                 <img v-show="imgshow == '0'" src="../assets/1.png" alt="Key Measures Updates Part 1">
                 <img v-show="imgshow == '1'" src="../assets/2.png" alt="Key Measures Updates Part 2">
@@ -15,6 +17,7 @@
                 <img v-show="imgshow == '3'" src="../assets/4.png" alt="SG-Malaysia Travel Guide">
                 <img v-show="imgshow == '4'" src="../assets/5.png" alt="Travelling Measures Updates Part 1">
                 <img v-show="imgshow == '5'" src="../assets/6.png" alt="Travelling Measures Updates Part 2">
+                <img v-show="imgshow == '6'" src="../assets/7.png" alt="NightLife Measures Updates">
 
                 <!-- Next and Previous Buttons -->
                 <div class="nav">
@@ -34,6 +37,7 @@
                 <input type="radio" name="r-btn" id="r3" v-model="imgshow" value="3">
                 <input type="radio" name="r-btn" id="r4" v-model="imgshow" value="4">
                 <input type="radio" name="r-btn" id="r5" v-model="imgshow" value="5">
+                <input type="radio" name="r-btn" id="r7" v-model="imgshow" value="6">
             </div>
         </div>
     </div>
@@ -46,7 +50,7 @@ export default {
   data() {
     return {
       imgshow: "0",
-      totalimg: 6
+      totalimg: 7
     }
   },
   mounted() {
@@ -92,10 +96,10 @@ h1,
 
 img {
     border: 1px solid #2c3e50;
+    width: 100%;
 }
 
 .images {
-    max-width: 1000px;
     position: relative;
     margin: auto;
 }
@@ -104,7 +108,7 @@ img {
 .nav {
     position:absolute;
     top: 45%;
-    width: 1000px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -143,6 +147,10 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
     background-color: rgb(183, 183, 183);
+}
+
+.graph iframe {
+    width: 100%;
 }
 
 </style>
