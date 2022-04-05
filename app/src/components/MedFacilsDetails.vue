@@ -34,7 +34,7 @@
       <div v-for="facil in filteredList" :key="facil.id">
         <!-- changed facils to filteredList -->
         <div class="card" v-on:click="click(facil)">
-          <h3 id="scrollspyHeading1">{{ facil["name"] || facil["name "] }}</h3>
+          <h3 id="scrollspyHeading1">{{ facil["name "] || facil["name"] }}</h3>
           <h4 v-if="this.emergency || this.atRisk">
             {{ facil["address"] || facil["address "] }}, Singapore
             {{ facil["postalCode"] || facil["postalCode "] }}
@@ -51,7 +51,7 @@
           </h4>
           <h4>
             Number of patients in queue:
-            {{ Math.floor((facil["name"] || facil["name "] / 3).length) }}
+            {{ Math.floor((facil.name || facil["name "]).length / 3) }}
           </h4>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default {
             apptClinic: facil.name || facil["name "],
             clinicAddress: facil["address"] || facil["address "],
             facilPC: facil["postalCode"] || facil["postalCode "],
-            qLen: Math.floor((facil["name"] || facil["name "] / 7).length),
+            qLen: Math.floor((facil["name"] || facil["name "] / 3).length),
           });
         } else {
           await setDoc(docRef, {
@@ -165,7 +165,7 @@ export default {
             facilPC: facil.postalCode,
             tel: facil.tel,
             opening: facil.opening,
-            qLen: Math.floor((facil["name"] || facil["name "] / 7).length),
+            qLen: Math.floor((facil["name"] || facil["name "] / 3).length),
           });
         }
         console.log(docRef);
