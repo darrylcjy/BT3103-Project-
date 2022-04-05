@@ -4,7 +4,7 @@
     <div class="header">
       <h2>
         <b
-          >{{ name }}, for the symptoms you present, we reccommend you to visit
+          >{{ name }}, for the symptoms you present, we recommend you to visit
           a
           <u
             ><div v-if="this.emergency || this.atRisk">Hospital Emergency Department.</div>
@@ -16,8 +16,13 @@
       <br /><br />
     </div>
 
+    <div class="search-box">
+      <!-- <label>Search for:</label> <br> -->
+      <input type="text" v-model="search" placeholder="Search for medical facility ..."/> <br><br>
+    </div>
+
     <div class="scrollable">
-      <div v-for="facil in facils" :key="facil.id">
+      <div v-for="facil in filteredList" :key="facil.id"> <!-- changed facils to filteredList -->
         <div class="card" v-on:click="click(facil)">
           <h3 id="scrollspyHeading1">{{ facil["name"] || facil["name "] }}</h3>
           <h4 v-if="this.emergency || this.atRisk">
@@ -60,6 +65,7 @@ export default {
       facilsRender: [],
       symptoms: [],
       showCounter: 5,
+      search: "",
     };
   },
   mounted() {
@@ -155,6 +161,16 @@ export default {
       }
     },
   },
+  computed: {
+    filteredList(){
+      console.log("In filteredList method")
+      console.log(this.facilsRender)
+      console.log(this.facils)
+      return this.facilsRender.filter(facil => {
+        return facil.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  }
 };
 </script>
 
@@ -191,5 +207,10 @@ button {
   margin: 10px;
   box-shadow: 1px 1px 5px black;
   font-weight: bolder;
+}
+.search-box input {
+  /* background-color: blue; */
+  font-size: 1.5rem;
+  width: 750px;
 }
 </style>
