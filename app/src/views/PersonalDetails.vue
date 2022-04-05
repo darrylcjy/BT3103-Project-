@@ -1,6 +1,4 @@
 <template>
-    <!-- Navigation bar -->
-    <!-- Personal Details -->
     <div v-if="user">
         <h1>Personal Details</h1>
         <div class="details">

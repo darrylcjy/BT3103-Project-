@@ -1,16 +1,21 @@
 <template>
-    <!-- Navigation bar -->
-    <!-- Personal Details -->
     <div v-if="user">
-        <NavigationBar/>
-        <h1>Update Personal Details</h1>
-        <div class="details">
-            <div>Username: {{this.user.displayName}}</div>
-            <div>Email: {{this.user.email}}</div>
+        <div v-if="noprofile">
+            <NoProfile/>
         </div>
-        <UpdateForm :email="this.user.email"/>
+        <div v-else-if="nohealth">
+            <NoHealth/>
+        </div>
+        <div v-else>
+            <NavigationBar/>
+            <h1>Update Personal Details</h1>
+            <div class="details">
+                <div>Username: {{this.user.displayName}}</div>
+                <div>Email: {{this.user.email}}</div>
+            </div>
+            <UpdateForm :email="this.user.email"/>
+        </div>
     </div>
-
     <div v-else>
         <NotLoggedIn/>
     </div>
@@ -21,27 +26,62 @@ import UpdateForm from '../components/UpdateForm.vue'
 import NavigationBar from '../components/NavigationBar.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import NotLoggedIn from '../components/NotLoggedIn.vue'
+import NoProfile from '../components/NoProfile.vue'
+import NoHealth from '../components/NoHealth.vue'
+import firebaseApp from "../firebase.js"
+import {getFirestore} from "firebase/firestore"
+import {doc, getDoc} from "firebase/firestore"
+const db = getFirestore(firebaseApp);
 
 export default {
     name:'Update',
     components: {
         UpdateForm,
         NavigationBar,
-        NotLoggedIn
+        NotLoggedIn,
+        NoProfile,
+        NoHealth
     },
+
     data() {
         return {
             user: false,
+            nohealth: false,
+            noprofile: false
         }
     },
+
     mounted() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = user
+                this.getData()
             }
         })
     },
+
+    methods: {
+      async getData() {
+        const auth = getAuth()
+        this.email = auth.currentUser.email
+
+        let z = await getDoc(doc(db, "details", String(this.email)))
+
+        let data = z.data()
+
+        try {
+          console.log(data.name)
+
+          if (data.pregnant == null) {
+            this.nohealth = true
+          }
+        } catch (error) {
+          console.error("Error getting document: ", error);
+          this.noprofile = true
+        }
+      }
+    }
 }
 </script>
 
