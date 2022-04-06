@@ -39,7 +39,7 @@
       <div class="med-facil">
         <label>Medical Facility of Choice</label>
         <div class="row-detail">
-          {{ this.clinicName }} 
+          {{ this.clinicName }}
           <div v-if="this.opening">Opening Hours: {{ this.opening }}</div>
         </div>
       </div>
@@ -175,15 +175,19 @@ export default {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
 
-        // Appointment as Collection > User Email as Document > appt date
-        const docRef = doc(db, "Appointments", this.email);
-        await updateDoc(docRef, {
-          apptDate: apptDate,
-          apptTime: apptTime,
-        });
-        console.log(docRef);
-        alert("Updated Appointment Details Successfully");
-        this.$router.push({ path: "/facil-confirmation/active-appts" });
+        if (apptTime.length == 0) {
+          window.alert("Please select an appointment time");
+        } else {
+          // Appointment as Collection > User Email as Document > appt date
+          const docRef = doc(db, "Appointments", this.email);
+          await updateDoc(docRef, {
+            apptDate: apptDate,
+            apptTime: apptTime,
+          });
+          console.log(docRef);
+          alert("Updated Appointment Details Successfully");
+          this.$router.push({ path: "/facil-confirmation/active-appts" });
+        }
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -231,10 +235,12 @@ export default {
           document.getElementById("appt-date").setAttribute("min", nextDay());
           document.getElementById("appt-date").setAttribute("value", nextDay());
           apptTime = openTime + ":00";
-        } else if (isToday) { // still open for today 
+        } else if (isToday) {
+          // still open for today
           apptTime = hour + ":" + padDate(minutes);
-        } else { // appointment is not booked today (aka another day) 
-          apptTime = padDate(opening.slice(0,1)) + ":00";
+        } else {
+          // appointment is not booked today (aka another day)
+          apptTime = padDate(opening.slice(0, 1)) + ":00";
         }
       } else {
         // hospital: if its today, earliest appt time is after qLen + travelling
@@ -271,7 +277,6 @@ label {
   justify-content: space-between;
   width: 880px;
   margin: auto;
-  text-align: left;
 }
 .row2-details {
   padding: 10px;
