@@ -5,10 +5,10 @@
       <button class="btn" type="button" v-on:click="this.$router.push({path: '/getting-started'})">Get started!</button>
     </div>
     <br>
-    <div class="header">
+    <div class="header size">
       <h1>COVID Resources</h1><hr>
     </div>
-    <div class="resources">
+    <div class="resources size">
       <div class="subresource" v-on:click="this.$router.push({path: '/facil-confirmation/active-appts'})">
         <img class="image" src="../assets/userhome2.png" alt="">
         <h2>Active Appointments</h2>
@@ -65,22 +65,27 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .main {
+    margin: auto;
+  }
+
+  .size {
     max-width: 1000px;
     margin: auto;
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 0;
   }
 
   .welcome {
     background: url("../assets/userhome1.png");
+    background-position-y: 90%;
+    background-size: cover;
     height: 300px;
-    justify-content: center;
-    align-items: center;
   }
 
   .heading {
     position: relative;
     color: white;
     top: 100px;
+    margin-top:0;
   }
 
   .header {
