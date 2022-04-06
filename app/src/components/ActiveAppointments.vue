@@ -237,6 +237,7 @@ export default {
   margin: 10px;
   margin-left: 10px;
   box-shadow: 1px 1px 5px black;
+  cursor: pointer;
 }
 
 #query {

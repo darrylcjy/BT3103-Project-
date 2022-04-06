@@ -64,13 +64,13 @@ export default {
 
 .description {
     width: 50%;
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
     box-shadow: 1px 1px 3px grey;
     background: rgb(44,62,80);
     color: whitesmoke;
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
-    min-height: 100vh;
+    height: calc(100vh - 16px);
     display: flex;
     flex-direction: column;
     justify-content: center;

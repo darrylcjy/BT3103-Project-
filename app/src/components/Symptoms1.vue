@@ -9,8 +9,11 @@
       name="symptomscheck"
       v-model="FormEntry"
       value="Yes"
-    />Yes
-    <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" />No
+      id="yes"
+    />
+    <label for="yes">Yes</label>
+    <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" id="no"/>
+    <label for="no">No</label>
     <br />
   </p>
   <div id="scrollable" style="text-align: left" v-show="FormEntry == 'Yes'">
@@ -312,10 +315,20 @@ export default {
 };
 </script>
 
-<style>
-p {
+<style scoped>
+p, label {
   font-size: 20px;
 }
+
+label {
+  color: rgb(155, 155, 155);
+  padding-right: 0.5rem;
+}
+
+input[type="radio"]:checked + label {
+  color: #2c3e50;
+}
+
 table {
   background-color: rgba(183, 218, 250, 1);
   width: 50%;
