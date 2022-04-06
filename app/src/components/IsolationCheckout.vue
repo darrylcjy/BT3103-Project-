@@ -6,7 +6,8 @@
     
     <!-- PROTOCOL --> 
     <h2>Please follow the following steps for the next few days.</h2>
-
+    <h3>(Date of issue: {{this.dateOfIssue}})</h3>
+    <!-- <h4>(Date of issue: {{this.dateOfIssue}})</h4> -->
     <div id="first-days">
         <h2>Day 1 - Day 3</h2> 
         <li>Do not leave your house.</li>
@@ -78,6 +79,7 @@ export default {
             name: "",
             lastDay: 0,
             middleDay: 0,
+            dateOfIssue: "",
         }
     },
     mounted() {
@@ -86,6 +88,9 @@ export default {
             if (user) {
                 this.display(user)
                 this.getMaxDays(user)
+                this.dateOfIssue =  new Date().getDate() + "-" + 
+                                    new Date().getMonth() + "-" + 
+                                    new Date().getFullYear();
             }
         })
     },
@@ -126,7 +131,6 @@ export default {
             this.lastDay = maxDays
             this.middleDay = maxDays - 1
         },
-
     }
 }
 </script>
