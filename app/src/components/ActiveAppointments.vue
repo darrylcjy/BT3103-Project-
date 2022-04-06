@@ -1,12 +1,13 @@
 <template>
-  <div id="heading">
-    <h1>Hello {{ this.name }},</h1>
-  </div>
 
   <!-- if user has an appointment, render this div -->
     <!-- note to self: on mounted, display() method called, which calls hasAppointment() method,  
       which changes this.appt data, and the value is passed into v-if condition-->
   <div id="appointment" v-if=appt>
+    <div id="heading">
+      <h1>Hello {{ this.name }},</h1>
+    </div>
+
     <h2>You have an appointment at the following clinic:</h2>
 
     <!-- <h2> Venue: </h2> -->
@@ -45,7 +46,10 @@
   </div>
 
  <!-- if user does not have an appointment, render this div -->
- <div id="non-appointment" v-else> 
+ <div id="non-appointment" v-else-if="this.appt == false"> 
+   <div id="heading">
+      <h1>Hello {{ this.name }},</h1>
+    </div>
 
    <h2>You have <u>no</u> active appointments</h2>
    <img src="../assets/cancelled.png" alt="No icon found"> <br> 
@@ -72,7 +76,7 @@ export default {
       name: "",
       email: "",
 
-      appt: false,
+      appt: null,   // fix time lag!!!
 
       clinicName: "",
       clinicAddress: "",
@@ -98,19 +102,19 @@ export default {
   methods: {
     
     async display(user) {
-      let userDetails = await getDoc(doc(db, "details", String(user.email)));
-      let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
+      this.hasAppointment();  // improves time lag
       
+      let userDetails = await getDoc(doc(db, "details", String(user.email)));
       this.name = userDetails.data().name;
+
+      let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
 
       this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
-
-      this.hasAppointment()
-      this.getWebsite(this.clinicName)
+      this.getWebsite(this.clinicName);
     },
 
     async cancelAppt() {
