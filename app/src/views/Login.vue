@@ -6,7 +6,7 @@
         <router-link to="/user-home">Go to Home</router-link>
     </div>
 
-    <div class="login" v-else>
+    <div class="login" v-else-if="this.user == false">
         <div class="description">
             <div class="main">
                 <p class="heading">Welcome!</p>
@@ -34,7 +34,7 @@ export default {
 
     data() {
         return {
-            user: false
+            user: null
         }
     },
 
@@ -42,7 +42,9 @@ export default {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                this.user = user
+                this.user = true
+            } else {
+                this.user = false
             }
         })
     },

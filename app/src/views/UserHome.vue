@@ -6,13 +6,13 @@
         <div v-else-if="nohealth">
             <NoHealth/>
         </div>
-        <div v-else>
+        <div v-else-if="this.noprofile == false && this.nohealth == false">
             <NavigationBarHome/>
             <UserHome/>
             <CovidInfo/>
         </div>
     </div>
-    <div v-else>
+    <div v-else-if="this.user == false">
         <NotLoggedIn/>
     </div>
 </template>
@@ -43,9 +43,9 @@ export default {
 
     data() {
         return {
-            user: false,
-            nohealth: false,
-            noprofile: false
+            user: null,
+            nohealth: null,
+            noprofile: null
         }
     },
 
@@ -53,8 +53,10 @@ export default {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                this.user = user
+                this.user = true
                 this.getData()
+            } else {
+                this.user = false
             }
         })
     },
@@ -73,6 +75,9 @@ export default {
 
           if (data.pregnant == null) {
             this.nohealth = true
+          } else {
+              this.nohealth = false
+              this.noprofile = false
           }
         } catch (error) {
           console.error("Error getting document: ", error);

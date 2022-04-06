@@ -8,7 +8,7 @@
         <PersonalDetailsForm :email="this.user.email"/>
     </div>
     
-    <div v-else>
+    <div v-else-if="this.user == false">
         <NotLoggedIn/>
     </div>
 </template>
@@ -26,14 +26,16 @@ export default {
     },
     data() {
         return {
-            user: false,
+            user: null,
         }
     },
     mounted() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                this.user = user
+                this.user = true
+            } else {
+                this.user = false
             }
         })
     }

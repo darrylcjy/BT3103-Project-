@@ -7,11 +7,27 @@
     <i id="covidcare-icon">
       <img src="../assets/app.png" alt="Icon not found" />
     </i>
+
+    <div id="profile">
+      <button id="profile-button" v-on:click="signOut()"> Logout </button>
+    </div>
+
   </div>
 </template>
 
 <script>
+import { getAuth, signOut } from "firebase/auth";
 
+export default {
+  methods: {
+    signOut() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      signOut(auth, user);
+      this.$router.push({ name: "Login" });
+    },
+  },
+};
 </script>
 
 <style>
@@ -28,8 +44,11 @@
   float: left;
 }
 
-/* profile dropdown */
 #profile {
   float: right;
+}
+
+#profile-button:hover{
+  color: rgb(14, 83, 185)
 }
 </style>

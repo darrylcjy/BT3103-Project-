@@ -1,18 +1,18 @@
 <template>
     <div v-if="user">
-        <div v-if="noprofile">
+        <!-- <div v-if="noprofile">
           <NoProfile/>
         </div>
         <div v-else-if="nohealth">
           <NoHealth/>
         </div>
-        <div v-else>
+        <div v-else-if="this.noprofile == false && this.nohealth == false"> -->
           <NavigationBarDesign/>
           <Home/>
           <Covid-Info/>
-        </div>
+        <!-- </div> -->
     </div>
-    <div v-else>
+    <div v-else-if="this.user == false">
       <NavigationBarUnauthorized/>
       <Home/>
       <Covid-Info/>
@@ -25,8 +25,8 @@ import Home from '../components/HomePage.vue'
 import NavigationBarDesign from '../components/NavigationBarDesign.vue'
 import NavigationBarUnauthorized from '../components/NavigationBarUnauthorized.vue'
 import CovidInfo from '../components/CovidInfo.vue'
-import NoProfile from '../components/NoProfile.vue'
-import NoHealth from '../components/NoHealth.vue'
+// import NoProfile from '../components/NoProfile.vue'
+// import NoHealth from '../components/NoHealth.vue'
 import Footer from '../components/Footer.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import firebaseApp from "../firebase.js"
@@ -41,16 +41,16 @@ export default {
         NavigationBarDesign,
         NavigationBarUnauthorized,
         CovidInfo,
-        NoProfile,
-        NoHealth,
+        // NoProfile,
+        // NoHealth,
         Footer
     },
 
     data() {
       return {
-        user: false,
-        nohealth: false,
-        noprofile: false
+        user: null,
+        nohealth: null,
+        noprofile: null
       }
     },
 
@@ -58,8 +58,10 @@ export default {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                this.user = user
+                this.user = true
                 this.getData()
+            } else {
+              this.user = false
             }
         })
     },
@@ -78,6 +80,9 @@ export default {
 
           if (data.pregnant == null) {
             this.nohealth = true
+          } else {
+            this.nohealth = false
+            this.noprofile = false
           }
         } catch (error) {
           console.error("Error getting document: ", error);
