@@ -28,11 +28,36 @@
         placeholder="Search for medical facility ..."
       />
       <br /><br />
+
+      <div class="scrollable" v-if = search>
+        <div v-for="facil in filteredList" :key="facil.id">
+          <div class="card" v-on:click="click(facil)">
+            <h3 id="scrollspyHeading1">{{ facil["name "] || facil["name"] }}</h3>
+            <h4 v-if="this.emergency || this.atRisk">
+              {{ facil["address"] || facil["address "] }}, Singapore
+              {{ facil["postalCode"] || facil["postalCode "] }}
+            </h4>
+            <h4 v-else>
+              {{ facil.street }} {{ facil.block }}, Singapore
+              {{ facil.postalCode }}
+            </h4>
+            <h4 v-if="!this.emergency && !this.atRisk">
+              Telephone No: +65 {{ facil.tel }}
+            </h4>
+            <h4 v-if="!this.emergency && !this.atRisk">
+              Opening Hours: {{ facil.opening }}
+            </h4>
+            <h4>
+              Number of patients in queue:
+              {{ Math.floor((facil.name || facil["name "]).length / 3) }}
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="scrollable">
-      <div v-for="facil in filteredList" :key="facil.id">
-        <!-- changed facils to filteredList -->
+    <div class="scrollable" v-if = !search>
+      <div v-for="facil in facils" :key="facil.id">
         <div class="card" v-on:click="click(facil)">
           <h3 id="scrollspyHeading1">{{ facil["name "] || facil["name"] }}</h3>
           <h4 v-if="this.emergency || this.atRisk">
@@ -228,5 +253,6 @@ button {
   /* background-color: blue; */
   font-size: 1.5rem;
   width: 750px;
+  border-radius: 7px;
 }
 </style>
