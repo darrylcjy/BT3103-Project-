@@ -14,7 +14,7 @@
     <div id="location">
       {{this.clinicName }} <br />
       {{ this.clinicAddress }} <br>
-      Singapore {{this.clinicPC}}
+      SINGAPORE {{this.clinicPC}}
     </div>
 
     <br /><br />
@@ -48,7 +48,7 @@
  <div id="non-appointment" v-else> 
 
    <h2>You have <u>no</u> active appointments</h2>
-   <img src="../assets/cancelled.png" alt="No icon found"> <br> -->
+   <img src="../assets/cancelled.png" alt="No icon found"> <br> 
    <!-- <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button><br> -->
    <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
@@ -92,7 +92,6 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
-        this.getWebsite(this.clinicName)
       }
     });
   },
@@ -106,11 +105,12 @@ export default {
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
 
-      this.clinicName = userAppt.data().apptClinic; 
+      this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
 
       this.hasAppointment()
+      this.getWebsite(this.clinicName)
     },
 
     async cancelAppt() {
@@ -149,6 +149,8 @@ export default {
     },
 
     async getWebsite(clinicName) {
+      console.log("inside getWebsite")
+      console.log(clinicName)
       var words = clinicName.split(" ");  // get individual word
       var parsed = "";
       for (var i = 0; i < words.length; i+=1) {
