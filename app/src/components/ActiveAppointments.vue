@@ -1,12 +1,13 @@
 <template>
-  <div id="heading">
-    <h1>Hello {{ this.name }},</h1>
-  </div>
 
   <!-- if user has an appointment, render this div -->
     <!-- note to self: on mounted, display() method called, which calls hasAppointment() method,  
       which changes this.appt data, and the value is passed into v-if condition-->
   <div id="appointment" v-if=appt>
+    <div id="heading">
+      <h1>Hello {{ this.name }},</h1>
+    </div>
+
     <h2>You have an appointment at the following clinic:</h2>
 
     <!-- <h2> Venue: </h2> -->
@@ -14,7 +15,7 @@
     <div id="location">
       {{this.clinicName }} <br />
       {{ this.clinicAddress }} <br>
-      Singapore {{this.clinicPC}}
+      SINGAPORE {{this.clinicPC}}
     </div>
 
     <br /><br />
@@ -45,10 +46,13 @@
   </div>
 
  <!-- if user does not have an appointment, render this div -->
- <div id="non-appointment" v-else> 
+ <div id="non-appointment" v-else-if="this.appt == false"> 
+   <div id="heading">
+      <h1>Hello {{ this.name }},</h1>
+    </div>
 
    <h2>You have <u>no</u> active appointments</h2>
-   <img src="../assets/cancelled.png" alt="No icon found"> <br> -->
+   <img src="../assets/cancelled.png" alt="No icon found"> <br> 
    <!-- <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button><br> -->
    <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
@@ -72,7 +76,7 @@ export default {
       name: "",
       email: "",
 
-      appt: false,
+      appt: null,   // fix time lag!!!
 
       clinicName: "",
       clinicAddress: "",
@@ -92,25 +96,25 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
-        this.getWebsite(this.clinicName)
       }
     });
   },
   methods: {
     
     async display(user) {
-      let userDetails = await getDoc(doc(db, "details", String(user.email)));
-      let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
+      this.hasAppointment();  // improves time lag
       
+      let userDetails = await getDoc(doc(db, "details", String(user.email)));
       this.name = userDetails.data().name;
+
+      let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
 
-      this.clinicName = userAppt.data().apptClinic; 
+      this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
-
-      this.hasAppointment()
+      this.getWebsite(this.clinicName);
     },
 
     async cancelAppt() {
@@ -149,6 +153,8 @@ export default {
     },
 
     async getWebsite(clinicName) {
+      console.log("inside getWebsite")
+      console.log(clinicName)
       var words = clinicName.split(" ");  // get individual word
       var parsed = "";
       for (var i = 0; i < words.length; i+=1) {
