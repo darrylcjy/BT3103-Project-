@@ -10,6 +10,7 @@
             <NavigationBarHome/>
             <UserHome/>
             <CovidInfo/>
+            <Footer/>
         </div>
     </div>
     <div v-else>
@@ -24,6 +25,7 @@ import NotLoggedIn from '../components/NotLoggedIn.vue'
 import NoProfile from '../components/NoProfile.vue'
 import NoHealth from '../components/NoHealth.vue'
 import CovidInfo from '../components/CovidInfo.vue'
+import Footer from '../components/Footer.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import firebaseApp from "../firebase.js"
 import {getFirestore} from "firebase/firestore"
@@ -38,7 +40,8 @@ export default {
         NotLoggedIn,
         CovidInfo,
         NoProfile,
-        NoHealth
+        NoHealth,
+        Footer
     },
 
     data() {
@@ -55,7 +58,7 @@ export default {
             if (user) {
                 this.user = user
                 this.getData()
-            }
+            } 
         })
     },
 

@@ -10,6 +10,7 @@
           <NavigationBarDesign/>
           <Home/>
           <Covid-Info/>
+          <Footer/>
         </div>
     </div>
     <div v-else>

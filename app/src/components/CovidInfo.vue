@@ -79,7 +79,7 @@ export default {
 .main {
     max-width: 1000px;
     margin: auto;
-    padding: 1rem 2rem 1rem 1rem;
+    margin-top: 3rem;
 }
 h1,
 .note {
