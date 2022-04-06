@@ -234,10 +234,11 @@ export default {
         } else if (isToday) { // still open for today 
           apptTime = hour + ":" + padDate(minutes);
         } else { // appointment is not booked today (aka another day) 
-          apptTime = "0" + opening.slice(0,1) + ":00";
+          apptTime = padDate(opening.slice(0,1)) + ":00";
         }
       } else {
-        // hospital
+        // hospital: if its today, earliest appt time is after qLen + travelling
+        // if another day, start time at 12am
         apptTime = isToday ? padDate(hour) + ":" + padDate(minutes) : "00:00";
         closeTime = "23:59";
       }
