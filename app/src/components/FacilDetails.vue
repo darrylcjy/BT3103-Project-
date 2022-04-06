@@ -112,7 +112,6 @@ export default {
   width: 880px;
   font-size: 20px;
   margin: auto;
-  text-align: left;
   padding: 20px;
 }
 label {
