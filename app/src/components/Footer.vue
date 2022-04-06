@@ -16,14 +16,14 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2C3E50;
-    color: white;
+    background-color: #F5F5DD;
     padding: 0rem 1rem;
     margin-top: 5rem;
 }
 
 p {
     font-size: 1rem;
+    margin: 0.5rem 0;
 }
 
 p:first-child {
