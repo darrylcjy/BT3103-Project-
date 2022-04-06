@@ -6,13 +6,12 @@
           Have you tested COVID-positive or been exposed to COVID?
         </p>
         <p class="prompt">Unsure what to do next?</p>
-        <button
-          class="btn"
-          type="button"
-          v-on:click="this.$router.push({ path: '/login' })"
-        >
-          Get started!
-        </button>
+        <div v-if="user">
+          <button class="btn" type="button" v-on:click="this.$router.push({ path: '/user-home' })">Click here!</button>
+        </div>
+        <div v-else>
+          <button class="btn" type="button" v-on:click="this.$router.push({ path: '/login' })">Click here!</button>
+        </div>
       </div>
       <img src="../assets/banner.png" alt="banner" />
     </div>
@@ -20,15 +19,32 @@
 </template>
 
 <script>
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
+
 export default {
   name: "Home",
+
+  data() {
+    return {
+      user: false,
+    }
+  },
+
+  mounted() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user
+      }
+    })
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .intro {
-  position: relative;
+  position: relative; 
   background-color: #2c3e50;
   display: flex;
   justify-content: center;

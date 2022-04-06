@@ -5,6 +5,7 @@
             <h1 class="news">Latest Singapore COVID-19 Numbers</h1><hr>
             <div class="graph">
                 <iframe class="numbers" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0"> </iframe>
+                <!-- <iframe class="numbers" src="https://ourworldindata.org/explorers/coronavirus-data-explorer?facet=none&Metric=Confirmed+cases&Interval=New+per+day&Relative+to+Population=true&Color+by+test+positivity=false&country=~SGP&hideControls=true" frameBorder="0"></iframe> -->
             </div>
         </div>
         <div class="measures">

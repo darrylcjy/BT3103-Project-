@@ -7,7 +7,7 @@
           <NoHealth/>
         </div>
         <div v-else>
-          <NavigationBar/>
+          <NavigationBarDesign/>
           <Home/>
           <Covid-Info/>
         </div>
@@ -22,7 +22,7 @@
 
 <script>
 import Home from '../components/HomePage.vue' 
-import NavigationBar from '../components/NavigationBar.vue'
+import NavigationBarDesign from '../components/NavigationBarDesign.vue'
 import NavigationBarUnauthorized from '../components/NavigationBarUnauthorized.vue'
 import CovidInfo from '../components/CovidInfo.vue'
 import NoProfile from '../components/NoProfile.vue'
@@ -38,7 +38,7 @@ export default {
     name:'FAQ',
     components: {
         Home,
-        NavigationBar,
+        NavigationBarDesign,
         NavigationBarUnauthorized,
         CovidInfo,
         NoProfile,
