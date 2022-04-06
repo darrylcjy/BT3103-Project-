@@ -151,12 +151,13 @@ export default {
       try {
         const docRef = doc(db, "Appointments", this.email);
 
-        if (this.emergency) {
+        if (this.emergency || this.atRisk) {
           await setDoc(docRef, {
             apptClinic: facil.name || facil["name "],
             clinicAddress: facil["address"] || facil["address "],
             facilPC: facil["postalCode"] || facil["postalCode "],
             qLen: Math.floor((facil.name || facil["name "]).length / 3),
+            emergency: true, 
           });
         } else {
           await setDoc(docRef, {
@@ -166,6 +167,7 @@ export default {
             tel: facil.tel,
             opening: facil.opening,
             qLen: Math.floor((facil.name || facil["name "]).length / 3),
+            emergency: false, 
           });
         }
         console.log(docRef);

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Clinic Details</h1>
+    <h1 v-if="!this.emergency">Clinic Details</h1>
+    <h1 v-else>Hospital A&E Details</h1>
     <br />
 
     <div class="clinic-details">
@@ -50,9 +51,9 @@ export default {
       clinicName: "", 
       clinicAddress: "", 
       clinicPC: "", 
-      dist: Math.round(Math.random() * 100) / 10,
       qLen: 0,
       website:"", 
+      emergency: false, 
     };
   },
   mounted() {
@@ -75,6 +76,7 @@ export default {
       this.tel = data.tel;
       this.opening = data.opening;
       this.qLen = data.qLen; 
+      this.emergency = data.emergency; 
       this.getWebsite(this.clinicName)
 
     },

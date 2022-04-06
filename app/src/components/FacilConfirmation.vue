@@ -38,7 +38,10 @@
 
       <div class="med-facil">
         <label>Medical Facility of Choice</label>
-        <div class="row-detail">{{ this.clinicName }}</div>
+        <div class="row-detail">
+          {{ this.clinicName }} 
+          <div v-if="this.opening">Opening Hours: {{ this.opening }}</div>
+        </div>
       </div>
     </div>
 
@@ -53,7 +56,6 @@
           type="date"
           id="appt-date"
           name="trip-start"
-          value="2018-07-22"
           min="2018-12-31"
           max="2018-12-31"
           required
@@ -62,15 +64,15 @@
         <label for="appt-time">Appointment Time:</label>
 
         <!-- value="09:00" -->
-        <div v-on:click="setValidTime(facil)">
-        <input
-          type="time"
-          id="appt-time"
-          name="appt"
-          min="07:00"
-          max="19:00"
-          required
-        />
+        <div v-on:click="setValidTime(this.qLen, this.opening)">
+          <input
+            type="time"
+            id="appt-time"
+            name="appt"
+            min="07:00"
+            max="19:00"
+            required
+          />
         </div>
       </div>
     </div>
@@ -84,12 +86,7 @@
     >
       Previous
     </button>
-    <button
-      id="next"
-      v-on:click="save()"
-    >
-      Confirm
-    </button>
+    <button id="next" v-on:click="save()">Confirm</button>
   </div>
 </template>
 
@@ -106,9 +103,9 @@ export default {
       name: "",
       age: "",
       phone: "",
-      email: "", 
+      email: "",
       clinicName: "",
-      opening: "", 
+      opening: "",
       qLen: 0,
       symptoms: [],
       intensity: [],
@@ -123,7 +120,7 @@ export default {
   },
   mounted() {
     const auth = getAuth();
-    this.email = auth.currentUser.email
+    this.email = auth.currentUser.email;
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
@@ -136,9 +133,6 @@ export default {
       var mm = today.getMonth() + 1; //January is 0!
       var yyyy = today.getFullYear();
       var yyyy2 = yyyy + 1;
-      // var hour = today.getHours(); 
-      // var minutes = today.getMinutes(); 
-
 
       if (dd < 10) {
         dd = "0" + dd;
@@ -153,7 +147,6 @@ export default {
       document.getElementById("appt-date").setAttribute("min", today);
       document.getElementById("appt-date").setAttribute("value", today);
       document.getElementById("appt-date").setAttribute("max", maxDate);
-      // document.getElementById("appt-time").setAttribute("value", hour + ":" + minutes);
     }
     setMinDate();
   },
@@ -161,14 +154,18 @@ export default {
   methods: {
     async display(user) {
       let z = await getDoc(doc(db, "details", String(user.email)));
-      let apptDetails = await getDoc(doc(db, "Appointments", String(user.email)));
+      let apptDetails = await getDoc(
+        doc(db, "Appointments", String(user.email))
+      );
 
       let data = z.data();
       this.name = data.name;
       this.phone = data.phone;
       this.age = data.age;
       this.clinicName = apptDetails.data().apptClinic;
-      
+      this.qLen = apptDetails.data().qLen;
+      this.opening = apptDetails.data().opening;
+
       this.symptoms = data.symptoms;
       this.intensity = data.intensity;
     },
@@ -179,52 +176,75 @@ export default {
         const apptTime = document.getElementById("appt-time").value;
 
         // Appointment as Collection > User Email as Document > appt date
-        const docRef = doc(db, "Appointments", this.email); 
+        const docRef = doc(db, "Appointments", this.email);
         await updateDoc(docRef, {
           apptDate: apptDate,
           apptTime: apptTime,
         });
         console.log(docRef);
         alert("Updated Appointment Details Successfully");
-        this.$router.push({ path: '/facil-confirmation/active-appts' })
+        this.$router.push({ path: "/facil-confirmation/active-appts" });
       } catch (error) {
         console.error("Error: ", error);
       }
     },
 
-    setValidTime(facil) {
+    setValidTime(qLen, opening) {
+      function padDate(num) {
+        return num.toString().padStart(2, "0");
+      }
+      function formatDate(date) {
+        return [
+          date.getFullYear(),
+          padDate(date.getMonth() + 1),
+          padDate(date.getDate()),
+        ].join("-");
+      }
       var now = new Date();
-      // this is in local time :> 
-      // earliest appt time today is current time + 0.5hr (travelling time) + estimated waiting time 
-      var apptTime = new Date(now.getTime() + (30 + facil.qLen * 15)*60000); 
-      var hour = apptTime.getHours(); 
-      var minutes = apptTime.getMinutes(); 
-      var today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
-      var isToday = document.getElementById("appt-date").value == today ? true : false 
+      // this is in local time :>
+      // earliest appt time today is current time + 0.5hr (travelling time) + estimated waiting time
+      var apptTime = new Date(now.getTime() + (30 + qLen * 15) * 60000);
+      var hour = apptTime.getHours();
+      var minutes = apptTime.getMinutes();
+      var today = formatDate(now);
+      var isToday =
+        document.getElementById("appt-date").value == today ? true : false;
       var openTime, closeTime;
 
-      // if patient wants to book appt today: 
-      // clinic: check if exceed closing hours with < 1hr. if so, set min appt date to next day 
+      // if patient wants to book appt today:
+      // clinic: check if exceed closing hours with < 1hr. if so, set min appt date to next day
       // NOTE only clinic will have "opening" hours attribute since hospitals are open 24/7
-      if (facil.opening) {
-          openTime = facil.opening.split("-")[0];
-          closeTime = facil.opening.split("-")[1];
-          if (isToday && hour > closeTime.slice(0,2)) { 
-            window.alert("There are no available appointments for this facility today! Choose another date or another facility")
-            var nextDay = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDate() + 1)
-            document.getElementById("appt-date").setAttribute("min", nextDay)
-            document.getElementById("appt-date").setAttribute("value", nextDay)
-            apptTime = openTime; 
-          } else {
-            apptTime = hour + ":" + minutes
-          }
-      } else { // hospital
-        apptTime = isToday ? (hour + ":" + minutes) : "00:00"
-        closeTime = "23:59"
+      if (opening) {
+        openTime = opening.split("-")[0];
+        closeTime = opening.split("-")[1];
+        if (isToday && hour > closeTime.slice(0, 2)) {
+          window.alert(
+            "There are no available appointments for this facility today! Choose another date or another facility"
+          );
+          var nextDay = function () {
+            return [
+              now.getFullYear(),
+              padDate(now.getMonth() + 1),
+              padDate(now.getDate() + 1),
+            ].join("-");
+          };
+          document.getElementById("appt-date").setAttribute("min", nextDay());
+          document.getElementById("appt-date").setAttribute("value", nextDay());
+          apptTime = openTime + ":00";
+        } else if (isToday) { // still open for today 
+          apptTime = hour + ":" + minutes;
+        } else { // appointment is not booked today (aka another day) 
+          apptTime = "0" + opening.slice(0,1) + ":00";
+        }
+      } else {
+        // hospital
+        apptTime = isToday ? hour + ":" + minutes : "00:00";
+        closeTime = "23:59";
       }
       document.getElementById("appt-time").setAttribute("min", apptTime);
-      document.getElementById("appt-time").setAttribute("max", closeTime); 
-    }
+      document.getElementById("appt-time").setAttribute("max", closeTime);
+      document.getElementById("appt-time").setAttribute("value", apptTime);
+    },
   },
 };
 </script>
