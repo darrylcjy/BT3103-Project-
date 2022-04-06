@@ -33,7 +33,7 @@ export default {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                this.user = true
+                this.user = user
             } else {
                 this.user = false
             }
