@@ -232,13 +232,13 @@ export default {
           document.getElementById("appt-date").setAttribute("value", nextDay());
           apptTime = openTime + ":00";
         } else if (isToday) { // still open for today 
-          apptTime = hour + ":" + minutes;
+          apptTime = hour + ":" + padDate(minutes);
         } else { // appointment is not booked today (aka another day) 
           apptTime = "0" + opening.slice(0,1) + ":00";
         }
       } else {
         // hospital
-        apptTime = isToday ? hour + ":" + minutes : "00:00";
+        apptTime = isToday ? padDate(hour) + ":" + padDate(minutes) : "00:00";
         closeTime = "23:59";
       }
       document.getElementById("appt-time").setAttribute("min", apptTime);
