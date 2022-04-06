@@ -53,11 +53,19 @@
 
    <h2>You have <u>no</u> active appointments</h2>
    <img src="../assets/cancelled.png" alt="No icon found"> <br> 
-   <!-- <button id="query" v-on:click="this.$router.push({path: '/selection'})">Do I need to make an appointment?</button><br> -->
-   <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
-   <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
-      Back to Home
-    </button>
+  
+   <div id="new-user" v-if = "this.record == null">
+     <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+        Back to Home
+      </button>
+   </div>
+
+   <div id="old-user" v-else>
+      <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
+      <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+        Back to Home
+      </button>
+   </div>
 </div> 
 </template>
 
@@ -83,12 +91,14 @@ export default {
       clinicPC: "",
 
       date: "",
-      day: "",
+      // day: "",
 
       time: "",
 
       website:
-        ""
+        "",
+
+      record: "",
     };
   },
   beforeMount() {
@@ -96,6 +106,7 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
+        this.checkRecord(user);
       }
     });
   },
@@ -163,6 +174,13 @@ export default {
         console.log(parsed)
       }
       this.website = "https://www.google.com/maps/search/?api=1&query=" + parsed
+    },
+
+    async checkRecord(user) {
+      let userDetails = await getDoc(doc(db, "details", String(user.email)));
+      this.record = userDetails.data().symptoms;
+      console.log("inside checkRecord method")
+      console.log(userDetails.data().symptoms)
     }
   },
 };
