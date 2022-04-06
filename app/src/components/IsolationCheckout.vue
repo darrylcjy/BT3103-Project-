@@ -88,9 +88,6 @@ export default {
             if (user) {
                 this.display(user)
                 this.getMaxDays(user)
-                this.dateOfIssue =  new Date().getDate() + "-" + 
-                                    new Date().getMonth() + "-" + 
-                                    new Date().getFullYear();
             }
         })
     },
@@ -99,6 +96,7 @@ export default {
             let x = await getDoc(doc(db, "details", String(user.email)));
             
             this.name = x.data().name; 
+            this.dateOfIssue = x.data().dateOfIssue;
         },
 
         // assumption: 2 shots and 2 shots + 1 booster considered fully vaccinated

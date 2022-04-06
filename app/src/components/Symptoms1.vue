@@ -292,6 +292,9 @@ export default {
         const docRef = doc(db, "details", this.email);
         await updateDoc(docRef, {
           symptoms: selected,
+          dateOfIssue: new Date().getDate() + "-" + 
+                                    new Date().getMonth() + "-" + 
+                                    new Date().getFullYear(),
         });
         console.log(docRef);
         if (this.FormEntry == "Yes") {
