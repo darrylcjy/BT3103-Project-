@@ -16,7 +16,7 @@
           ></b
         >
       </h2>
-      <h2>The following are the closest recommended facilities to you:</h2>
+      <h2>The following are the recommended facilities for you:</h2>
       <br /><br />
     </div>
 
@@ -153,6 +153,8 @@ export default {
 
       console.log(this.facils);
       console.log(this.facilsRender);
+
+      console.log(this.userPC)
 
       // sort by ascending postal code difference -- clinic
       if (!this.emergency && !this.atRisk) {
