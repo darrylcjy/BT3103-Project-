@@ -108,29 +108,31 @@ img {
 /* Styling prev and next button */
 .nav {
     position:absolute;
-    top: 45%;
+    top: 0px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 99%;
 }
 
 button {
     all: unset;
     cursor: pointer;
-    margin: 0.1rem;
+    margin: 0rem;
     padding: 1rem 0.8rem;
     color: rgb(183, 183, 183);
-    transition: 0.6s ease;
+    transition: 1s linear;
 }
 
 button i {
     font-weight: bold;
     font-size: 30px;
+    width: 2rem;
 }
 
 /* On hover, change the background thats transparent black */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.45);
   color: white;
 }
 
@@ -151,6 +153,7 @@ input[type="radio"]:checked {
 }
 
 .graph iframe {
+    margin-top: 1.5rem;
     width: 100%;
 }
 

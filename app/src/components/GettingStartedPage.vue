@@ -116,6 +116,10 @@ export default {
   text-align: center;
 }
 
+button:hover {
+  box-shadow: 1px 1px 3px grey;
+}
+
 .swab {
   position: relative;
   width: 650px;

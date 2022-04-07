@@ -321,12 +321,18 @@ p, label {
 }
 
 label {
+  cursor: pointer;
   color: rgb(155, 155, 155);
   padding-right: 0.5rem;
 }
 
 input[type="radio"]:checked + label {
   color: #2c3e50;
+}
+
+input:hover {
+  cursor: pointer;
+  box-shadow: none;
 }
 
 table {

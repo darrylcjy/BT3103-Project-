@@ -36,7 +36,7 @@ export default {
                     getDoc(doc(db, "details", String(authResult.user.email))).then((z) => {
                         if (z.exists()) {
                             //if present go to user home page straight
-                            window.location.pathname = '/user-home'
+                            // window.location.pathname = '/user-home'
                         } else {
                             //not present go to personal details page
                             window.location.pathname = '/personal-details'

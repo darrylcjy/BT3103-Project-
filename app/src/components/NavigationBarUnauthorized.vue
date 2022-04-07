@@ -41,6 +41,7 @@ export default {
     }
 
     #profile-button:hover{
+        cursor: pointer;
         color: rgb(14, 83, 185)
     }
 </style>

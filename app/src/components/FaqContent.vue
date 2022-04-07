@@ -228,11 +228,24 @@ h1 {
 }
 
 label {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
   color: rgb(155, 155, 155);
 }
 
 input[type="radio"]:checked + label {
   color: #2c3e50;
+}
+
+/* style input radio button */
+input[type="radio"] {
+    cursor: pointer;
+    width: 1.15em;
+    height: 1.15em;
+}
+
+input[type="radio"]:hover {
+  box-shadow: none;
 }
 
 .selection > p {

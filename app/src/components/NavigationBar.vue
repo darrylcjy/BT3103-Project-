@@ -2,9 +2,10 @@
     <div id="navbar">
 
         <div id="covidcare-dropdown">
-            <button id="covidcare-button">CovidCare</button>
+            <button id="covidcare-button" v-on:click="this.$router.push({path: '/user-home'})">CovidCare</button>
             <div id="covidcare-content">
                 <a href="#" v-on:click="this.$router.push({path: '/user-home'})">Home</a>
+                <a href="#" v-on:click="this.$router.push({path: '/getting-started'})">Get Started</a>
                 <a href="#" v-on:click="this.$router.push({path: '/facil-confirmation/active-appts'})">Active Appointments</a>
                 <a href="#" v-on:click="this.$router.push({path: '/faq'})">FAQs</a> 
                 <a href="#" v-on:click="this.$router.push({path: '/contact-us'})">Contacts</a> 
