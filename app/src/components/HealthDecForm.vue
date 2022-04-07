@@ -4,26 +4,34 @@
     <form name="declaration" id="declaration">
       <div>
         1. Pregnant
-        <input type="radio" name="question1" value="Yes">Yes
-        <input type="radio" name="question1" value="No">No
+        <input type="radio" name="question1" value="Yes" id="q1y">
+        <label for="q1y">Yes</label>
+        <input type="radio" name="question1" value="No" id="q1n">
+        <label for="q1n">No</label>
       </div>
       <br>
       <div>
         2. HIV/AIDS
-        <input type="radio" name="question2" value="Yes">Yes
-        <input type="radio" name="question2" value="No">No
+        <input type="radio" name="question2" value="Yes" id="q2y">
+        <label for="q2y">Yes</label>
+        <input type="radio" name="question2" value="No" id="q2n">
+        <label for="q2n">No</label>
       </div>
       <br>
       <div>
         3. Cancer
-        <input type="radio" name="question3" value="Yes">Yes
-        <input type="radio" name="question3" value="No">No
+        <input type="radio" name="question3" value="Yes" id="q3y">
+        <label for="q3y">Yes</label>
+        <input type="radio" name="question3" value="No" id="q3n">
+        <label for="q3n">No</label>
       </div>
       <br>
       <div>
         4. Immunocompromised
-        <input type="radio" name="question4" value="Yes">Yes
-        <input type="radio" name="question4" value="No">No
+        <input type="radio" name="question4" value="Yes" id="q4y">
+        <label for="q4y">Yes</label>
+        <input type="radio" name="question4" value="No" id="q4n">
+        <label for="q4n">No</label>
       </div>
       <br>
       <input type="button" name="" class="btn" value="Save" v-on:click="savetofs()">
@@ -101,10 +109,9 @@ export default {
     padding: 1rem 2rem 1rem 1rem;
   }
 
-  /* #declaration {
-    display: inline-block;
-    text-align: right;
-  } */
+  #declaration {
+    font-size: 1.25rem;
+  }
 
   .btn {
     all:unset;
@@ -113,9 +120,30 @@ export default {
     background: #F5F5DD;
 
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.25rem;
     padding: 5px 0.5rem;
     border-radius: 10px;
     text-align: center;
+  }
+
+  input:hover,
+  label {
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  input[type="radio"]:checked + label {
+    color: #2c3e50;
+  }
+
+  .btn:hover {
+    box-shadow: 1px 1px 3px grey;
+  }
+
+  label {
+    font-size: 1.25rem;
+    transition: 0.3s ease-in-out;
+    color: rgb(155, 155, 155);
+    margin-right: 0.5rem;
   }
 </style>
