@@ -6,7 +6,8 @@
     
     <!-- PROTOCOL --> 
     <h2>Please follow the following steps for the next few days.</h2>
-
+    <h3>(Date of issue: {{this.dateOfIssue}})</h3>
+    <!-- <h4>(Date of issue: {{this.dateOfIssue}})</h4> -->
     <div id="first-days">
         <h2>Day 1 - Day 3</h2> 
         <li>Do not leave your house.</li>
@@ -78,6 +79,7 @@ export default {
             name: "",
             lastDay: 0,
             middleDay: 0,
+            dateOfIssue: "",
         }
     },
     mounted() {
@@ -94,6 +96,7 @@ export default {
             let x = await getDoc(doc(db, "details", String(user.email)));
             
             this.name = x.data().name; 
+            this.dateOfIssue = x.data().dateOfIssue;
         },
 
         // assumption: 2 shots and 2 shots + 1 booster considered fully vaccinated
@@ -126,7 +129,6 @@ export default {
             this.lastDay = maxDays
             this.middleDay = maxDays - 1
         },
-
     }
 }
 </script>

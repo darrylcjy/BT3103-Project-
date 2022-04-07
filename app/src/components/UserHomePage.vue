@@ -94,6 +94,7 @@ export default {
 
   .resources {
     display: flex;
+    gap: 1rem;
   }
 
   .subresource {
@@ -101,8 +102,12 @@ export default {
     cursor: pointer;
   }
 
+  .image:hover {
+    box-shadow: 1px 1px 3px grey;
+  }
+
   .image {
-    height: 100%;
+    height: 90%;
     width: 100%;
   }
 
@@ -114,15 +119,18 @@ export default {
   .btn {
     all: unset;
     position: relative;
-    width: 130px;
-    height: 40px;
     top: 100px;
     background: #f5f5dd;
 
     cursor: pointer;
-    font-size: 1rem;
-    padding: 5px 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.6rem 2rem;
     border-radius: 10px;
     text-align: center;
+  }
+
+  .btn:hover {
+    box-shadow: 1px 1px 3px white;
   }
 </style>
