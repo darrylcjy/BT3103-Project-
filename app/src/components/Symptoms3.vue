@@ -148,11 +148,17 @@ export default {
 }
 
 #confirmbutton {
+  cursor: pointer;
   border-style: none;
   width: 150px;
   height: 35px;
   border-radius: 10px;
   background-color: #f5f5dd;
   display: inline-block;
+  font-size: 1rem;
+}
+
+input:hover {
+  box-shadow: 1px 1px 3px grey;
 }
 </style>
