@@ -2,8 +2,7 @@
     <!-- Navigation bar -->
     <!-- Descriptions -->
     <div v-if="user">
-        <h2>You are logged in!</h2>
-        <router-link to="/user-home">Go to Home</router-link>
+
     </div>
 
     <div class="login" v-else-if="this.user == false">
@@ -43,6 +42,7 @@ export default {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.user = true
+                this.$router.push({name:'User Home'})
             } else {
                 this.user = false
             }
@@ -64,13 +64,13 @@ export default {
 
 .description {
     width: 50%;
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
     box-shadow: 1px 1px 3px grey;
     background: rgb(44,62,80);
     color: whitesmoke;
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
-    min-height: 100vh;
+    height: calc(100vh - 16px);
     display: flex;
     flex-direction: column;
     justify-content: center;

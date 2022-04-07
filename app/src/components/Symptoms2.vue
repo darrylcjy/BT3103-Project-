@@ -84,8 +84,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #confirmbutton {
+  cursor: pointer;
   border-style: none;
   width: 150px;
   height: 35px;
@@ -96,6 +97,7 @@ export default {
 }
 
 #editbutton {
+  cursor: pointer;
   border-style: none;
   width: 150px;
   height: 35px;
@@ -103,6 +105,10 @@ export default {
   background-color: #f56f6f;
   display: inline-block;
   font-size: 1rem;
+}
+
+button:hover {
+  box-shadow: 1px 1px 3px grey;
 }
 
 #display {

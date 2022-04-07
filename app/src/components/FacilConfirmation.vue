@@ -261,7 +261,7 @@ export default {
 .row-detail {
   text-align: left;
   padding: 10px;
-  width: 850px;
+  width: 858px;
   height: flex;
   background-color: rgba(183, 218, 250, 1);
   border-radius: 10px;
@@ -306,6 +306,7 @@ label {
   display: inline-block;
   margin: 10px;
   box-shadow: 1px 1px 5px black;
+  cursor: pointer;
 }
 #next:hover,
 #previous:hover {
@@ -315,5 +316,6 @@ input {
   width: 220px;
   height: 25px;
   font-size: 20px;
+  cursor: pointer;
 }
 </style>
