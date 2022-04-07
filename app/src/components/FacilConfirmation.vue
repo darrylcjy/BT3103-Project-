@@ -24,7 +24,7 @@
       </div>
       <br />
 
-      <div class="symptom">
+      <div class="symptom" v-if="this.symptoms">
         <label>Symptoms</label>
         <div class="row-detail">
           <div v-for="symptom in list" :key="symptom.id">
@@ -153,6 +153,7 @@ export default {
 
   methods: {
     async display(user) {
+      var today = new Date();
       let z = await getDoc(doc(db, "details", String(user.email)));
       let apptDetails = await getDoc(
         doc(db, "Appointments", String(user.email))
@@ -161,7 +162,7 @@ export default {
       let data = z.data();
       this.name = data.name;
       this.phone = data.phone;
-      this.age = data.age;
+      this.age = today.getFullYear() - data.year;
       this.clinicName = apptDetails.data().apptClinic;
       this.qLen = apptDetails.data().qLen;
       this.opening = apptDetails.data().opening;
@@ -175,24 +176,27 @@ export default {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
 
-        var padDate = function (num) {
-          return num.toString().padStart(2, "0");
-        };
-        const clinicOpen = padDate(
-          parseInt(this.opening.split("-")[0].slice(0, 2))
-        );
-        const clinicClose =
-          parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
+        if (this.opening) {
+          var padDate = function (num) {
+            return num.toString().padStart(2, "0");
+          };
+          const clinicOpen = padDate(
+            parseInt(this.opening.split("-")[0].slice(0, 2))
+          );
+          const clinicClose =
+            parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
 
+          if (
+            parseInt(apptTime.slice(0, 2)) < clinicOpen ||
+            parseInt(apptTime.slice(0, 2)) > clinicClose
+          ) {
+            window.alert(
+              "There are no available appointments for this facility today! Choose another date or another facility"
+            );
+          }
+        }
         if (apptTime.length == 0) {
           window.alert("Please select an appointment time");
-        } else if (
-          parseInt(apptTime.slice(0, 2)) < clinicOpen ||
-          parseInt(apptTime.slice(0, 2)) > clinicClose
-        ) {
-          window.alert(
-            "There are no available appointments for this facility today! Choose another date or another facility"
-          );
         } else {
           // Appointment as Collection > User Email as Document > appt date
           const docRef = doc(db, "Appointments", this.email);
@@ -264,7 +268,12 @@ export default {
           apptTime = hour + ":" + padDate(minutes);
         } else {
           // appointment is not booked today (aka another day)
-          apptTime = padDate(opening.slice(0, 1)) + ":00";
+          apptTime =
+            openTime.slice(-4, -2) > 0
+              ? padDate(parseInt(openTime.split(".")[0])) +
+                ":" +
+                openTime.slice(-4, -2)
+              : padDate(parseInt(openTime.split(".")[0])) + ":00";
         }
       } else {
         // hospital: if its today, earliest appt time is after qLen + travelling

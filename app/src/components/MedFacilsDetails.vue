@@ -5,9 +5,13 @@
       <h2>
         <b>
           <div v-if="!this.atRisk">
-            {{ name }}, for the symptoms you present, we recommend you to visit a
+            {{ name }}, for the symptoms you present, we recommend you to visit
+            a
           </div>
-          <div v-else>{{ name }}, due to pre-exisiting health conditions, we recommend you to visit a</div>
+          <div v-else>
+            {{ name }}, due to pre-exisiting health conditions, we recommend you
+            to visit a
+          </div>
           <u
             ><div v-if="this.emergency || this.atRisk">
               Hospital Emergency Department.
@@ -29,10 +33,12 @@
       />
       <br /><br />
 
-      <div class="scrollable" v-if = search>
+      <div class="scrollable" v-if="search">
         <div v-for="facil in filteredList" :key="facil.id">
           <div class="card" v-on:click="click(facil)">
-            <h3 id="scrollspyHeading1">{{ facil["name "] || facil["name"] }}</h3>
+            <h3 id="scrollspyHeading1">
+              {{ facil["name "] || facil["name"] }}
+            </h3>
             <h4 v-if="this.emergency || this.atRisk">
               {{ facil["address"] || facil["address "] }}, Singapore
               {{ facil["postalCode"] || facil["postalCode "] }}
@@ -56,7 +62,7 @@
       </div>
     </div>
 
-    <div class="scrollable" v-if = !search>
+    <div class="scrollable" v-if="!search">
       <div v-for="facil in facils" :key="facil.id">
         <div class="card" v-on:click="click(facil)">
           <h3 id="scrollspyHeading1">{{ facil["name "] || facil["name"] }}</h3>
@@ -140,7 +146,9 @@ export default {
 
       // conditional rendering of gp vs hospital
       // rendering to GP based on threshold 7 done in Symptoms3.vue
-      this.emergency = severe.some((i) => this.symptoms.includes(i));
+      if (this.symptoms) {
+        this.emergency = severe.some((i) => this.symptoms.includes(i));
+      }
 
       if (this.emergency || this.atRisk) {
         facils = await getDocs(collection(db, "hospitals "));
@@ -154,7 +162,7 @@ export default {
       console.log(this.facils);
       console.log(this.facilsRender);
 
-      console.log(this.userPC)
+      console.log(this.userPC);
 
       // sort by ascending postal code difference -- clinic
       if (!this.emergency && !this.atRisk) {
@@ -184,7 +192,7 @@ export default {
             clinicAddress: facil["address"] || facil["address "],
             facilPC: facil["postalCode"] || facil["postalCode "],
             qLen: Math.floor((facil.name || facil["name "]).length / 3),
-            emergency: true, 
+            emergency: true,
           });
         } else {
           await setDoc(docRef, {
@@ -194,7 +202,7 @@ export default {
             tel: facil.tel,
             opening: facil.opening,
             qLen: Math.floor((facil.name || facil["name "]).length / 3),
-            emergency: false, 
+            emergency: false,
           });
         }
         console.log(docRef);
@@ -211,7 +219,7 @@ export default {
       console.log(this.facilsRender);
       console.log(this.facils);
       return this.facilsRender.filter((facil) => {
-        var facilName = facil.name ? facil.name : facil["name "]
+        var facilName = facil.name ? facil.name : facil["name "];
         return facilName.toLowerCase().includes(this.search.toLowerCase());
       });
     },
