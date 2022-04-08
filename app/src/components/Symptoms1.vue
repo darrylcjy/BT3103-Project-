@@ -12,7 +12,13 @@
       id="yes"
     />
     <label for="yes">Yes</label>
-    <input type="radio" name="symptomscheck" v-model="FormEntry" value="No" id="no"/>
+    <input
+      type="radio"
+      name="symptomscheck"
+      v-model="FormEntry"
+      value="No"
+      id="no"
+    />
     <label for="no">No</label>
     <br />
   </p>
@@ -295,16 +301,19 @@ export default {
         const docRef = doc(db, "details", this.email);
         await updateDoc(docRef, {
           symptoms: selected,
-          dateOfIssue: new Date().getDate() + "-" + 
-                                    new Date().getMonth() + "-" + 
-                                    new Date().getFullYear(),
+          dateOfIssue:
+            new Date().getDate() +
+            "-" +
+            new Date().getMonth() +
+            "-" +
+            new Date().getFullYear(),
         });
         console.log(docRef);
         if (this.FormEntry == "Yes") {
           alert(`Your symptoms have been recorded!`);
           this.$router.push({ path: "/confirmation" });
         } else {
-          alert(`<insert different message>!`);
+          alert(`No symptoms declared.`);
           this.$router.push({ path: "/self-isolation-checkout" });
         }
       } catch (error) {
@@ -316,7 +325,8 @@ export default {
 </script>
 
 <style scoped>
-p, label {
+p,
+label {
   font-size: 20px;
 }
 
