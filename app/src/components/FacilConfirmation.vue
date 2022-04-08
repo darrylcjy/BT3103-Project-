@@ -179,6 +179,7 @@ export default {
         const apptTime = document.getElementById("appt-time").value;
 
         if (this.opening) {
+          console.log("thisran!")
           var padDate = function (num) {
             return num.toString().padStart(2, "0");
           };
@@ -189,14 +190,16 @@ export default {
             parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
         }
 
-        console.log(clinicClose)
-        console.log(apptTime.slice(0, 2))
-
         if (
           this.opening &&
-          (parseInt(apptTime.slice(0, 2)) < (clinicOpen + 1) ||
-            parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))
+          (parseInt(apptTime.slice(0, 2)) < (clinicOpen) ||
+            parseInt(apptTime.slice(0, 2)) > clinicClose - 1)
         ) {
+          console.log("this ran")
+          console.log(apptTime.slice(0, 2))
+          console.log(clinicOpen)
+          console.log(apptTime.slice(0, 2))
+          console.log(clinicClose)
           window.alert(
             "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
           );
