@@ -65,7 +65,7 @@
         <label for="appt-time">Appointment Time:</label>
 
         <!-- value="09:00" -->
-        <div v-on:click="setValidTime(this.qLen, this.opening)">
+        <div v-on:click="setValidTime(this.qLen, this.opening)" v-on:change="updateDay()">
           <input
             type="time"
             onkeydown="return false"
@@ -178,10 +178,15 @@ export default {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
 
-        if (this.opening) {
-          var padDate = function (num) {
+        var padDate = function (num) {
             return num.toString().padStart(2, "0");
           };
+
+        var now = new Date();
+        var nowTime = now.getHours() + ":" + padDate(now.getMinutes());
+        var today = now.getFullYear() + "-" + padDate(now.getMonth() + 1) + "-" + padDate(now.getDate());
+
+        if (this.opening) {
           var clinicOpen = padDate(
             parseInt(this.opening.split("-")[0].slice(0, 2))
           );
@@ -189,10 +194,13 @@ export default {
             parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
         }
 
+        console.log(apptTime)
+        console.log(nowTime)
+
         if (
-          this.opening &&
-          (parseInt(apptTime.slice(0, 2)) < (clinicOpen) ||
-            parseInt(apptTime.slice(0, 2)) > clinicClose - 1)
+          (this.opening &&
+          (parseInt(apptTime.slice(0, 2)) < (clinicOpen + 1) ||
+            parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))) || (!this.opening && apptTime < nowTime && apptDate == today)
         ) {
           window.alert(
             "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
@@ -278,12 +286,7 @@ export default {
                 openTime.slice(-4, -2)
               : padDate(parseInt(openTime.split(".")[0])) + ":00";
         }
-      } else {
-        // hospital: if its today, earliest appt time is after qLen + travelling
-        // if another day, start time at 12am
-        apptTime = isToday ? padDate(hour) + ":" + padDate(minutes) : "00:00";
-        closeTime = "23:59";
-      }
+      } 
       document.getElementById("appt-time").setAttribute("min", apptTime);
       document.getElementById("appt-time").setAttribute("max", closeTime);
       document.getElementById("appt-time").setAttribute("value", apptTime);
