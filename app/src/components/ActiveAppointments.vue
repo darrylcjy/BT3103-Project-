@@ -8,7 +8,7 @@
       <h1>Hello {{ this.name }},</h1>
     </div>
 
-    <h2>You have an appointment at the following clinic:</h2>
+    <h2>This is your latest appointment:</h2>
 
     <!-- <h2> Venue: </h2> -->
     <label><b> Location </b></label>
@@ -51,7 +51,7 @@
       <h1>Hello {{ this.name }},</h1>
     </div>
 
-   <h2>You have <u>no</u> active appointments</h2>
+   <h2>There are no appointments to show.</h2>
    <img src="../assets/cancelled.png" alt="No icon found"> <br> 
   
    <div id="new-user" v-if = "this.record == null">

@@ -11,7 +11,7 @@
     <div class="resources size">
       <div class="subresource" v-on:click="this.$router.push({path: '/facil-confirmation/active-appts'})">
         <img class="image" src="../assets/userhome2.png" alt="">
-        <h2>Active Appointments</h2>
+        <h2>View Latest Appointment</h2>
       </div>
       <div class="subresource" v-on:click="this.$router.push({path: '/faq'})">
         <img class="image" src="../assets/userhome3.png" alt="">
