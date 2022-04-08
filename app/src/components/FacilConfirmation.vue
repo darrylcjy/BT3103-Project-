@@ -65,7 +65,7 @@
         <label for="appt-time">Appointment Time:</label>
 
         <!-- value="09:00" -->
-        <div v-on:click="setValidTime(this.qLen, this.opening)" v-on:change="updateDay()">
+        <div v-on:click="setValidTime(this.qLen, this.opening)">
           <input
             type="time"
             onkeydown="return false"
@@ -171,9 +171,7 @@ export default {
         var padDate = function (num) {
             return num.toString().padStart(2, "0");
           };
-        var now = new Date();
-        var nowTime = now.getHours() + ":" + padDate(now.getMinutes());
-        var today = now.getFullYear() + "-" + padDate(now.getMonth() + 1) + "-" + padDate(now.getDate());
+
         if (this.opening) {
           var clinicOpen = padDate(
             parseInt(this.opening.split("-")[0].slice(0, 2))
@@ -181,12 +179,11 @@ export default {
           var clinicClose =
             parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
         }
-        console.log(apptTime)
-        console.log(nowTime)
+
         if (
           (this.opening &&
           (parseInt(apptTime.slice(0, 2)) < (clinicOpen) ||
-            parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))) || (!this.opening && apptTime < nowTime && apptDate == today)
+            parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))) 
         ) {
           window.alert(
             "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
