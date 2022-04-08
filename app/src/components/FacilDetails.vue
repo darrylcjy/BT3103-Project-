@@ -11,7 +11,7 @@
       <h4 v-if="!this.emergency">Opening Hours: {{ this.opening }}</h4>
     </div>
     <br />
-    <div class="row2">
+    <div class="row2" v-if="this.pastClosing">
       <div class="wait-time">
         <label>Estimated waiting time</label>
         <div class="row2-details">{{ this.qLen * 15 }} mins</div>
@@ -55,6 +55,8 @@ export default {
       qLen: 0,
       website:"", 
       emergency: false, 
+      pastClosing: false, 
+      atRisk: false, 
     };
   },
   mounted() {
@@ -78,8 +80,13 @@ export default {
       this.opening = data.opening;
       this.qLen = data.qLen; 
       this.emergency = data.emergency; 
+      this.atRisk = data.atRisk; 
       this.getWebsite(this.clinicAddress)
 
+      var timeNow = new Date(); 
+      timeNow = timeNow.getHours(); 
+      // passing a generic time in 
+      this.pastClosing = ((timeNow > 13 || timeNow < 8) && !this.tel) ? true : false 
     },
     async getWebsite(clinicName) {
       var words = clinicName.split(" ");  // get individual word

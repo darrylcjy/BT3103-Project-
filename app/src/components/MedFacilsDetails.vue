@@ -80,7 +80,7 @@
           <h4 v-if="!this.emergency && !this.atRisk">
             Opening Hours: {{ facil.opening }}
           </h4>
-          <h4>
+          <h4 v-if="this.emergency || this.atRisk">
             Number of patients in queue:
             {{ Math.floor((facil.name || facil["name "]).length / 3) }}
           </h4>
