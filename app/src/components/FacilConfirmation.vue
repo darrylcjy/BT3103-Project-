@@ -54,6 +54,7 @@
         <label for="appt-date">Appointment Date:</label>
         <input
           type="date"
+          onkeydown="return false"
           id="appt-date"
           name="trip-start"
           min="2018-12-31"
@@ -67,6 +68,7 @@
         <div v-on:click="setValidTime(this.qLen, this.opening)">
           <input
             type="time"
+            onkeydown="return false"
             id="appt-time"
             name="appt"
             min="07:00"
@@ -185,13 +187,16 @@ export default {
         const clinicClose =
           parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
 
+        console.log(clinicClose)
+        console.log(apptTime.slice(0, 2))
+
         if (
           this.opening &&
           (parseInt(apptTime.slice(0, 2)) < clinicOpen ||
-            parseInt(apptTime.slice(0, 2)) > clinicClose)
+            parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))
         ) {
           window.alert(
-            "There are no available appointments for this facility today! Choose another date or another facility"
+            "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
           );
         } else if (apptTime.length == 0) {
           window.alert("Please select an appointment time");

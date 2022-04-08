@@ -87,7 +87,7 @@ export default {
           document.getElementById('declaration').reset();
 
           alert("Responses saved successfully!")
-          this.$router.push({name:'Profile'})
+          this.$router.push({name:'User Home'})
         }
         catch(error) {
           console.error("Error adding document: ", error);
