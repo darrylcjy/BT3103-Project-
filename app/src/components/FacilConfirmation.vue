@@ -194,7 +194,7 @@ export default {
 
         if (
           this.opening &&
-          (parseInt(apptTime.slice(0, 2)) < clinicOpen ||
+          (parseInt(apptTime.slice(0, 2)) < (clinicOpen + 1) ||
             parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))
         ) {
           window.alert(
