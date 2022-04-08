@@ -54,18 +54,11 @@
    <h2>You have <u>no</u> active appointments</h2>
    <img src="../assets/cancelled.png" alt="No icon found"> <br> 
   
-   <div id="new-user" v-if = "this.record == null">
-     <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
-        Back to Home
-      </button>
-   </div>
 
-   <div id="old-user" v-else>
-      <!-- <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button> -->
-      <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
-        Back to Home
-      </button>
-   </div>
+    <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
+      Back to Home
+    </button>
+
 </div> 
 </template>
 
@@ -97,8 +90,6 @@ export default {
 
       website:
         "",
-
-      record: "",
     };
   },
   beforeMount() {
@@ -179,13 +170,6 @@ export default {
       }
       this.website = "https://www.google.com/maps/search/?api=1&query=" + parsed
     },
-
-    async checkRecord(user) {
-      let userDetails = await getDoc(doc(db, "details", String(user.email)));
-      this.record = userDetails.data().symptoms;
-      console.log("inside checkRecord method")
-      console.log(userDetails.data().symptoms)
-    }
   },
 };
 </script>
