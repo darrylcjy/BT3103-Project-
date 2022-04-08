@@ -176,28 +176,27 @@ export default {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
 
-        if (this.opening) {
-          var padDate = function (num) {
-            return num.toString().padStart(2, "0");
-          };
-          const clinicOpen = padDate(
-            parseInt(this.opening.split("-")[0].slice(0, 2))
-          );
-          const clinicClose =
-            parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
+        var padDate = function (num) {
+          return num.toString().padStart(2, "0");
+        };
+        const clinicOpen = padDate(
+          parseInt(this.opening.split("-")[0].slice(0, 2))
+        );
+        const clinicClose =
+          parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
 
-          if (
-            parseInt(apptTime.slice(0, 2)) < clinicOpen ||
-            parseInt(apptTime.slice(0, 2)) > clinicClose
-          ) {
-            window.alert(
-              "There are no available appointments for this facility today! Choose another date or another facility"
-            );
-          }
-        }
-        if (apptTime.length == 0) {
+        if (
+          this.opening &&
+          (parseInt(apptTime.slice(0, 2)) < clinicOpen ||
+            parseInt(apptTime.slice(0, 2)) > clinicClose)
+        ) {
+          window.alert(
+            "There are no available appointments for this facility today! Choose another date or another facility"
+          );
+        } else if (apptTime.length == 0) {
           window.alert("Please select an appointment time");
         } else {
+          console.log("here");
           // Appointment as Collection > User Email as Document > appt date
           const docRef = doc(db, "Appointments", this.email);
           await updateDoc(docRef, {
