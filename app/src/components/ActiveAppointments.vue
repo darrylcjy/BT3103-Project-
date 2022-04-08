@@ -126,6 +126,10 @@ export default {
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
       this.getWebsite(this.clinicAddress);
+
+      if (!this.time) {
+        this.appt = false 
+      }
     },
 
     async cancelAppt() {
@@ -150,7 +154,6 @@ export default {
         const user = auth.currentUser.email;
         const docRef = doc(db, "Appointments", user)
         const hasAppt = await getDoc(docRef)
-        // console.log(hasAppt)
         if (hasAppt._document) {
           console.log("User has an existing appointment");
           this.appt = true;
