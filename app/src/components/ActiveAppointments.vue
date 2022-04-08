@@ -113,23 +113,20 @@ export default {
   methods: {
     
     async display(user) {
-      this.hasAppointment();  // improves time lag
-      
       let userDetails = await getDoc(doc(db, "details", String(user.email)));
       this.name = userDetails.data().name;
-
       let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
       this.date = userAppt.data().apptDate;
       this.time = userAppt.data().apptTime;
+
+      this.hasAppointment(this.time);  // improves time lag
+
+      
 
       this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
       this.getWebsite(this.clinicAddress);
-
-      if (!this.time) {
-        this.appt = false 
-      }
     },
 
     async cancelAppt() {
@@ -148,13 +145,13 @@ export default {
       }
     },
 
-    async hasAppointment() {
+    async hasAppointment(time) {
       try {
         const auth = getAuth();
         const user = auth.currentUser.email;
         const docRef = doc(db, "Appointments", user)
         const hasAppt = await getDoc(docRef)
-        if (hasAppt._document) {
+        if (hasAppt._document && time) {
           console.log("User has an existing appointment");
           this.appt = true;
         } else {
