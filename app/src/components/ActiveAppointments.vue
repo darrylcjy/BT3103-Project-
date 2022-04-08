@@ -61,7 +61,7 @@
    </div>
 
    <div id="old-user" v-else>
-      <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
+      <!-- <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button> -->
       <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
         Back to Home
       </button>
