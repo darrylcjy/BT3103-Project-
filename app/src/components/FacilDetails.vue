@@ -77,7 +77,7 @@ export default {
       this.opening = data.opening;
       this.qLen = data.qLen; 
       this.emergency = data.emergency; 
-      this.getWebsite(this.clinicName)
+      this.getWebsite(this.clinicAddress)
 
     },
     async getWebsite(clinicName) {

@@ -125,7 +125,7 @@ export default {
       this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
-      this.getWebsite(this.clinicName);
+      this.getWebsite(this.clinicAddress);
     },
 
     async cancelAppt() {
