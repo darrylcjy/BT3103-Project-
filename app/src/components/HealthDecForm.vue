@@ -75,7 +75,7 @@ export default {
           var atRisk = false; 
           this.email = auth.currentUser.email
 
-          if (q1value == "Yes" || q2value == "yes" || q3value == "yes" || q4value == "yes") {
+          if (q1value == "Yes" || q2value == "Yes" || q3value == "Yes" || q4value == "Yes") {
             atRisk = true; 
           }
 
