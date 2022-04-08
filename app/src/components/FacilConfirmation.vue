@@ -178,14 +178,16 @@ export default {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
 
-        var padDate = function (num) {
-          return num.toString().padStart(2, "0");
-        };
-        const clinicOpen = padDate(
-          parseInt(this.opening.split("-")[0].slice(0, 2))
-        );
-        const clinicClose =
-          parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
+        if (this.opening) {
+          var padDate = function (num) {
+            return num.toString().padStart(2, "0");
+          };
+          var clinicOpen = padDate(
+            parseInt(this.opening.split("-")[0].slice(0, 2))
+          );
+          var clinicClose =
+            parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
+        }
 
         console.log(clinicClose)
         console.log(apptTime.slice(0, 2))
