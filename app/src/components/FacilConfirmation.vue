@@ -250,7 +250,7 @@ export default {
           pastDate
         ) {
           window.alert(
-            "There are no available appointments for this facility today! Choose another date or another facility"
+            "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
           );
           var nextDay = function () {
             return [
