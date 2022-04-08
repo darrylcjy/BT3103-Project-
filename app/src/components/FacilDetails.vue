@@ -34,7 +34,8 @@
     >
       Previous
     </button>
-    <button id="next" v-on:click="this.$router.push({ path: '/facil-confirmation' })">Next</button>
+    <button v-if="!this.emergency" id="next" v-on:click="this.$router.push({ path: '/facil-confirmation' })">Next</button>
+    <button v-else id="next" v-on:click="this.$router.push({ path: '/user-home' })">Back to Home</button>
   </div>
 </template>
 
@@ -137,7 +138,7 @@ label {
   background-color: #f5f5dd;
   padding: 10px;
   border-radius: 10px;
-  width: 6rem;
+  width: flex;
   display: inline-block;
   margin: 10px;
   box-shadow: 1px 1px 5px black;
