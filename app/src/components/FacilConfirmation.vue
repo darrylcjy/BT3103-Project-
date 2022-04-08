@@ -98,7 +98,6 @@ import { getFirestore, updateDoc } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
-
 export default {
   data() {
     return {
@@ -128,22 +127,18 @@ export default {
         this.display(user);
       }
     });
-
     function setMinDate() {
       var today = new Date();
       var dd = today.getDate();
       var mm = today.getMonth() + 1; //January is 0!
       var yyyy = today.getFullYear();
       var yyyy2 = yyyy + 1;
-
       if (dd < 10) {
         dd = "0" + dd;
       }
-
       if (mm < 10) {
         mm = "0" + mm;
       }
-
       today = yyyy + "-" + mm + "-" + dd;
       var maxDate = yyyy2 + "-" + mm + "-" + dd;
       document.getElementById("appt-date").setAttribute("min", today);
@@ -152,7 +147,6 @@ export default {
     }
     setMinDate();
   },
-
   methods: {
     async display(user) {
       var today = new Date();
@@ -160,7 +154,6 @@ export default {
       let apptDetails = await getDoc(
         doc(db, "Appointments", String(user.email))
       );
-
       let data = z.data();
       this.name = data.name;
       this.phone = data.phone;
@@ -168,24 +161,19 @@ export default {
       this.clinicName = apptDetails.data().apptClinic;
       this.qLen = apptDetails.data().qLen;
       this.opening = apptDetails.data().opening;
-
       this.symptoms = data.symptoms;
       this.intensity = data.intensity;
     },
-
     async save() {
       try {
         const apptDate = document.getElementById("appt-date").value;
         const apptTime = document.getElementById("appt-time").value;
-
         var padDate = function (num) {
             return num.toString().padStart(2, "0");
           };
-
         var now = new Date();
         var nowTime = now.getHours() + ":" + padDate(now.getMinutes());
         var today = now.getFullYear() + "-" + padDate(now.getMonth() + 1) + "-" + padDate(now.getDate());
-
         if (this.opening) {
           var clinicOpen = padDate(
             parseInt(this.opening.split("-")[0].slice(0, 2))
@@ -193,13 +181,11 @@ export default {
           var clinicClose =
             parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
         }
-
         console.log(apptTime)
         console.log(nowTime)
-
         if (
           (this.opening &&
-          (parseInt(apptTime.slice(0, 2)) < (clinicOpen + 1) ||
+          (parseInt(apptTime.slice(0, 2)) < (clinicOpen) ||
             parseInt(apptTime.slice(0, 2)) > (clinicClose - 1))) || (!this.opening && apptTime < nowTime && apptDate == today)
         ) {
           window.alert(
@@ -223,7 +209,6 @@ export default {
         console.error("Error: ", error);
       }
     },
-
     setValidTime(qLen, opening) {
       function padDate(num) {
         return num.toString().padStart(2, "0");
@@ -245,7 +230,6 @@ export default {
       var isToday =
         document.getElementById("appt-date").value == today ? true : false;
       var openTime, closeTime;
-
       // if patient wants to book appt today:
       // clinic: check if exceed closing hours with < 1hr. if so, set min appt date to next day
       // NOTE only clinic will have "opening" hours attribute since hospitals are open 24/7
