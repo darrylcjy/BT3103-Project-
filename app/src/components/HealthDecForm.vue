@@ -75,7 +75,7 @@ export default {
           var atRisk = false; 
           this.email = auth.currentUser.email
 
-          if (q1value == "Yes" || q2value == "yes" || q3value == "yes" || q4value == "yes") {
+          if (q1value == "Yes" || q2value == "Yes" || q3value == "Yes" || q4value == "Yes") {
             atRisk = true; 
           }
 
@@ -87,7 +87,7 @@ export default {
           document.getElementById('declaration').reset();
 
           alert("Responses saved successfully!")
-          this.$router.push({name:'Profile'})
+          this.$router.push({name:'User Home'})
         }
         catch(error) {
           console.error("Error adding document: ", error);

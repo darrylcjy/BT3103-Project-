@@ -54,6 +54,7 @@
         <label for="appt-date">Appointment Date:</label>
         <input
           type="date"
+          onkeydown="return false"
           id="appt-date"
           name="trip-start"
           min="2018-12-31"
@@ -67,6 +68,7 @@
         <div v-on:click="setValidTime(this.qLen, this.opening)">
           <input
             type="time"
+            onkeydown="return false"
             id="appt-time"
             name="appt"
             min="07:00"
@@ -180,24 +182,25 @@ export default {
           var padDate = function (num) {
             return num.toString().padStart(2, "0");
           };
-          const clinicOpen = padDate(
+          var clinicOpen = padDate(
             parseInt(this.opening.split("-")[0].slice(0, 2))
           );
-          const clinicClose =
+          var clinicClose =
             parseInt(this.opening.split("-")[1].slice(0, 2)) + 12;
-
-          if (
-            parseInt(apptTime.slice(0, 2)) < clinicOpen ||
-            parseInt(apptTime.slice(0, 2)) > clinicClose
-          ) {
-            window.alert(
-              "There are no available appointments for this facility today! Choose another date or another facility"
-            );
-          }
         }
-        if (apptTime.length == 0) {
+
+        if (
+          this.opening &&
+          (parseInt(apptTime.slice(0, 2)) < (clinicOpen) ||
+            parseInt(apptTime.slice(0, 2)) > clinicClose - 1)
+        ) {
+          window.alert(
+            "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
+          );
+        } else if (apptTime.length == 0) {
           window.alert("Please select an appointment time");
         } else {
+          console.log("here");
           // Appointment as Collection > User Email as Document > appt date
           const docRef = doc(db, "Appointments", this.email);
           await updateDoc(docRef, {
@@ -251,7 +254,7 @@ export default {
           pastDate
         ) {
           window.alert(
-            "There are no available appointments for this facility today! Choose another date or another facility"
+            "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
           );
           var nextDay = function () {
             return [

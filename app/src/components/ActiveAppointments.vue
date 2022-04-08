@@ -61,7 +61,7 @@
    </div>
 
    <div id="old-user" v-else>
-      <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button>
+      <!-- <button id="checkout" v-on:click="this.$router.push({path: '/self-isolation-checkout'})">My Protocol</button> -->
       <button id="back" v-on:click="this.$router.push({ path: '/user-home' })">
         Back to Home
       </button>
@@ -125,7 +125,11 @@ export default {
       this.clinicName = await userAppt.data().apptClinic; 
       this.clinicAddress = userAppt.data().clinicAddress; 
       this.clinicPC = userAppt.data().facilPC; 
-      this.getWebsite(this.clinicName);
+      this.getWebsite(this.clinicAddress);
+
+      if (!this.time) {
+        this.appt = false 
+      }
     },
 
     async cancelAppt() {
@@ -150,7 +154,6 @@ export default {
         const user = auth.currentUser.email;
         const docRef = doc(db, "Appointments", user)
         const hasAppt = await getDoc(docRef)
-        // console.log(hasAppt)
         if (hasAppt._document) {
           console.log("User has an existing appointment");
           this.appt = true;
