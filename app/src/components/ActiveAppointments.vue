@@ -116,10 +116,14 @@ export default {
       let userDetails = await getDoc(doc(db, "details", String(user.email)));
       this.name = userDetails.data().name;
       let userAppt = await getDoc(doc(db, "Appointments", String(user.email)));
-      this.date = userAppt.data().apptDate;
-      this.time = userAppt.data().apptTime;
+      try {
+        this.date = userAppt.data().apptDate;
+        this.time = userAppt.data().apptTime;
 
-      this.hasAppointment(this.time);  // improves time lag
+        this.hasAppointment(this.time);  // improves time lag
+      } catch (e) {
+        this.appt = false;
+      }
 
       
 
