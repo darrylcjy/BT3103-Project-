@@ -89,6 +89,7 @@ export default {
         width: 100%;
         color: black;
         background-color: inherit;
+        cursor: pointer;
     }
 
     /* covidcare content , which is hidden by default */
