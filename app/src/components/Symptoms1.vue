@@ -310,8 +310,29 @@ export default {
         });
         console.log(docRef);
         if (this.FormEntry == "Yes") {
-          alert(`Your symptoms have been recorded!`);
-          this.$router.push({ path: "/confirmation" });
+          if (!selected.length) {
+            alert("Please select at least one symptom!");
+          } else {
+            alert(`Your symptoms have been recorded!`);
+
+            // reseting symptoms table
+            document.getElementById("checkbox1").checked = false;
+            document.getElementById("checkbox2").checked = false;
+            document.getElementById("checkbox3").checked = false;
+            document.getElementById("checkbox4").checked = false;
+            document.getElementById("checkbox5").checked = false;
+            document.getElementById("checkbox6").checked = false;
+            document.getElementById("checkbox7").checked = false;
+            document.getElementById("checkbox8").checked = false;
+            document.getElementById("checkbox9").checked = false;
+            document.getElementById("checkbox10").checked = false;
+            document.getElementById("checkbox11").checked = false;
+            document.getElementById("checkbox12").checked = false;
+            document.getElementById("checkbox13").checked = false;
+            document.getElementById("checkbox14").checked = false;
+
+            this.$router.push({ path: "/confirmation" });
+          }
         } else {
           alert(`No symptoms declared.`);
           this.$router.push({ path: "/self-isolation-checkout" });
