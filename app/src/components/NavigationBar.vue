@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     /* navbar container, which contains 
         1. covidcare dropdown container, which contains
             a. covidcare button
@@ -138,5 +138,10 @@ export default {
     }
     #profile-dropdown:hover #profile-content {
         display: block;
+    }
+
+    #covidcare-button:hover,
+    #profile-button:hover {
+        color: rgb(14, 83, 185)
     }
 </style>

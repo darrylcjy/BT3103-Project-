@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* nav bar container */
 #navbar {
   overflow: hidden;
@@ -46,6 +46,22 @@ export default {
 
 #profile {
   float: right;
+}
+
+#covidcare-button, 
+#profile-button {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    border: none;
+    padding: 12px 16px;
+    width: 100%;
+    color: black;
+    background-color: inherit;
+}
+
+#profile-button {
+  cursor: pointer;
 }
 
 #profile-button:hover{
