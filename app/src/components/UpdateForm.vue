@@ -1,6 +1,6 @@
 <template>
     <!-- Personal details Update to fill in -->
-  <form id="form" @submit.prevent>
+  <form id="form" @submit.prevent noValidate>
       <div class="inputs">
         <div class="container">
             <label for="name" class="form-label">NRIC Name</label>
@@ -20,7 +20,7 @@
             
             <div class="container">
                 <label for="year" class="form-label">Year of Birth</label>
-                <input type="number" name="year" id="year" class="form-text" placeholder="Year" min = "1900" max="2099">
+                <input type="number" name="year" id="year" class="form-text" placeholder="Year" min = "1900" max="2022">
                 <i class="fas fa-check-circle"></i> 
                 <i class="fas fa-exclamation-circle"></i> 
                 <p class="error">Error Message</p>
@@ -159,7 +159,8 @@ export default {
                 valid = false
             }
 
-            if (yearval < 1900 || yearval > 2099 || yearval === "") {
+            let currentyear = new Date().getFullYear()
+            if (yearval < 1900 || yearval > currentyear || yearval === "") {
                 this.setFail(yearElem, "Enter a valid year")
                 valid = false
             } else {
