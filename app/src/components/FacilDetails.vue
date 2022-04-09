@@ -11,7 +11,7 @@
       <h4 v-if="!this.emergency">Opening Hours: {{ this.opening }}</h4>
     </div>
     <br />
-    <div class="row2" v-if="this.pastClosing">
+    <div class="row2" v-if="!this.pastClosing">
       <div class="wait-time">
         <label>Estimated waiting time</label>
         <div class="row2-details">{{ this.qLen * 15 }} mins</div>
@@ -86,7 +86,7 @@ export default {
       var timeNow = new Date(); 
       timeNow = timeNow.getHours(); 
       // passing a generic time in 
-      this.pastClosing = ((timeNow > 13 || timeNow < 8) && !this.tel) ? true : false 
+      this.pastClosing = ((timeNow > 13 || timeNow < 8) && this.tel) ? true : false 
     },
     async getWebsite(clinicName) {
       var words = clinicName.split(" ");  // get individual word
