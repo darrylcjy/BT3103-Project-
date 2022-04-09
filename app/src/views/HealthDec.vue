@@ -4,6 +4,7 @@
         <NoProfile/>
       </div>
       <div v-else-if="nohealth">
+        <NavigationBarDesign/>
         <HealthDec/>
       </div>
       <div v-else-if="this.noprofile == false && this.nohealth == false">
@@ -20,6 +21,7 @@
 <script>
 import HealthDec from '../components/HealthDecForm.vue' 
 import NavigationBar from '../components/NavigationBar.vue'
+import NavigationBarDesign from '../components/NavigationBarDesign.vue'
 import NotLoggedIn from '../components/NotLoggedIn.vue'
 import NoProfile from '../components/NoProfile.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
@@ -35,7 +37,8 @@ export default {
         HealthDec,
         NavigationBar,
         NotLoggedIn,
-        NoProfile
+        NoProfile,
+        NavigationBarDesign
     },
 
     data() {

@@ -1,5 +1,6 @@
 <template>
     <div v-if="user">
+        <NavigationBarDesign/>
         <h1>Personal Details</h1>
         <div class="details">
             <div>Username: {{this.user.displayName}}</div>
@@ -15,6 +16,7 @@
 
 <script>
 import PersonalDetailsForm from '../components/PersonalDetailsForm.vue' 
+import NavigationBarDesign from '../components/NavigationBarDesign.vue'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 import NotLoggedIn from '../components/NotLoggedIn.vue'
 
@@ -22,7 +24,8 @@ export default {
     name:'PersonalDetails',
     components: {
         PersonalDetailsForm,
-        NotLoggedIn
+        NotLoggedIn,
+        NavigationBarDesign
     },
     data() {
         return {
