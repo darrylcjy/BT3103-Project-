@@ -206,7 +206,7 @@ export default {
           });
         }
         console.log(docRef);
-        alert("Clinic has been selected");
+        alert("Facility has been selected");
         this.$router.push({ path: "/facil-details" });
       } catch (error) {
         console.error("Error: ", error);
