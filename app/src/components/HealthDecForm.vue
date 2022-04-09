@@ -87,7 +87,11 @@ export default {
           document.getElementById('declaration').reset();
 
           alert("Responses saved successfully!")
-          this.$router.push({name:'User Home'})
+          if (this.$route.params.check === "5") {
+            this.$router.push({name:'Profile',  params: { check: 3 }})
+          } else {
+            this.$router.push({name:'User Home'})
+          }
         }
         catch(error) {
           console.error("Error adding document: ", error);

@@ -61,6 +61,9 @@ export default {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.display(user)
+                if (this.$route.params.check === "3") {
+                    this.selected = "health"
+                }
             }
         })
     },
@@ -87,7 +90,7 @@ export default {
         },
 
         redeclare() {
-            this.$router.push({name:"Health Dec"})
+            this.$router.push({name:"Health Dec", params: { check: 5 }})
         }
     },
 
