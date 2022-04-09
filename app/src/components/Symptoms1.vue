@@ -227,6 +227,7 @@ export default {
     console.log("check", this.route)
     if (this.$route.params.check === "7") {
       console.log("check")
+      this.FormEntry = "Yes"
     } else {
       document.getElementById("checkbox1").checked = false;
       document.getElementById("checkbox2").checked = false;
