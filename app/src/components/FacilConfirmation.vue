@@ -232,16 +232,14 @@ export default {
       // NOTE only clinic will have "opening" hours attribute since hospitals are open 24/7
       if (opening) {
         openTime = opening.split("-")[0];
-        closeTime = opening.split("-")[1];
+        closeTime = parseInt(opening.split("-")[1].slice(0, 2)); 
+        closeTime = closeTime < 10 ? closeTime + 12 : closeTime
         var pastDate =
           Date.parse(document.getElementById("appt-date").value) <
           Date.parse(today)
             ? true
             : false;
-        if (
-          (isToday && hour >= parseInt(closeTime.slice(0, 2)) + 12) ||
-          pastDate
-        ) {
+        if (isToday && hour >= closeTime || pastDate) {
           window.alert(
             "There are no available appointments for this facility at the selected date and time! Choose another date or another facility"
           );
