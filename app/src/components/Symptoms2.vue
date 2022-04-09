@@ -9,7 +9,7 @@
   <button
     id="editbutton"
     type="button"
-    v-on:click="this.$router.push({ path: '/selection' })"
+    v-on:click="change()"
   >
     Edit
   </button>
@@ -80,6 +80,9 @@ export default {
         this.$router.push({ path: "/intensity" });
       }
     },
+    change() {
+      this.$router.push({ name: "Selection", params: { check: 7 }})
+    }
   },
 };
 </script>

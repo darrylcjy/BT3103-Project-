@@ -218,8 +218,32 @@ export default {
     return {
       email: "",
       FormEntry: "",
+      route: "0"
     };
   },
+
+  mounted() {
+    this.route = this.$route.params.check
+    console.log("check", this.route)
+    if (this.$route.params.check === "7") {
+      console.log("check")
+    } else {
+      document.getElementById("checkbox1").checked = false;
+      document.getElementById("checkbox2").checked = false;
+      document.getElementById("checkbox3").checked = false;
+      document.getElementById("checkbox4").checked = false;
+      document.getElementById("checkbox5").checked = false;
+      document.getElementById("checkbox6").checked = false;
+      document.getElementById("checkbox7").checked = false;
+      document.getElementById("checkbox8").checked = false;
+      document.getElementById("checkbox9").checked = false;
+      document.getElementById("checkbox10").checked = false;
+      document.getElementById("checkbox11").checked = false;
+      document.getElementById("checkbox12").checked = false;
+      document.getElementById("checkbox13").checked = false;
+      document.getElementById("checkbox14").checked = false;
+    }
+  }, 
 
   methods: {
     async confirmsymptoms() {
@@ -314,23 +338,7 @@ export default {
             alert("Please select at least one symptom!");
           } else {
             alert(`Your symptoms have been recorded!`);
-
-            // reseting symptoms table
-            document.getElementById("checkbox1").checked = false;
-            document.getElementById("checkbox2").checked = false;
-            document.getElementById("checkbox3").checked = false;
-            document.getElementById("checkbox4").checked = false;
-            document.getElementById("checkbox5").checked = false;
-            document.getElementById("checkbox6").checked = false;
-            document.getElementById("checkbox7").checked = false;
-            document.getElementById("checkbox8").checked = false;
-            document.getElementById("checkbox9").checked = false;
-            document.getElementById("checkbox10").checked = false;
-            document.getElementById("checkbox11").checked = false;
-            document.getElementById("checkbox12").checked = false;
-            document.getElementById("checkbox13").checked = false;
-            document.getElementById("checkbox14").checked = false;
-
+            
             this.$router.push({ path: "/confirmation" });
           }
         } else {
