@@ -97,7 +97,6 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.display(user);
-        this.checkRecord(user);
       }
     });
   },
@@ -174,7 +173,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #location {
   text-align: center;
   padding: 10px;

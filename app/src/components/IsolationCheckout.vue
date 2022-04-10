@@ -133,7 +133,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     #first-days, #second-days, #third-days {
         text-align: justify;
         padding: 10px;
