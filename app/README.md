@@ -1,4 +1,4 @@
-# app
+# CovidCare
 
 ## Project setup
 ```
