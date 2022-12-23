@@ -30,3 +30,4 @@ _FAQs Page_
 ## Built With
 
  - [Vue.js](https://vuejs.org/)
+ - [Firebase](https://firebase.google.com/)
