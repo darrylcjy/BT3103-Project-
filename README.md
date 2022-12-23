@@ -14,8 +14,19 @@ The features of CovidCare includes:
  - Providing recommendations on the course of action based on users' health conditions
  - Seamless appointment booking at medical facilities _(if user is recommended to seek medical care)_
  - Access to the latest COVID-19 related information and news
- 
+
+_User Home Page_   
+<kbd> <img src="imgs/UserHomePage.png" width="500" height="250" /> <kbd>
+
+_Recommended Course of Action Page_   
+<kbd> <img src="imgs/SelfIsolation.png" width="500" height="250" /> 
+
+_Medical Appointment Booking Page_   
+<kbd> <img src="imgs/MedicalFacilities.png" width="500" height="250" /> 
+
+_FAQs Page_   
+<kbd> <img src="imgs/FAQs.png" width="500" height="250" /> 
+
 ## Built With
 
  - [Vue.js](https://vuejs.org/)
- 
